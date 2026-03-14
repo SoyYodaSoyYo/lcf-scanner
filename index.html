@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCF Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f1b2d; color: white; font-family: Arial, sans-serif; min-height: 100vh; }
+    .header { background: #1B3A6B; padding: 16px; text-align: center; }
+    .header h1 { font-size: 20px; letter-spacing: 2px; }
+    .header p { font-size: 12px; color: #a0b4c8; margin-top: 4px; }
+    .scanner-container { padding: 20px; }
+    #reader { width: 100%; max-width: 400px; margin: 0 auto; border-radius: 12px; overflow: hidden; }
+    .result-box { margin: 20px auto; max-width: 400px; padding: 20px; border-radius: 12px; text-align: center; display: none; }
+    .result-box.success { background: #1A7A4A; display: block; }
+    .result-box.error { background: #A32D2D; display: block; }
+    .result-box h2 { font-size: 24px; margin-bottom: 8px; }
+    .result-box p { font-size: 14px; opacity: 0.9; }
+    .status-bar { text-align: center; padding: 12px; font-size: 13px; color: #a0b4c8; }
+    .offline-banner { background: #A32D2D; text-align: center; padding: 10px; font-size: 13px; display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="offline-banner" id="offlineBanner">
+    ⚠️ Sin conexión — Escaneo bloqueado
+  </div>
+
+  <div class="header">
+    <h1>🍹 LCF SCANNER</h1>
+    <p>La Coctelera Festival</p>
+  </div>
+
+  <div class="scanner-container">
+    <div class="status-bar" id="statusBar">Iniciando cámara...</div>
+    <div id="reader"></div>
+    <div class="result-box" id="resultBox">
+      <h2 id="resultIcon"></h2>
+      <h2 id="resultTitle"></h2>
+      <p id="resultMsg"></p>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
+    const SUPABASE_KEY = 'TU_PUBLISHA
