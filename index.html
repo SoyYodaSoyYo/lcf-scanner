@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LCF Scanner</title>
-  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0f1b2d; color: white; font-family: Arial, sans-serif; min-height: 100vh; }
     .header { background: #1B3A6B; padding: 16px; text-align: center; }
     .header h1 { font-size: 20px; letter-spacing: 2px; }
     .header p { font-size: 12px; color: #a0b4c8; margin-top: 4px; }
-    .scanner-container { padding: 20px; }
-    #reader { width: 100%; max-width: 400px; margin: 0 auto; border-radius: 12px; overflow: hidden; }
-    .result-box { margin: 20px auto; max-width: 400px; padding: 20px; border-radius: 12px; text-align: center; display: none; }
+    .scanner-container { padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    #video { width: 100%; max-width: 400px; border-radius: 12px; background: #000; }
+    #canvas { display: none; }
+    .btn { margin-top: 16px; background: #2E5FA3; color: white; border: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%; max-width: 400px; }
+    .btn:active { background: #1B3A6B; }
+    .result-box { margin: 20px auto; width: 100%; max-width: 400px; padding: 20px; border-radius: 12px; text-align: center; display: none; }
     .result-box.success { background: #1A7A4A; display: block; }
     .result-box.error { background: #A32D2D; display: block; }
-    .result-box h2 { font-size: 24px; margin-bottom: 8px; }
+    .result-box .icon { font-size: 48px; }
+    .result-box h2 { font-size: 22px; margin: 8px 0; }
     .result-box p { font-size: 14px; opacity: 0.9; }
     .status-bar { text-align: center; padding: 12px; font-size: 13px; color: #a0b4c8; }
     .offline-banner { background: #A32D2D; text-align: center; padding: 10px; font-size: 13px; display: none; }
@@ -24,9 +28,7 @@
 </head>
 <body>
 
-  <div class="offline-banner" id="offlineBanner">
-    ⚠️ Sin conexión — Escaneo bloqueado
-  </div>
+  <div class="offline-banner" id="offlineBanner">⚠️ Sin conexión — Escaneo bloqueado</div>
 
   <div class="header">
     <h1>🍹 LCF SCANNER</h1>
@@ -34,10 +36,12 @@
   </div>
 
   <div class="scanner-container">
-    <div class="status-bar" id="statusBar">Iniciando cámara...</div>
-    <div id="reader"></div>
+    <div class="status-bar" id="statusBar">Toca el botón para escanear</div>
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas"></canvas>
+    <button class="btn" id="btnScan" onclick="iniciarCamara()">📷 Activar Cámara</button>
     <div class="result-box" id="resultBox">
-      <h2 id="resultIcon"></h2>
+      <div class="icon" id="resultIcon"></div>
       <h2 id="resultTitle"></h2>
       <p id="resultMsg"></p>
     </div>
@@ -45,25 +49,63 @@
 
   <script>
     const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-    const SUPABASE_KEY = 'sb_secret_K92qAVdFVh-AAP_9ko6VEw_ddxNOxVj';
+    const SUPABASE_KEY = 'TU_PUBLISHABLE_KEY';
+
+    let scanning = false;
+    let stream = null;
 
     function checkOnline() {
       const banner = document.getElementById('offlineBanner');
-      if (!navigator.onLine) {
-        banner.style.display = 'block';
-        return false;
-      }
+      if (!navigator.onLine) { banner.style.display = 'block'; return false; }
       banner.style.display = 'none';
       return true;
     }
-
     window.addEventListener('online', checkOnline);
     window.addEventListener('offline', checkOnline);
     checkOnline();
 
-    async function validarCover(qrToken) {
+    async function iniciarCamara() {
       if (!checkOnline()) return;
-      document.getElementById('statusBar').textContent = 'Validando...';
+      document.getElementById('statusBar').textContent = 'Activando cámara...';
+      document.getElementById('btnScan').textContent = '🔄 Escaneando...';
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+        });
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+        scanning = true;
+        document.getElementById('statusBar').textContent = 'Apunta al QR del asistente';
+        requestAnimationFrame(scanFrame);
+      } catch(e) {
+        document.getElementById('statusBar').textContent = 'Error: ' + e.message;
+        document.getElementById('btnScan').textContent = '📷 Reintentar';
+      }
+    }
+
+    function scanFrame() {
+      if (!scanning) return;
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+        if (code) {
+          scanning = false;
+          document.getElementById('statusBar').textContent = 'QR detectado — validando...';
+          validarCover(code.data);
+          return;
+        }
+      }
+      requestAnimationFrame(scanFrame);
+    }
+
+    async function validarCover(qrToken) {
       try {
         const res = await fetch(
           `${SUPABASE_URL}/rest/v1/covers?qr_token=eq.${qrToken}&select=id,estado,tipo_cover,descripcion`,
@@ -83,12 +125,14 @@
             mostrarResultado('error', '✗', 'No Válido', `Estado: ${cover.estado}`);
           }
         }
-      } catch (e) {
-        mostrarResultado('error', '✗', 'Error', 'No se pudo conectar. Verifica tu conexión.');
+      } catch(e) {
+        mostrarResultado('error', '✗', 'Error de conexión', 'Verifica tu señal e intenta de nuevo.');
       }
       setTimeout(() => {
         document.getElementById('resultBox').className = 'result-box';
-        document.getElementById('statusBar').textContent = 'Listo para escanear';
+        scanning = true;
+        requestAnimationFrame(scanFrame);
+        document.getElementById('statusBar').textContent = 'Apunta al QR del asistente';
       }, 4000);
     }
 
@@ -110,17 +154,7 @@
       document.getElementById('resultTitle').textContent = titulo;
       document.getElementById('resultMsg').textContent = msg;
       document.getElementById('resultBox').className = `result-box ${tipo}`;
-      document.getElementById('statusBar').textContent = 'Listo para escanear';
     }
-
-    const scanner = new Html5QrcodeScanner('reader', { fps: 10, qrbox: 250 });
-    scanner.render((text) => {
-      scanner.pause();
-      validarCover(text);
-      setTimeout(() => scanner.resume(), 4500);
-    });
-
-    document.getElementById('statusBar').textContent = 'Listo para escanear';
   </script>
 </body>
 </html>
