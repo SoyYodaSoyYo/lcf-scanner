@@ -446,7 +446,7 @@ async function iniciarAdmin(user) {
     if (!nombre || !email || !password) { mostrarPopup('⚠️', 'Campos requeridos', 'Completa nombre, email y contraseña'); return; }
 
     // 1. Crear usuario en Supabase Auth
-    const { data: authData, error: authError } = await sb.auth.admin.createUser({
+    const { data: authData, error: authError } = await sbAdmin.auth.admin.createUser({
       email, password, email_confirm: true
     });
     if (authError) { mostrarPopup('✗', 'Error', authError.message); return; }
