@@ -11,69 +11,50 @@
     .header { background: #1B3A6B; padding: 12px 16px; text-align: center; flex-shrink: 0; }
     .header h1 { font-size: 18px; letter-spacing: 2px; }
     .header p { font-size: 11px; color: #a0b4c8; margin-top: 2px; }
-    .scanner-wrap { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .scanner-wrap { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
     #video { width: 100%; height: 100%; object-fit: cover; display: block; }
     #canvas { display: none; }
 
-    /* Popup overlay encima de la cámara */
-    .popup { 
-      position: absolute; 
-      top: 50%; left: 50%; 
-      transform: translate(-50%, -50%);
-      width: 80%; max-width: 320px;
-      padding: 24px 20px;
-      border-radius: 16px;
-      text-align: center;
+    /* Flash pantalla completa */
+    .flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 100;
       display: none;
-      z-index: 10;
-      animation: popIn 0.2s ease;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeOut 2s forwards;
     }
-    @keyframes popIn { from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-    .popup.success { background: rgba(26, 122, 74, 0.95); display: block; }
-    .popup.error   { background: rgba(163, 45, 45, 0.95); display: block; }
-    .popup .icon { font-size: 52px; margin-bottom: 8px; }
-    .popup h2 { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
-    .popup p { font-size: 14px; opacity: 0.9; }
+    .flash.success { background: #1A7A4A; display: flex; }
+    .flash.error   { background: #A32D2D; display: flex; }
+    @keyframes fadeOut { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
+    .flash .icon  { font-size: 80px; margin-bottom: 16px; }
+    .flash .title { font-size: 28px; font-weight: bold; margin-bottom: 8px; text-align: center; padding: 0 20px; }
+    .flash .msg   { font-size: 16px; opacity: 0.9; text-align: center; padding: 0 20px; }
 
     /* Marco de escaneo */
-    .scan-frame {
-      position: absolute;
-      width: 220px; height: 220px;
-      border: 3px solid rgba(255,255,255,0.6);
-      border-radius: 16px;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-    .scan-frame::before, .scan-frame::after {
-      content: '';
-      position: absolute;
-      width: 30px; height: 30px;
-      border-color: white;
-      border-style: solid;
-    }
+    .scan-frame { position: absolute; width: 220px; height: 220px; border: 3px solid rgba(255,255,255,0.6); border-radius: 16px; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .scan-frame::before, .scan-frame::after { content: ''; position: absolute; width: 30px; height: 30px; border-color: white; border-style: solid; }
     .scan-frame::before { top: -3px; left: -3px; border-width: 4px 0 0 4px; border-radius: 4px 0 0 0; }
     .scan-frame::after  { bottom: -3px; right: -3px; border-width: 0 4px 4px 0; border-radius: 0 0 4px 0; }
 
-    /* Status bar flotante */
-    .status-bar {
-      position: absolute;
-      bottom: 80px; left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.6);
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 13px;
-      color: #e0e8f0;
-      white-space: nowrap;
-    }
+    /* Status bar */
+    .status-bar { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); padding: 8px 20px; border-radius: 20px; font-size: 13px; color: #e0e8f0; white-space: nowrap; z-index: 5; }
+
+    /* Soft-close banner */
+    .softclose-banner { position: absolute; top: 0; left: 0; right: 0; padding: 10px; text-align: center; font-size: 14px; font-weight: bold; display: none; z-index: 10; }
+    .softclose-banner.warning { background: rgba(125, 90, 0, 0.92); display: block; }
+    .softclose-banner.closed  { background: rgba(163, 45, 45, 0.95); display: block; }
+
+    /* Offline banner */
+    .offline-banner { background: #A32D2D; text-align: center; padding: 8px; font-size: 13px; display: none; flex-shrink: 0; }
 
     /* Botón */
-    .btn-wrap { position: absolute; bottom: 16px; width: 100%; padding: 0 20px; }
+    .btn-wrap { position: absolute; bottom: 16px; width: 100%; padding: 0 20px; z-index: 5; }
     .btn { background: #2E5FA3; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; cursor: pointer; width: 100%; }
-
-    /* Offline */
-    .offline-banner { background: #A32D2D; text-align: center; padding: 8px; font-size: 13px; display: none; flex-shrink: 0; }
+    .btn:disabled { background: #555; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -89,13 +70,15 @@
     <video id="video" autoplay playsinline></video>
     <canvas id="canvas"></canvas>
     <div class="scan-frame"></div>
+
+    <div class="softclose-banner" id="softcloseBanner"></div>
     <div class="status-bar" id="statusBar">Toca el botón para escanear</div>
 
-    <!-- Popup resultado -->
-    <div class="popup" id="popup">
-      <div class="icon" id="popIcon"></div>
-      <h2 id="popTitle"></h2>
-      <p id="popMsg"></p>
+    <!-- Flash pantalla completa -->
+    <div class="flash" id="flash">
+      <div class="icon" id="flashIcon"></div>
+      <div class="title" id="flashTitle"></div>
+      <div class="msg" id="flashMsg"></div>
     </div>
 
     <div class="btn-wrap">
@@ -105,10 +88,14 @@
 
   <script>
     const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_yzlVRXDgiLFPWV_tqHVHVg_cQxpDeaM';
+    const SUPABASE_KEY = 'TU_PUBLISHABLE_KEY';
 
+    // Soft-Close: aviso 10 min antes, bloqueo en Hard Stop
+    const SOFT_CLOSE_MINUTES = 10;
     let scanning = false;
+    let sistemaBlockeado = false;
 
+    // ── ONLINE/OFFLINE ──────────────────────────────────────
     function checkOnline() {
       const b = document.getElementById('offlineBanner');
       if (!navigator.onLine) { b.style.display = 'block'; return false; }
@@ -118,17 +105,57 @@
     window.addEventListener('offline', checkOnline);
     checkOnline();
 
+    // ── SOFT-CLOSE CHECKER ──────────────────────────────────
+    async function checkHorario() {
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/jornadas?estado=eq.activa&select=hard_stop_hora,soft_close_hora&limit=1`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+        );
+        const data = await res.json();
+        if (!data || data.length === 0) return;
+
+        const ahora = new Date();
+        const hh = ahora.getHours().toString().padStart(2,'0');
+        const mm = ahora.getMinutes().toString().padStart(2,'0');
+        const horaActual = `${hh}:${mm}:00`;
+
+        const hardStop = data[0].hard_stop_hora;
+        const softClose = data[0].soft_close_hora;
+        const banner = document.getElementById('softcloseBanner');
+        const btn = document.getElementById('btnScan');
+
+        if (horaActual >= hardStop) {
+          sistemaBlockeado = true;
+          scanning = false;
+          banner.className = 'softclose-banner closed';
+          banner.textContent = '🔴 Sistema cerrado — Canjes finalizados';
+          btn.disabled = true;
+        } else if (horaActual >= softClose) {
+          banner.className = 'softclose-banner warning';
+          banner.textContent = '⚠️ Sistema cerrando — Solo clientes en fila';
+        } else {
+          banner.className = 'softclose-banner';
+        }
+      } catch(e) { /* silencioso */ }
+    }
+
+    // Verificar horario cada minuto
+    setInterval(checkHorario, 60000);
+    checkHorario();
+
+    // ── CÁMARA ──────────────────────────────────────────────
     async function iniciarCamara() {
       if (!checkOnline()) return;
+      if (sistemaBlockeado) return;
       document.getElementById('statusBar').textContent = 'Activando cámara...';
       document.getElementById('btnScan').style.display = 'none';
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
         });
-        const video = document.getElementById('video');
-        video.srcObject = stream;
-        video.play();
+        document.getElementById('video').srcObject = stream;
+        document.getElementById('video').play();
         scanning = true;
         document.getElementById('statusBar').textContent = 'Apunta al QR del asistente';
         requestAnimationFrame(scanFrame);
@@ -138,6 +165,7 @@
       }
     }
 
+    // ── SCAN LOOP ───────────────────────────────────────────
     function scanFrame() {
       if (!scanning) return;
       const video = document.getElementById('video');
@@ -159,37 +187,43 @@
       requestAnimationFrame(scanFrame);
     }
 
+    // ── VALIDAR COVER ───────────────────────────────────────
     async function validarCover(qrToken) {
+      if (sistemaBlockeado) {
+        mostrarFlash('error', '🔴', 'Sistema Cerrado', 'Los canjes han finalizado por hoy.');
+        return;
+      }
       try {
         const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/covers?qr_token=eq.${qrToken}&select=id,estado,tipo_cover,descripcion`,
+          `${SUPABASE_URL}/rest/v1/covers?qr_token=eq.${qrToken}&select=id,estado,tipo_cover,descripcion,tipo_beneficio`,
           { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
         );
         const data = await res.json();
         if (!data || data.length === 0) {
-          mostrarPopup('error', '✗', 'QR Inválido', 'Este código no existe en el sistema.');
+          mostrarFlash('error', '✗', 'QR Inválido', 'Este código no existe en el sistema.');
         } else {
           const cover = data[0];
           if (cover.estado === 'disponible') {
             await canjearCover(cover.id);
-            mostrarPopup('success', '✓', cover.tipo_cover.toUpperCase(), cover.descripcion || 'Canje exitoso');
+            const tipo = cover.tipo_beneficio || cover.tipo_cover || 'Beneficio';
+            mostrarFlash('success', '✓', tipo.toUpperCase(), cover.descripcion || 'Canje registrado exitosamente');
           } else if (cover.estado === 'canjeado') {
-            mostrarPopup('error', '✗', 'Ya Canjeado', 'Este cover ya fue utilizado.');
+            mostrarFlash('error', '✗', 'Ya Canjeado', 'Este beneficio ya fue utilizado.');
           } else {
-            mostrarPopup('error', '✗', 'No Válido', `Estado: ${cover.estado}`);
+            mostrarFlash('error', '✗', 'No Válido', `Estado: ${cover.estado}`);
           }
         }
       } catch(e) {
-        mostrarPopup('error', '✗', 'Error de conexión', 'Verifica tu señal e intenta de nuevo.');
+        mostrarFlash('error', '✗', 'Error de conexión', 'Verifica tu señal e intenta de nuevo.');
       }
       setTimeout(() => {
-        document.getElementById('popup').className = 'popup';
+        document.getElementById('flash').className = 'flash';
         document.getElementById('statusBar').textContent = 'Apunta al QR del asistente';
-        scanning = true;
-        requestAnimationFrame(scanFrame);
-      }, 3000);
+        if (!sistemaBlockeado) { scanning = true; requestAnimationFrame(scanFrame); }
+      }, 2500);
     }
 
+    // ── CANJEAR ─────────────────────────────────────────────
     async function canjearCover(id) {
       await fetch(`${SUPABASE_URL}/rest/v1/covers?id=eq.${id}`, {
         method: 'PATCH',
@@ -203,12 +237,18 @@
       });
     }
 
-    function mostrarPopup(tipo, icono, titulo, msg) {
-      document.getElementById('popIcon').textContent = icono;
-      document.getElementById('popTitle').textContent = titulo;
-      document.getElementById('popMsg').textContent = msg;
-      document.getElementById('popup').className = `popup ${tipo}`;
-      document.getElementById('statusBar').textContent = tipo === 'success' ? '✓ Canje registrado' : '✗ Canje rechazado';
+    // ── FLASH PANTALLA COMPLETA ─────────────────────────────
+    function mostrarFlash(tipo, icono, titulo, msg) {
+      const flash = document.getElementById('flash');
+      document.getElementById('flashIcon').textContent = icono;
+      document.getElementById('flashTitle').textContent = titulo;
+      document.getElementById('flashMsg').textContent = msg;
+      flash.className = `flash ${tipo}`;
+      // Reiniciar animación
+      flash.style.animation = 'none';
+      flash.offsetHeight;
+      flash.style.animation = 'fadeOut 2.5s forwards';
+      document.getElementById('statusBar').textContent = tipo === 'success' ? '✓ Canje registrado' : '✗ Rechazado';
     }
   </script>
 </body>
