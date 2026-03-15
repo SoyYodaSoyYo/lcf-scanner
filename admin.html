@@ -316,6 +316,42 @@
   </div>
 </div>
 
+<!-- MODAL EDITAR EXPOSITOR -->
+<div class="modal-overlay" id="modalEditarExpositor">
+  <div class="modal">
+    <h2>Editar Expositor</h2>
+    <p class="subtitulo">Los cambios se aplican inmediatamente.</p>
+    <input type="hidden" id="edit_expositor_id">
+    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+      <p style="font-size:13px;color:#5ad4f0;margin-bottom:12px;font-weight:bold">DATOS DE LA MARCA</p>
+      <div class="fila-2">
+        <div class="campo"><label>Nombre de la Marca <span class="required">*</span></label><input type="text" id="edit_nombre_marca" placeholder="Nombre de la marca"></div>
+        <div class="campo"><label>Responsable</label><input type="text" id="edit_responsable_nombre" placeholder="Nombre completo"></div>
+      </div>
+      <div class="fila-2">
+        <div class="campo"><label>Email de acceso</label><input type="email" id="edit_email_acceso"></div>
+        <div class="campo"><label>Teléfono</label><input type="tel" id="edit_responsable_telefono" placeholder="+56 9 xxxx xxxx"></div>
+      </div>
+    </div>
+    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+      <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px;font-weight:bold">CONFIGURACIÓN DEL STAND</p>
+      <div class="fila-3">
+        <div class="campo"><label>Tamaño Stand</label><input type="text" id="edit_tamanio_stand_texto" placeholder="Ej: 12 m²"></div>
+        <div class="campo"><label>Máx. veh. montaje</label><input type="number" id="edit_max_vehiculos_montaje" min="1" max="10"></div>
+        <div class="campo"><label>Máx. veh. evento</label><input type="number" id="edit_max_vehiculos_evento" min="1" max="5"></div>
+      </div>
+      <div class="fila-2">
+        <div class="campo"><label>Comisión (%)</label><input type="number" id="edit_comision_pct" step="0.5" placeholder="Ej: 8.5"></div>
+        <div class="campo"><label>Estado acreditación</label><select id="edit_estado_acreditacion"><option value="Pendiente">Pendiente</option><option value="Pre-validado">Pre-validado</option><option value="Aprobado">Aprobado</option><option value="Bloqueado">Bloqueado</option></select></div>
+      </div>
+    </div>
+    <div class="modal-acciones">
+      <button class="btn-secondary" onclick="cerrarModal('modalEditarExpositor')">Cancelar</button>
+      <button class="btn-primary" onclick="guardarEdicionExpositor()">💾 Guardar Cambios</button>
+    </div>
+  </div>
+</div>
+
 <!-- POPUP -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
@@ -328,8 +364,8 @@
 
 <script>
   const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_yzlVRXDgiLFPWV_tqHVHVg_cQxpDeaM';
-  const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcGhxdnZuaGZmb3Jrem1tZ3BtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzUyMDI5MywiZXhwIjoyMDg5MDk2MjkzfQ.REa4II4R7YzjgKcDWojr9910bPFUe2_j_VjnyGXt0e8';
+  const SUPABASE_PUBLISHABLE_KEY = 'TU_PUBLISHABLE_KEY';
+  const SUPABASE_SERVICE_KEY = 'TU_SERVICE_KEY';
   const WEBHOOK_DRIVE = 'https://n8n-lcf.onrender.com:5678/webhook/crear-carpeta-expositor';
 
   const { createClient } = supabase;
@@ -431,9 +467,11 @@
         <td>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="btn-secondary btn-sm" onclick="verDetalleExpositor('${e.id}')">Ver</button>
+            <button class="btn-primary btn-sm" onclick="abrirModalEditarExpositor('${e.id}')">✏️ Editar</button>
             ${!e.aprobado_operar ? `<button class="btn-success btn-sm" onclick="aprobarExpositor('${e.id}', false)">✓ Aprobar</button>` : ''}
             ${!e.aprobado_operar ? `<button class="btn-warning btn-sm" onclick="aprobarExpositor('${e.id}', true)">⚡ Forzar</button>` : ''}
             ${e.aprobado_operar ? `<button class="btn-danger btn-sm" onclick="revocarAprobacion('${e.id}')">Revocar</button>` : ''}
+            <button class="btn-danger btn-sm" onclick="confirmarEliminarExpositor('${e.id}', '${e.nombre_marca?.replace(/'/g,"\\'")}')">🗑️</button>
           </div>
         </td>
       </tr>`;
@@ -779,6 +817,54 @@
   }
 
   // ── HELPERS ───────────────────────────────────────────────────
+  async function abrirModalEditarExpositor(id) {
+    const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
+    if (!e) return;
+    document.getElementById('edit_expositor_id').value = id;
+    document.getElementById('edit_nombre_marca').value = e.nombre_marca || '';
+    document.getElementById('edit_responsable_nombre').value = e.responsable_nombre || '';
+    document.getElementById('edit_email_acceso').value = e.email_acceso || e.responsable_email || '';
+    document.getElementById('edit_responsable_telefono').value = e.responsable_telefono || '';
+    document.getElementById('edit_tamanio_stand_texto').value = e.tamanio_stand_texto || '';
+    document.getElementById('edit_max_vehiculos_montaje').value = e.max_vehiculos_montaje || 10;
+    document.getElementById('edit_max_vehiculos_evento').value = e.max_vehiculos_evento || 5;
+    document.getElementById('edit_comision_pct').value = e.comision_pct || 0;
+    document.getElementById('edit_estado_acreditacion').value = e.estado_acreditacion || 'Pendiente';
+    document.getElementById('modalEditarExpositor').classList.add('visible');
+  }
+
+  async function guardarEdicionExpositor() {
+    const id = document.getElementById('edit_expositor_id').value;
+    const nombre = document.getElementById('edit_nombre_marca').value.trim();
+    if (!nombre) { mostrarPopup('⚠️', 'Campo requerido', 'El nombre de la marca es obligatorio'); return; }
+    await sb.from('expositores').update({
+      nombre_marca: nombre,
+      responsable_nombre: document.getElementById('edit_responsable_nombre').value.trim(),
+      email_acceso: document.getElementById('edit_email_acceso').value.trim(),
+      responsable_telefono: document.getElementById('edit_responsable_telefono').value.trim(),
+      tamanio_stand_texto: document.getElementById('edit_tamanio_stand_texto').value.trim(),
+      max_vehiculos_montaje: parseInt(document.getElementById('edit_max_vehiculos_montaje').value) || 10,
+      max_vehiculos_evento: parseInt(document.getElementById('edit_max_vehiculos_evento').value) || 5,
+      comision_pct: parseFloat(document.getElementById('edit_comision_pct').value) || 0,
+      estado_acreditacion: document.getElementById('edit_estado_acreditacion').value
+    }).eq('id', id);
+    cerrarModal('modalEditarExpositor');
+    mostrarPopup('✓', 'Cambios guardados', 'El perfil del expositor fue actualizado correctamente');
+    cargarExpositores();
+  }
+
+  async function confirmarEliminarExpositor(id, nombre) {
+    if (!confirm('¿Eliminar a ' + nombre + '?
+
+Esto eliminará también su personal, vehículos y documentos. Esta acción no se puede deshacer.')) return;
+    await sb.from('personal_expositor').delete().eq('expositor_id', id);
+    await sb.from('vehiculos_expositor').delete().eq('expositor_id', id);
+    await sb.from('documentos_expositor').delete().eq('expositor_id', id);
+    await sb.from('expositores').delete().eq('id', id);
+    mostrarPopup('🗑️', 'Eliminado', nombre + ' fue eliminado del sistema');
+    cargarExpositores();
+  }
+
   function cerrarModal(id) { document.getElementById(id).classList.remove('visible'); }
   function mostrarPopup(icono, titulo, msg) {
     document.getElementById('popupIcono').textContent = icono;
