@@ -1,8 +1,14 @@
 {
   "rewrites": [
     { "source": "/ficha-tecnica", "destination": "/ficha-tecnica.html" },
+    { "source": "/expositor", "destination": "/expositor.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/billetera", "destination": "/billetera.html" },
     { "source": "/", "destination": "/index.html" }
   ]
 }
+```
+
+**Commit** → espera 30 segundos → abre en el navegador:
+```
+lcf-scanner.vercel.app/expositor
