@@ -337,7 +337,16 @@
     if (session) iniciarAdmin(session.user);
   });
 
-  async function iniciarAdmin(user) {
+async function iniciarAdmin(user) {
+    // Verificar que el usuario tiene rol admin
+    const { data: rol } = await sb.from('user_roles').select('rol').eq('user_id', user.id).single();
+    if (!rol || rol.rol !== 'admin') {
+      await sb.auth.signOut();
+      document.getElementById('loginError').textContent = 'No tienes permisos de administrador.';
+      document.getElementById('loginError').classList.add('visible');
+      document.getElementById('loginSection').style.display = 'block';
+      return;
+    }
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('adminSection').classList.add('visible');
     document.getElementById('btnLogout').style.display = 'block';
