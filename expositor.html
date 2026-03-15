@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCF — Portal del Expositor</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f1b2d; color: white; font-family: Arial, sans-serif; min-height: 100vh; }
+    .header { background: #1B3A6B; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .header h1 { font-size: 18px; letter-spacing: 2px; }
+    .header p { font-size: 11px; color: #a0b4c8; }
+    .btn-logout { background: transparent; border: 1px solid #a0b4c8; color: #a0b4c8; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+
+    /* LOGIN */
+    .login-wrap { max-width: 400px; margin: 80px auto; padding: 0 20px; }
+    .login-box { background: #1a2940; border-radius: 14px; padding: 32px; }
+    .login-box h2 { font-size: 22px; margin-bottom: 6px; }
+    .login-box p { font-size: 13px; color: #a0b4c8; margin-bottom: 28px; }
+    .campo { margin-bottom: 18px; }
+    .campo label { display: block; font-size: 13px; color: #a0b4c8; margin-bottom: 6px; }
+    .campo input, .campo select, .campo textarea { width: 100%; background: #0f1b2d; border: 1px solid #2E5FA3; border-radius: 8px; padding: 12px; color: white; font-size: 15px; }
+    .campo input::placeholder, .campo textarea::placeholder { color: #4a6080; }
+    .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: #5a8fd4; }
+    .campo select option { background: #0f1b2d; }
+    .campo textarea { resize: vertical; min-height: 80px; }
+    .btn-primary { width: 100%; background: #2E5FA3; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; cursor: pointer; }
+    .btn-primary:hover { background: #3a6fb3; }
+    .btn-secondary { background: #1a2940; color: #a0b4c8; border: 1px solid #2E5FA3; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .btn-danger { background: #A32D2D; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .btn-success { background: #1A7A4A; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .error-msg { background: #A32D2D; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px; display: none; }
+    .error-msg.visible { display: block; }
+
+    /* PORTAL */
+    .portal { display: none; }
+    .portal.visible { display: block; }
+    .container { max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+
+    /* TABS */
+    .tabs { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 24px; padding-bottom: 4px; }
+    .tab { background: #1a2940; border: 1px solid #2E5FA3; color: #a0b4c8; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+    .tab.active { background: #2E5FA3; color: white; }
+    .tab.completado { border-color: #1A7A4A; color: #4CAF82; }
+    .tab.completado.active { background: #1A7A4A; color: white; }
+
+    /* SECCIONES */
+    .seccion { background: #1a2940; border-radius: 12px; padding: 20px; margin-bottom: 20px; display: none; }
+    .seccion.visible { display: block; }
+    .seccion h2 { font-size: 16px; color: #a0b4c8; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; border-bottom: 1px solid #2E5FA3; padding-bottom: 8px; }
+    .fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .required { color: #e05a5a; }
+
+    /* CHECKBOXES */
+    .check-grupo { display: flex; flex-direction: column; gap: 10px; }
+    .check-item { display: flex; align-items: center; gap: 10px; background: #0f1b2d; padding: 12px; border-radius: 8px; cursor: pointer; }
+    .check-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #2E5FA3; }
+    .check-item label { font-size: 14px; cursor: pointer; flex: 1; }
+    .check-item .precio { font-size: 12px; color: #e8a030; margin-left: auto; }
+
+    /* TABLA DINÁMICA */
+    .tabla-dinamica { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    .tabla-dinamica th { background: #0f1b2d; padding: 10px; text-align: left; font-size: 13px; color: #a0b4c8; border-bottom: 1px solid #2E5FA3; }
+    .tabla-dinamica td { padding: 8px; border-bottom: 1px solid #1a2940; }
+    .tabla-dinamica td input, .tabla-dinamica td select { background: #0f1b2d; border: 1px solid #2a3f5f; border-radius: 6px; padding: 8px; color: white; font-size: 13px; width: 100%; }
+    .tabla-dinamica .btn-remove { background: #A32D2D; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+    .btn-agregar { background: #0f1b2d; border: 1px dashed #2E5FA3; color: #5a8fd4; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; width: 100%; margin-top: 8px; }
+
+    /* DOCUMENTOS */
+    .doc-item { background: #0f1b2d; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+    .doc-item .doc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .doc-item .doc-nombre { font-size: 14px; font-weight: bold; }
+    .doc-item .doc-estado { font-size: 12px; padding: 4px 10px; border-radius: 12px; }
+    .doc-item .doc-estado.pendiente { background: #3a3000; color: #e8a030; }
+    .doc-item .doc-estado.enviado { background: #003a1a; color: #4CAF82; }
+    .doc-item .doc-estado.aprobado { background: #1A7A4A; color: white; }
+    .doc-item .doc-estado.rechazado { background: #A32D2D; color: white; }
+    .doc-item input[type="file"] { width: 100%; background: #1a2940; border: 1px dashed #2E5FA3; border-radius: 6px; padding: 10px; color: #a0b4c8; font-size: 13px; }
+
+    /* PROGRESO */
+    .progreso-bar { background: #0f1b2d; border-radius: 8px; margin-bottom: 20px; padding: 14px; }
+    .progreso-bar .titulo { font-size: 13px; color: #a0b4c8; margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .barra { background: #2a3f5f; border-radius: 4px; height: 8px; overflow: hidden; }
+    .barra-fill { background: #2E5FA3; height: 100%; border-radius: 4px; transition: width 0.3s; }
+
+    /* ACCIONES */
+    .acciones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+    /* POPUP */
+    .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 1000; display: none; align-items: center; justify-content: center; }
+    .popup-overlay.visible { display: flex; }
+    .popup-box { background: #1a2940; border-radius: 14px; padding: 28px; max-width: 400px; width: 90%; text-align: center; }
+    .popup-box .icon { font-size: 52px; margin-bottom: 12px; }
+    .popup-box h3 { font-size: 20px; margin-bottom: 8px; }
+    .popup-box p { font-size: 14px; color: #a0b4c8; margin-bottom: 20px; }
+    .popup-box .btn-primary { margin-top: 0; }
+
+    /* NOTA MANUAL */
+    .nota { background: #1a2000; border-left: 3px solid #e8a030; padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 13px; color: #e8a030; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🍹 LCF PORTAL</h1>
+    <p id="headerNombre">La Coctelera Festival — Expositor</p>
+  </div>
+  <button class="btn-logout" id="btnLogout" onclick="logout()" style="display:none">Cerrar sesión</button>
+</div>
+
+<!-- LOGIN -->
+<div id="loginSection">
+  <div class="login-wrap">
+    <div class="login-box">
+      <h2>Acceso al Portal</h2>
+      <p>Ingresa con las credenciales enviadas por el equipo de producción</p>
+      <div class="campo">
+        <label>Correo electrónico</label>
+        <input type="email" id="loginEmail" placeholder="tu@empresa.cl">
+      </div>
+      <div class="campo">
+        <label>Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="btn-primary" onclick="login()">Ingresar al Portal</button>
+      <div class="error-msg" id="loginError"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div class="portal" id="portalSection">
+  <div class="container">
+
+    <!-- PROGRESO -->
+    <div class="progreso-bar">
+      <div class="titulo">
+        <span>Progreso de tu ficha</span>
+        <span id="progresoTexto">0%</span>
+      </div>
+      <div class="barra"><div class="barra-fill" id="progresoFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" onclick="cambiarTab(0)" id="tab0">Marca</div>
+      <div class="tab" onclick="cambiarTab(1)" id="tab1">Requerimientos</div>
+      <div class="tab" onclick="cambiarTab(2)" id="tab2">Seguridad</div>
+      <div class="tab" onclick="cambiarTab(3)" id="tab3">Vehículos</div>
+      <div class="tab" onclick="cambiarTab(4)" id="tab4">Personal</div>
+      <div class="tab" onclick="cambiarTab(5)" id="tab5">Documentos</div>
+      <div class="tab" onclick="cambiarTab(6)" id="tab6">Resumen</div>
+    </div>
+
+    <!-- SECCIÓN 0: MARCA -->
+    <div class="seccion visible" id="sec0">
+      <h2>Datos de la Marca</h2>
+      <div class="campo">
+        <label>Nombre de la Marca / Empresa <span class="required">*</span></label>
+        <input type="text" id="nombre_marca" placeholder="Ej: Diageo Chile">
+      </div>
+      <div class="fila-2">
+        <div class="campo">
+          <label>Responsable de Activación <span class="required">*</span></label>
+          <input type="text" id="responsable_nombre" placeholder="Nombre completo">
+        </div>
+        <div class="campo">
+          <label>Email Responsable <span class="required">*</span></label>
+          <input type="email" id="responsable_email" placeholder="correo@marca.cl">
+        </div>
+      </div>
+      <div class="fila-2">
+        <div class="campo">
+          <label>Teléfono Responsable <span class="required">*</span></label>
+          <input type="tel" id="responsable_telefono" placeholder="+56 9 xxxx xxxx">
+        </div>
+        <div class="campo">
+          <label>Tamaño del Stand <span class="required">*</span></label>
+          <select id="tamanio_stand_m2">
+            <option value="">Selecciona...</option>
+            <option value="6">Hasta 6 m²</option>
+            <option value="12">Hasta 12 m²</option>
+            <option value="20">Más de 12 m²</option>
+          </select>
+        </div>
+      </div>
+      <div class="acciones">
+        <button class="btn-primary" onclick="guardarMarca()">Guardar y Continuar →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 1: REQUERIMIENTOS -->
+    <div class="seccion" id="sec1">
+      <h2>Requerimientos</h2>
+      <div class="campo">
+        <label>Cristalería (selección múltiple)</label>
+        <div class="check-grupo">
+          <div class="check-item">
+            <input type="checkbox" id="cris_200" value="200cc">
+            <label for="cris_200">Vaso 200cc</label>
+            <span class="precio">Incluido</span>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cris_380" value="380cc">
+            <label for="cris_380">Vaso 380cc</label>
+            <span class="precio">Incluido</span>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cris_propia" value="propia">
+            <label for="cris_propia">Cristalería Propia</label>
+            <span class="precio">Sin costo</span>
+          </div>
+        </div>
+      </div>
+      <div class="campo" style="margin-top:16px">
+        <label>Tipo de Hielo (selección múltiple)</label>
+        <div class="check-grupo">
+          <div class="check-item">
+            <input type="checkbox" id="hielo_cubo" value="Cubo">
+            <label for="hielo_cubo">Cubo</label>
+            <span class="precio">Incluido</span>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="hielo_frappe" value="Frappé">
+            <label for="hielo_frappe">Frappé</label>
+            <span class="precio">+ Ver Manual</span>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="hielo_escama" value="Escama">
+            <label for="hielo_escama">Escama</label>
+            <span class="precio">+ Ver Manual</span>
+          </div>
+        </div>
+      </div>
+      <div class="campo" style="margin-top:16px">
+        <label>Consumo Eléctrico <span class="required">*</span></label>
+        <div class="nota">Los aumentos de capacidad tienen valor adicional según Manual de Activación</div>
+        <select id="electricidad">
+          <option value="">Selecciona...</option>
+          <option value="Monofásico 10a">Monofásico 10A — Incluido</option>
+          <option value="Bifásico 16a">Bifásico 16A — + Valor adicional. Ver Manual</option>
+          <option value="Trifásico 32a">Trifásico 32A — + Valor adicional. Ver Manual</option>
+        </select>
+      </div>
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(0)">← Anterior</button>
+        <button class="btn-primary" onclick="guardarRequerimientos()">Guardar y Continuar →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: SEGURIDAD -->
+    <div class="seccion" id="sec2">
+      <h2>Servicios de Seguridad y Otros</h2>
+      <div class="nota">Todos los servicios adicionales tienen valor según Manual de Activación</div>
+
+      <div class="campo">
+        <label>Seguridad — Punto Fijo</label>
+        <div id="turnosSeguridad">
+          <!-- turnos dinámicos -->
+        </div>
+        <button class="btn-agregar" onclick="agregarTurnoSeguridad()">+ Agregar turno de seguridad</button>
+      </div>
+
+      <div class="campo" style="margin-top:16px">
+        <label>Alusado Plástico Nocturno</label>
+        <div class="check-grupo">
+          <div class="check-item">
+            <input type="checkbox" id="alusado_check">
+            <label for="alusado_check">Requiero alusado plástico nocturno</label>
+            <span class="precio">0.3 UF + Ver Manual</span>
+          </div>
+        </div>
+        <div id="alusadoDias" style="display:none; margin-top:8px">
+          <div class="fila-2">
+            <div class="campo">
+              <label>Día inicio</label>
+              <select id="alusado_dia_inicio">
+                <option value="1">Día 1</option>
+                <option value="2">Día 2</option>
+                <option value="3">Día 3</option>
+                <option value="4">Día 4</option>
+                <option value="5">Día 5</option>
+                <option value="6">Día 6</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Día término</label>
+              <select id="alusado_dia_fin">
+                <option value="1">Día 1</option>
+                <option value="2">Día 2</option>
+                <option value="3">Día 3</option>
+                <option value="4">Día 4</option>
+                <option value="5">Día 5</option>
+                <option value="6">Día 6</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campo" style="margin-top:16px">
+        <label>Elementos de Protección Personal (EPP)</label>
+        <div class="nota">Obligatorio durante montaje/desmontaje. Disponible para compra en locación.</div>
+        <div class="fila-2">
+          <div class="campo">
+            <label>Cascos de seguridad (cantidad)</label>
+            <input type="number" id="epp_cascos" min="0" value="0" placeholder="0">
+          </div>
+          <div class="campo">
+            <label>Chalecos reflectantes (cantidad)</label>
+            <input type="number" id="epp_chalecos" min="0" value="0" placeholder="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(1)">← Anterior</button>
+        <button class="btn-primary" onclick="guardarSeguridad()">Guardar y Continuar →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: VEHÍCULOS -->
+    <div class="seccion" id="sec3">
+      <h2>Acreditación Vehicular</h2>
+      <div class="nota">Producción define la cantidad máxima de vehículos permitidos por categoría</div>
+
+      <div class="campo">
+        <label>Vehículos de Montaje/Desmontaje</label>
+        <table class="tabla-dinamica" id="tablaVehiculosMontaje">
+          <thead>
+            <tr>
+              <th>Patente</th>
+              <th>Modelo</th>
+              <th>Días</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bodyVehiculosMontaje"></tbody>
+        </table>
+        <button class="btn-agregar" onclick="agregarVehiculo('montaje')">+ Agregar vehículo de montaje</button>
+      </div>
+
+      <div class="campo" style="margin-top:20px">
+        <label>Vehículos Día del Evento</label>
+        <table class="tabla-dinamica" id="tablaVehiculosEvento">
+          <thead>
+            <tr>
+              <th>Patente</th>
+              <th>Modelo</th>
+              <th>Día</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bodyVehiculosEvento"></tbody>
+        </table>
+        <button class="btn-agregar" onclick="agregarVehiculo('evento')">+ Agregar vehículo de evento</button>
+      </div>
+
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(2)">← Anterior</button>
+        <button class="btn-primary" onclick="guardarVehiculos()">Guardar y Continuar →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: PERSONAL -->
+    <div class="seccion" id="sec4">
+      <h2>Acreditación del Personal</h2>
+      <div class="nota">Producción genera el perfil de acceso de cada trabajador según los datos ingresados</div>
+
+      <div class="campo">
+        <label>Personal de Montaje/Desmontaje</label>
+        <table class="tabla-dinamica">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>RUT</th>
+              <th>Función</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bodyPersonalMontaje"></tbody>
+        </table>
+        <button class="btn-agregar" onclick="agregarPersonal('montaje')">+ Agregar persona montaje</button>
+      </div>
+
+      <div class="campo" style="margin-top:20px">
+        <label>Personal Días del Evento</label>
+        <table class="tabla-dinamica">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>RUT</th>
+              <th>Email</th>
+              <th>Función</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bodyPersonalEvento"></tbody>
+        </table>
+        <button class="btn-agregar" onclick="agregarPersonal('evento')">+ Agregar persona evento</button>
+      </div>
+
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(3)">← Anterior</button>
+        <button class="btn-primary" onclick="guardarPersonal()">Guardar y Continuar →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 5: DOCUMENTOS -->
+    <div class="seccion" id="sec5">
+      <h2>Documentación Requerida</h2>
+      <div class="nota">Los documentos marcados como obligatorios deben ser enviados antes de la fecha límite</div>
+      <div id="listaDocumentos">
+        <!-- Generado dinámicamente -->
+      </div>
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(4)">← Anterior</button>
+        <button class="btn-primary" onclick="cambiarTab(6)">Ver Resumen →</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 6: RESUMEN -->
+    <div class="seccion" id="sec6">
+      <h2>Resumen de tu Ficha</h2>
+      <div id="resumenContenido">
+        <!-- Generado dinámicamente -->
+      </div>
+      <div class="acciones">
+        <button class="btn-secondary" onclick="cambiarTab(0)">← Editar ficha</button>
+        <button class="btn-success" onclick="exportarPDF()">Descargar PDF</button>
+        <button class="btn-success" onclick="exportarCSV('tecnico')">Exportar CSV Técnico</button>
+        <button class="btn-success" onclick="exportarCSV('personal')">Exportar CSV Personal</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="icon" id="popupIcono"></div>
+    <h3 id="popupTitulo"></h3>
+    <p id="popupMsg"></p>
+    <button class="btn-primary" onclick="cerrarPopup()">Aceptar</button>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
+  const SUPABASE_KEY = 'TU_PUBLISHABLE_KEY';
+  const { createClient } = supabase;
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let expositorId = null;
+  let tabActual = 0;
+  const totalTabs = 7;
+
+  // ── AUTH ──────────────────────────────────────────────
+  async function login() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError');
+    err.classList.remove('visible');
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) {
+      err.textContent = 'Credenciales incorrectas. Verifica tu email y contraseña.';
+      err.classList.add('visible');
+      return;
+    }
+    await iniciarPortal(data.user);
+  }
+
+  async function logout() {
+    await sb.auth.signOut();
+    location.reload();
+  }
+
+  async function iniciarPortal(user) {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('portalSection').classList.add('visible');
+    document.getElementById('btnLogout').style.display = 'block';
+
+    const { data } = await sb.from('expositores').select('*').eq('user_id', user.id).single();
+    if (data) {
+      expositorId = data.id;
+      document.getElementById('headerNombre').textContent = data.nombre_marca || user.email;
+      cargarDatosExistentes(data);
+    }
+
+    cargarDocumentos();
+    actualizarProgreso();
+  }
+
+  // Verificar sesión activa al cargar
+  sb.auth.onAuthStateChange((event, session) => {
+    if (session) iniciarPortal(session.user);
+  });
+
+  // ── TABS ──────────────────────────────────────────────
+  function cambiarTab(num) {
+    document.getElementById(`sec${tabActual}`).classList.remove('visible');
+    document.getElementById(`tab${tabActual}`).classList.remove('active');
+    tabActual = num;
+    document.getElementById(`sec${num}`).classList.add('visible');
+    document.getElementById(`tab${num}`).classList.add('active');
+    if (num === 6) generarResumen();
+    window.scrollTo(0, 0);
+  }
+
+  // ── PROGRESO ──────────────────────────────────────────
+  function actualizarProgreso() {
+    const campos = ['nombre_marca','responsable_nombre','responsable_email','responsable_telefono','tamanio_stand_m2','electricidad'];
+    let completados = 0;
+    campos.forEach(c => { if (document.getElementById(c)?.value) completados++; });
+    const pct = Math.round((completados / campos.length) * 100);
+    document.getElementById('progresoFill').style.width = pct + '%';
+    document.getElementById('progresoTexto').textContent = pct + '%';
+  }
+
+  // ── GUARDAR MARCA ─────────────────────────────────────
+  async function guardarMarca() {
+    const datos = {
+      nombre_marca: document.getElementById('nombre_marca').value.trim(),
+      responsable_nombre: document.getElementById('responsable_nombre').value.trim(),
+      responsable_email: document.getElementById('responsable_email').value.trim(),
+      tamanio_stand_m2: parseInt(document.getElementById('tamanio_stand_m2').value),
+    };
+    if (!datos.nombre_marca || !datos.responsable_nombre || !datos.responsable_email || !datos.tamanio_stand_m2) {
+      mostrarPopup('⚠️', 'Campos incompletos', 'Por favor completa todos los campos obligatorios'); return;
+    }
+    if (expositorId) {
+      await sb.from('expositores').update(datos).eq('id', expositorId);
+    }
+    document.getElementById('tab0').classList.add('completado');
+    actualizarProgreso();
+    cambiarTab(1);
+  }
+
+  // ── GUARDAR REQUERIMIENTOS ────────────────────────────
+  async function guardarRequerimientos() {
+    const cristaleria = [];
+    ['cris_200','cris_380','cris_propia'].forEach(id => { if(document.getElementById(id).checked) cristaleria.push(document.getElementById(id).value); });
+    const hielo = [];
+    ['hielo_cubo','hielo_frappe','hielo_escama'].forEach(id => { if(document.getElementById(id).checked) hielo.push(document.getElementById(id).value); });
+    const electricidad = document.getElementById('electricidad').value;
+    if (!electricidad) { mostrarPopup('⚠️', 'Campo requerido', 'Selecciona el tipo de consumo eléctrico'); return; }
+    if (expositorId) {
+      await sb.from('expositores').update({
+        cristaleria: cristaleria.join(', '),
+        tipo_hielo: hielo.join(', '),
+        electricidad
+      }).eq('id', expositorId);
+    }
+    document.getElementById('tab1').classList.add('completado');
+    cambiarTab(2);
+  }
+
+  // ── GUARDAR SEGURIDAD ─────────────────────────────────
+  async function guardarSeguridad() {
+    document.getElementById('tab2').classList.add('completado');
+    cambiarTab(3);
+  }
+
+  // ── VEHÍCULOS ─────────────────────────────────────────
+  function agregarVehiculo(tipo) {
+    const tbody = document.getElementById(`bodyVehiculos${tipo === 'montaje' ? 'Montaje' : 'Evento'}`);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" placeholder="ABCD12" style="text-transform:uppercase"></td>
+      <td><input type="text" placeholder="Ej: Camioneta"></td>
+      <td>
+        <select>
+          ${[1,2,3,4,5,6,7].map(d => `<option>Día ${d}</option>`).join('')}
+        </select>
+      </td>
+      <td><button class="btn-remove" onclick="this.closest('tr').remove()">✕</button></td>`;
+    tbody.appendChild(tr);
+  }
+
+  async function guardarVehiculos() {
+    if (!expositorId) { cambiarTab(4); return; }
+    await sb.from('vehiculos_expositor').delete().eq('expositor_id', expositorId);
+    const filas = [...document.querySelectorAll('#bodyVehiculosMontaje tr'), ...document.querySelectorAll('#bodyVehiculosEvento tr')];
+    const registros = [];
+    document.querySelectorAll('#bodyVehiculosMontaje tr').forEach(tr => {
+      const inputs = tr.querySelectorAll('input, select');
+      if (inputs[0].value) registros.push({ expositor_id: expositorId, patente: inputs[0].value.toUpperCase(), modelo: inputs[1].value, tipo: 'montaje', dias: inputs[2].value });
+    });
+    document.querySelectorAll('#bodyVehiculosEvento tr').forEach(tr => {
+      const inputs = tr.querySelectorAll('input, select');
+      if (inputs[0].value) registros.push({ expositor_id: expositorId, patente: inputs[0].value.toUpperCase(), modelo: inputs[1].value, tipo: 'evento', dias: inputs[2].value });
+    });
+    if (registros.length > 0) await sb.from('vehiculos_expositor').insert(registros);
+    document.getElementById('tab3').classList.add('completado');
+    cambiarTab(4);
+  }
+
+  // ── PERSONAL ──────────────────────────────────────────
+  function agregarPersonal(tipo) {
+    const tbody = document.getElementById(`bodyPersonal${tipo === 'montaje' ? 'Montaje' : 'Evento'}`);
+    const tr = document.createElement('tr');
+    if (tipo === 'montaje') {
+      tr.innerHTML = `
+        <td><input type="text" placeholder="Nombre completo"></td>
+        <td><input type="text" placeholder="12.345.678-9"></td>
+        <td><select><option>Montaje</option><option>Desmontaje</option><option>Ambos</option></select></td>
+        <td><button class="btn-remove" onclick="this.closest('tr').remove()">✕</button></td>`;
+    } else {
+      tr.innerHTML = `
+        <td><input type="text" placeholder="Nombre completo"></td>
+        <td><input type="text" placeholder="12.345.678-9"></td>
+        <td><input type="email" placeholder="correo@mail.cl"></td>
+        <td><select><option>Bartender</option><option>Supervisor</option><option>Promotor</option><option>Otro</option></select></td>
+        <td><button class="btn-remove" onclick="this.closest('tr').remove()">✕</button></td>`;
+    }
+    tbody.appendChild(tr);
+  }
+
+  async function guardarPersonal() {
+    if (!expositorId) { cambiarTab(5); return; }
+    await sb.from('personal_expositor').delete().eq('expositor_id', expositorId);
+    const registros = [];
+    document.querySelectorAll('#bodyPersonalMontaje tr').forEach(tr => {
+      const inputs = tr.querySelectorAll('input, select');
+      if (inputs[0].value) registros.push({ expositor_id: expositorId, nombre: inputs[0].value, rut: inputs[1].value, funcion: inputs[2].value, tipo_acreditacion: 'montaje' });
+    });
+    document.querySelectorAll('#bodyPersonalEvento tr').forEach(tr => {
+      const inputs = tr.querySelectorAll('input, select');
+      if (inputs[0].value) registros.push({ expositor_id: expositorId, nombre: inputs[0].value, rut: inputs[1].value, correo: inputs[2].value, funcion: inputs[3].value, tipo_acreditacion: 'evento' });
+    });
+    if (registros.length > 0) await sb.from('personal_expositor').insert(registros);
+    document.getElementById('tab4').classList.add('completado');
+    cambiarTab(5);
+  }
+
+  // ── DOCUMENTOS ────────────────────────────────────────
+  async function cargarDocumentos() {
+    const { data } = await sb.from('config_documentos').select('*').eq('activo', true).order('orden');
+    const lista = document.getElementById('listaDocumentos');
+    lista.innerHTML = '';
+    if (!data) return;
+    data.forEach(doc => {
+      lista.innerHTML += `
+        <div class="doc-item">
+          <div class="doc-header">
+            <span class="doc-nombre">${doc.nombre} ${doc.obligatorio ? '<span class="required">*</span>' : '(Opcional)'}</span>
+            <span class="doc-estado pendiente">Pendiente</span>
+          </div>
+          ${doc.descripcion ? `<p style="font-size:12px;color:#a0b4c8;margin-bottom:10px">${doc.descripcion}</p>` : ''}
+          <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="subirDocumento(this, '${doc.nombre}')">
+        </div>`;
+    });
+  }
+
+  async function subirDocumento(input, nombre) {
+    if (!input.files[0] || !expositorId) return;
+    const file = input.files[0];
+    const path = `${expositorId}/${nombre}_${Date.now()}.${file.name.split('.').pop()}`;
+    const { data: upload, error } = await sb.storage.from('documentos').upload(path, file);
+    if (error) { mostrarPopup('✗', 'Error al subir', 'No se pudo subir el archivo. Intenta de nuevo.'); return; }
+    const { data: urlData } = sb.storage.from('documentos').getPublicUrl(path);
+    await sb.from('documentos_expositor').insert({ expositor_id: expositorId, tipo_documento: nombre, nombre_archivo: file.name, url_archivo: urlData.publicUrl, estado: 'enviado' });
+    input.closest('.doc-item').querySelector('.doc-estado').className = 'doc-estado enviado';
+    input.closest('.doc-item').querySelector('.doc-estado').textContent = 'Enviado';
+  }
+
+  // ── SEGURIDAD DINÁMICA ────────────────────────────────
+  let turnosCount = 0;
+  function agregarTurnoSeguridad() {
+    turnosCount++;
+    const div = document.createElement('div');
+    div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:8px;';
+    div.innerHTML = `
+      <select style="background:#0f1b2d;border:1px solid #2E5FA3;border-radius:8px;padding:10px;color:white">
+        <option>Diurno (09:00-17:00)</option>
+        <option>Nocturno (17:00-01:00)</option>
+        <option>Madrugada (01:00-09:00)</option>
+      </select>
+      <select style="background:#0f1b2d;border:1px solid #2E5FA3;border-radius:8px;padding:10px;color:white">
+        ${[1,2,3,4,5,6,7].map(d=>`<option>Día ${d}</option>`).join('')}
+      </select>
+      <select style="background:#0f1b2d;border:1px solid #2E5FA3;border-radius:8px;padding:10px;color:white">
+        ${[1,2,3,4,5,6,7].map(d=>`<option>Hasta Día ${d}</option>`).join('')}
+      </select>
+      <button onclick="this.parentElement.remove()" style="background:#A32D2D;color:white;border:none;padding:10px;border-radius:8px;cursor:pointer">✕</button>`;
+    document.getElementById('turnosSeguridad').appendChild(div);
+  }
+
+  document.getElementById('alusado_check').addEventListener('change', function() {
+    document.getElementById('alusadoDias').style.display = this.checked ? 'block' : 'none';
+  });
+
+  // ── RESUMEN ───────────────────────────────────────────
+  async function generarResumen() {
+    const { data: exp } = await sb.from('expositores').select('*').eq('id', expositorId).single();
+    const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', expositorId);
+    const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', expositorId);
+    const { data: docs } = await sb.from('documentos_expositor').select('*').eq('expositor_id', expositorId);
+
+    let html = `
+      <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+        <h3 style="font-size:15px;color:#a0b4c8;margin-bottom:12px">DATOS DE LA MARCA</h3>
+        <p><strong>Marca:</strong> ${exp?.nombre_marca || '—'}</p>
+        <p><strong>Responsable:</strong> ${exp?.responsable_nombre || '—'}</p>
+        <p><strong>Email:</strong> ${exp?.responsable_email || '—'}</p>
+        <p><strong>Stand:</strong> ${exp?.tamanio_stand_m2 || '—'} m²</p>
+        <p><strong>Cristalería:</strong> ${exp?.cristaleria || '—'}</p>
+        <p><strong>Hielo:</strong> ${exp?.tipo_hielo || '—'}</p>
+        <p><strong>Electricidad:</strong> ${exp?.electricidad || '—'}</p>
+      </div>`;
+
+    if (personal?.length > 0) {
+      html += `<div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+        <h3 style="font-size:15px;color:#a0b4c8;margin-bottom:12px">PERSONAL (${personal.length} personas)</h3>`;
+      personal.forEach(p => { html += `<p>• ${p.nombre} — ${p.rut} — ${p.funcion} (${p.tipo_acreditacion})</p>`; });
+      html += `</div>`;
+    }
+
+    if (vehiculos?.length > 0) {
+      html += `<div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+        <h3 style="font-size:15px;color:#a0b4c8;margin-bottom:12px">VEHÍCULOS (${vehiculos.length})</h3>`;
+      vehiculos.forEach(v => { html += `<p>• ${v.patente} — ${v.modelo || '—'} (${v.tipo}) — ${v.dias}</p>`; });
+      html += `</div>`;
+    }
+
+    if (docs?.length > 0) {
+      html += `<div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
+        <h3 style="font-size:15px;color:#a0b4c8;margin-bottom:12px">DOCUMENTOS</h3>`;
+      docs.forEach(d => { html += `<p>• ${d.tipo_documento} — <span style="color:${d.estado==='aprobado'?'#4CAF82':'#e8a030'}">${d.estado}</span></p>`; });
+      html += `</div>`;
+    }
+
+    document.getElementById('resumenContenido').innerHTML = html;
+  }
+
+  // ── CARGAR DATOS EXISTENTES ───────────────────────────
+  function cargarDatosExistentes(data) {
+    if (data.nombre_marca) document.getElementById('nombre_marca').value = data.nombre_marca;
+    if (data.responsable_nombre) document.getElementById('responsable_nombre').value = data.responsable_nombre;
+    if (data.responsable_email) document.getElementById('responsable_email').value = data.responsable_email;
+    if (data.tamanio_stand_m2) document.getElementById('tamanio_stand_m2').value = data.tamanio_stand_m2;
+    if (data.cristaleria) {
+      data.cristaleria.split(', ').forEach(c => {
+        if (c === '200cc') document.getElementById('cris_200').checked = true;
+        if (c === '380cc') document.getElementById('cris_380').checked = true;
+        if (c === 'propia') document.getElementById('cris_propia').checked = true;
+      });
+    }
+    if (data.tipo_hielo) {
+      data.tipo_hielo.split(', ').forEach(h => {
+        if (h === 'Cubo') document.getElementById('hielo_cubo').checked = true;
+        if (h === 'Frappé') document.getElementById('hielo_frappe').checked = true;
+        if (h === 'Escama') document.getElementById('hielo_escama').checked = true;
+      });
+    }
+    if (data.electricidad) document.getElementById('electricidad').value = data.electricidad;
+  }
+
+  // ── EXPORTAR ──────────────────────────────────────────
+  async function exportarCSV(tipo) {
+    if (tipo === 'personal') {
+      const { data } = await sb.from('personal_expositor').select('*').eq('expositor_id', expositorId);
+      if (!data?.length) { mostrarPopup('ℹ️', 'Sin personal', 'No hay personal registrado para exportar'); return; }
+      const headers = 'Nombre,RUT,Email,Teléfono,Función,Tipo Acreditación\n';
+      const rows = data.map(p => `"${p.nombre}","${p.rut}","${p.correo||''}","${p.telefono||''}","${p.funcion}","${p.tipo_acreditacion}"`).join('\n');
+      descargarArchivo(headers + rows, 'personal_ticketplus.csv', 'text/csv');
+    } else {
+      const { data: exp } = await sb.from('expositores').select('*').eq('id', expositorId).single();
+      const { data: veh } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', expositorId);
+      let csv = `Marca,${exp.nombre_marca}\nResponsable,${exp.responsable_nombre}\nEmail,${exp.responsable_email}\nStand m²,${exp.tamanio_stand_m2}\nCristalería,${exp.cristaleria||''}\nHielo,${exp.tipo_hielo||''}\nElectricidad,${exp.electricidad||''}\n\nVEHÍCULOS\nPatente,Modelo,Tipo,Días\n`;
+      if (veh?.length) veh.forEach(v => { csv += `"${v.patente}","${v.modelo||''}","${v.tipo}","${v.dias}"\n`; });
+      descargarArchivo(csv, 'ficha_tecnica_lcf.csv', 'text/csv');
+    }
+  }
+
+  function descargarArchivo(contenido, nombre, tipo) {
+    const blob = new Blob(['\uFEFF' + contenido], { type: tipo });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = nombre; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function exportarPDF() {
+    await generarResumen();
+    window.print();
+  }
+
+  // ── POPUP ─────────────────────────────────────────────
+  function mostrarPopup(icono, titulo, msg) {
+    document.getElementById('popupIcono').textContent = icono;
+    document.getElementById('popupTitulo').textContent = titulo;
+    document.getElementById('popupMsg').textContent = msg;
+    document.getElementById('popup').classList.add('visible');
+  }
+  function cerrarPopup() { document.getElementById('popup').classList.remove('visible'); }
+</script>
+</body>
+</html>
