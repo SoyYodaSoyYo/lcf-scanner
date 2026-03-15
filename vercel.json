@@ -7,8 +7,3 @@
     { "source": "/", "destination": "/index.html" }
   ]
 }
-```
-
-**Commit** → espera 30 segundos → abre en el navegador:
-```
-lcf-scanner.vercel.app/expositor
