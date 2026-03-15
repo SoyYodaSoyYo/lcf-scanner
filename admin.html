@@ -12,20 +12,13 @@
     .header-left h1 { font-size: 18px; letter-spacing: 2px; }
     .header-left p { font-size: 11px; color: #a0b4c8; margin-top: 2px; }
     .btn-logout { background: transparent; border: 1px solid #a0b4c8; color: #a0b4c8; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
-
-    /* LOGIN */
     .login-wrap { max-width: 400px; margin: 80px auto; padding: 0 20px; }
     .login-box { background: #1a2940; border-radius: 14px; padding: 32px; }
     .login-box h2 { font-size: 22px; margin-bottom: 6px; }
     .login-box p { font-size: 13px; color: #a0b4c8; margin-bottom: 28px; }
-
-    /* CAMPOS */
     .campo { margin-bottom: 16px; }
     .campo label { display: block; font-size: 13px; color: #a0b4c8; margin-bottom: 6px; }
-    .campo input, .campo select, .campo textarea {
-      width: 100%; background: #0f1b2d; border: 1px solid #2E5FA3;
-      border-radius: 8px; padding: 12px; color: white; font-size: 15px;
-    }
+    .campo input, .campo select { width: 100%; background: #0f1b2d; border: 1px solid #2E5FA3; border-radius: 8px; padding: 12px; color: white; font-size: 15px; }
     .campo input::placeholder { color: #4a6080; }
     .campo input:focus, .campo select:focus { outline: none; border-color: #5a8fd4; }
     .campo select option { background: #0f1b2d; }
@@ -33,8 +26,6 @@
     .fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .fila-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
     .required { color: #e05a5a; }
-
-    /* BOTONES */
     .btn-primary { background: #2E5FA3; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; }
     .btn-primary:hover { background: #3a6fb3; }
     .btn-success { background: #1A7A4A; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; }
@@ -43,13 +34,9 @@
     .btn-secondary { background: #1a2940; color: #a0b4c8; border: 1px solid #2E5FA3; padding: 10px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; }
     .btn-full { width: 100%; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
-
-    /* ADMIN */
     .admin { display: none; }
     .admin.visible { display: block; }
     .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
-
-    /* STATS */
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
     .stat-card { background: #1a2940; border-radius: 10px; padding: 16px; text-align: center; }
     .stat-card .numero { font-size: 32px; font-weight: bold; }
@@ -58,74 +45,50 @@
     .stat-card.azul .numero { color: #5a8fd4; }
     .stat-card.amarillo .numero { color: #e8a030; }
     .stat-card.rojo .numero { color: #e05a5a; }
-
-    /* TABS ADMIN */
     .admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid #2a3f5f; }
     .admin-tab { background: transparent; border: none; color: #a0b4c8; padding: 12px 20px; cursor: pointer; font-size: 14px; border-bottom: 3px solid transparent; margin-bottom: -1px; }
     .admin-tab.active { color: white; border-bottom-color: #2E5FA3; }
-
-    /* TABLA */
     .tabla-admin { width: 100%; border-collapse: collapse; }
     .tabla-admin th { background: #0f1b2d; padding: 12px; text-align: left; font-size: 12px; color: #a0b4c8; border-bottom: 1px solid #2E5FA3; white-space: nowrap; }
     .tabla-admin td { padding: 12px; border-bottom: 1px solid #1a2940; font-size: 13px; vertical-align: middle; }
     .tabla-admin tr:hover td { background: #1a2940; }
     .tabla-wrap { overflow-x: auto; background: #111e2e; border-radius: 12px; }
-
-    /* BADGES */
     .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; white-space: nowrap; }
     .badge.pendiente { background: #3a3000; color: #e8a030; }
     .badge.pre-validado { background: #003a4a; color: #5ad4f0; }
     .badge.aprobado { background: #003a1a; color: #4CAF82; }
     .badge.bloqueado { background: #3a0000; color: #e05a5a; }
-
-    /* PROGRESO MINI */
     .progreso-mini { display: flex; align-items: center; gap: 8px; }
     .barra-mini { flex: 1; background: #2a3f5f; border-radius: 4px; height: 6px; min-width: 60px; }
     .barra-mini-fill { background: #2E5FA3; height: 100%; border-radius: 4px; }
     .barra-mini-fill.completo { background: #1A7A4A; }
-
-    /* MODAL */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
     .modal-overlay.visible { display: flex; }
     .modal { background: #1a2940; border-radius: 14px; padding: 28px; width: 100%; max-width: 660px; }
     .modal h2 { font-size: 20px; margin-bottom: 6px; padding-bottom: 12px; border-bottom: 1px solid #2E5FA3; }
     .modal .subtitulo { font-size: 13px; color: #a0b4c8; margin-bottom: 20px; }
     .modal-acciones { display: flex; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #2a3f5f; flex-wrap: wrap; }
-
-    /* POPUP */
     .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
     .popup-overlay.visible { display: flex; }
     .popup-box { background: #1a2940; border-radius: 14px; padding: 28px; max-width: 420px; width: 100%; text-align: center; }
     .popup-box .popup-icono { font-size: 52px; margin-bottom: 12px; }
     .popup-box h3 { font-size: 20px; margin-bottom: 8px; }
     .popup-box p { font-size: 14px; color: #a0b4c8; margin-bottom: 20px; line-height: 1.6; }
-
-    /* SECCIONES */
     .seccion-admin { display: none; }
     .seccion-admin.visible { display: block; }
-
-    /* DOCS */
     .doc-review { background: #0f1b2d; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
     .doc-review-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
     .doc-acciones { display: flex; gap: 8px; flex-wrap: wrap; }
-
-    /* NOTA */
     .nota { background: #1a2000; border-left: 3px solid #e8a030; padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 13px; color: #e8a030; margin-bottom: 12px; }
-
-    /* ERROR */
     .error-msg { background: #A32D2D; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px; display: none; }
     .error-msg.visible { display: block; }
-
-    /* SEPARADOR */
     .separador { border: none; border-top: 1px solid #2a3f5f; margin: 16px 0; }
-
     .drive-link { display: inline-flex; align-items: center; gap: 6px; color: #5a8fd4; font-size: 13px; text-decoration: none; }
-    .drive-link:hover { color: #7ab0f5; }
-
-    @media (max-width: 600px) {
-      .fila-2, .fila-3 { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr 1fr; }
-    }
+    .bloque-form { background: #0f1b2d; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    .bloque-form .bloque-titulo { font-size: 13px; font-weight: bold; margin-bottom: 12px; }
+    .bloque-form .bloque-titulo.azul { color: #5ad4f0; }
+    .bloque-form .bloque-titulo.gris { color: #a0b4c8; }
+    @media (max-width: 600px) { .fila-2, .fila-3 { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -138,7 +101,6 @@
   <button class="btn-logout" id="btnLogout" onclick="logout()" style="display:none">Cerrar sesión</button>
 </div>
 
-<!-- LOGIN -->
 <div id="loginSection">
   <div class="login-wrap">
     <div class="login-box">
@@ -146,29 +108,26 @@
       <p>Solo personal autorizado de La Coctelera Festival</p>
       <div class="campo">
         <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="admin@lacoctelera.cl" onkeydown="if(event.key==='Enter')login()">
+        <input type="email" id="loginEmail" placeholder="admin@lacoctelera.cl">
       </div>
       <div class="campo">
         <label>Contraseña</label>
-        <input type="password" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+        <input type="password" id="loginPassword" placeholder="••••••••">
       </div>
-      <button class="btn-primary btn-full" onclick="login()">Ingresar</button>
+      <button class="btn-primary btn-full" id="btnLogin" onclick="login()">Ingresar</button>
       <div class="error-msg" id="loginError"></div>
     </div>
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div class="admin" id="adminSection">
   <div class="container">
-
-    <div class="stats" id="statsBar">
+    <div class="stats">
       <div class="stat-card azul"><div class="numero" id="statTotal">0</div><div class="label">Expositores</div></div>
       <div class="stat-card verde"><div class="numero" id="statAprobados">0</div><div class="label">Aprobados para operar</div></div>
       <div class="stat-card amarillo"><div class="numero" id="statPendientes">0</div><div class="label">Fichas pendientes</div></div>
       <div class="stat-card rojo"><div class="numero" id="statBloqueados">0</div><div class="label">Bloqueados</div></div>
     </div>
-
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="cambiarSeccion(0)" id="atab0">Expositores</button>
       <button class="admin-tab" onclick="cambiarSeccion(1)" id="atab1">Documentos</button>
@@ -176,23 +135,16 @@
       <button class="admin-tab" onclick="cambiarSeccion(3)" id="atab3">Configuración</button>
     </div>
 
-    <!-- SECCIÓN 0: EXPOSITORES -->
     <div class="seccion-admin visible" id="asec0">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
         <input type="text" placeholder="Buscar por marca, responsable o email..." id="buscador" oninput="filtrarExpositores()" style="background:#1a2940;border:1px solid #2E5FA3;border-radius:8px;padding:10px 16px;color:white;font-size:14px;width:320px;max-width:100%">
-        <button class="btn-primary" onclick="abrirModalNuevoExpositor()">+ Nuevo Expositor</button>
+        <button class="btn-primary" onclick="abrirModalNuevo()">+ Nuevo Expositor</button>
       </div>
       <div class="tabla-wrap">
         <table class="tabla-admin">
           <thead>
             <tr>
-              <th>Marca</th>
-              <th>Email acceso</th>
-              <th>Stand</th>
-              <th>Estado</th>
-              <th>Progreso</th>
-              <th>Drive</th>
-              <th>Acciones</th>
+              <th>Marca</th><th>Email acceso</th><th>Stand</th><th>Estado</th><th>Progreso</th><th>Drive</th><th>Acciones</th>
             </tr>
           </thead>
           <tbody id="tablaExpositores"></tbody>
@@ -200,7 +152,6 @@
       </div>
     </div>
 
-    <!-- SECCIÓN 1: DOCUMENTOS -->
     <div class="seccion-admin" id="asec1">
       <div style="margin-bottom:16px">
         <select id="filtroExpositorDocs" onchange="cargarDocumentosAdmin()" style="background:#1a2940;border:1px solid #2E5FA3;border-radius:8px;padding:10px 16px;color:white;font-size:14px;width:100%;max-width:400px">
@@ -210,7 +161,6 @@
       <div id="listaDocsAdmin"></div>
     </div>
 
-    <!-- SECCIÓN 2: EXPORTACIONES -->
     <div class="seccion-admin" id="asec2">
       <div style="background:#1a2940;border-radius:12px;padding:24px">
         <h3 style="margin-bottom:20px;color:#a0b4c8">Exportar datos del festival</h3>
@@ -223,11 +173,10 @@
       </div>
     </div>
 
-    <!-- SECCIÓN 3: CONFIGURACIÓN -->
     <div class="seccion-admin" id="asec3">
       <div style="background:#1a2940;border-radius:12px;padding:24px;margin-bottom:20px">
         <h3 style="margin-bottom:16px;color:#a0b4c8">Documentos requeridos</h3>
-        <div class="nota">Los documentos marcados como obligatorios bloquean el 100% de progreso hasta ser aprobados por Producción</div>
+        <div class="nota">Los documentos obligatorios bloquean el 100% de progreso hasta ser aprobados</div>
         <div id="configDocumentos"></div>
         <button class="btn-primary" style="margin-top:12px" onclick="agregarDocumentoConfig()">+ Agregar documento</button>
       </div>
@@ -236,119 +185,146 @@
         <div id="infoEdicion"></div>
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- MODAL NUEVO EXPOSITOR -->
-<div class="modal-overlay" id="modalNuevoExpositor">
+<div class="modal-overlay" id="modalNuevo">
   <div class="modal">
     <h2>Crear Nuevo Expositor</h2>
-    <p class="subtitulo">Producción genera el perfil. El expositor recibirá sus credenciales de acceso.</p>
-
-    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:20px">
-      <p style="font-size:13px;color:#5ad4f0;margin-bottom:12px;font-weight:bold">ACCESO A LA PLATAFORMA</p>
+    <p class="subtitulo">Producción genera el perfil y las credenciales de acceso.</p>
+    <div class="bloque-form">
+      <p class="bloque-titulo azul">ACCESO A LA PLATAFORMA</p>
       <div class="fila-2">
         <div class="campo">
           <label>Email de acceso <span class="required">*</span></label>
-          <input type="email" id="new_email_acceso" placeholder="acceso@marca.cl">
-          <p class="hint">Este email es el usuario único de login. No puede repetirse.</p>
+          <input type="email" id="n_email" placeholder="acceso@marca.cl">
+          <p class="hint">Usuario único de login. No puede repetirse.</p>
         </div>
         <div class="campo">
           <label>Contraseña temporal <span class="required">*</span></label>
-          <input type="text" id="new_password" placeholder="lcf2026.xxxxx">
-          <p class="hint">Se envía al expositor por email de bienvenida.</p>
+          <input type="text" id="n_password">
+          <p class="hint">Se envía al expositor en el email de bienvenida.</p>
         </div>
       </div>
     </div>
-
-    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:20px">
-      <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px;font-weight:bold">DATOS DE LA MARCA</p>
+    <div class="bloque-form">
+      <p class="bloque-titulo gris">DATOS DE LA MARCA</p>
       <div class="fila-2">
         <div class="campo">
           <label>Nombre de la Marca <span class="required">*</span></label>
-          <input type="text" id="new_nombre_marca" placeholder="Ej: Diageo Chile">
+          <input type="text" id="n_nombre" placeholder="Ej: Diageo Chile">
           <p class="hint">Debe ser único por edición.</p>
         </div>
         <div class="campo">
           <label>Responsable</label>
-          <input type="text" id="new_responsable" placeholder="Nombre completo">
+          <input type="text" id="n_responsable" placeholder="Nombre completo">
           <p class="hint">Puede repetirse entre marcas del mismo productor.</p>
         </div>
       </div>
     </div>
-
-    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:20px">
-      <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px;font-weight:bold">CONFIGURACIÓN DEL STAND</p>
+    <div class="bloque-form">
+      <p class="bloque-titulo gris">CONFIGURACIÓN DEL STAND</p>
       <div class="fila-3">
         <div class="campo">
           <label>Tamaño Stand</label>
-          <input type="text" id="new_stand_texto" placeholder="Ej: 12 m² · Zona Central">
+          <input type="text" id="n_stand" placeholder="Ej: 12 m² · Zona Central">
         </div>
         <div class="campo">
-          <label>Máx. vehículos montaje</label>
-          <input type="number" id="new_max_montaje" value="10" min="1" max="10">
+          <label>Máx. veh. montaje</label>
+          <input type="number" id="n_max_montaje" value="10" min="1" max="10">
         </div>
         <div class="campo">
-          <label>Máx. vehículos evento</label>
-          <input type="number" id="new_max_evento" value="5" min="1" max="5">
+          <label>Máx. veh. evento</label>
+          <input type="number" id="n_max_evento" value="5" min="1" max="5">
         </div>
       </div>
       <div class="campo">
         <label>Comisión (%)</label>
-        <input type="number" id="new_comision" placeholder="Ej: 8.5" step="0.5">
+        <input type="number" id="n_comision" placeholder="Ej: 8.5" step="0.5">
       </div>
     </div>
-
     <div class="modal-acciones">
-      <button class="btn-secondary" onclick="cerrarModal('modalNuevoExpositor')">Cancelar</button>
+      <button class="btn-secondary" onclick="cerrarModal('modalNuevo')">Cancelar</button>
       <button class="btn-primary" onclick="crearExpositor()">✓ Crear Expositor</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL DETALLE EXPOSITOR -->
-<div class="modal-overlay" id="modalDetalleExpositor">
-  <div class="modal">
-    <h2 id="modalDetalleTitulo">Detalle del Expositor</h2>
-    <div id="modalDetalleContenido"></div>
-    <div class="modal-acciones" id="modalDetalleAcciones"></div>
-  </div>
-</div>
-
 <!-- MODAL EDITAR EXPOSITOR -->
-<div class="modal-overlay" id="modalEditarExpositor">
+<div class="modal-overlay" id="modalEditar">
   <div class="modal">
     <h2>Editar Expositor</h2>
     <p class="subtitulo">Los cambios se aplican inmediatamente.</p>
-    <input type="hidden" id="edit_expositor_id">
-    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
-      <p style="font-size:13px;color:#5ad4f0;margin-bottom:12px;font-weight:bold">DATOS DE LA MARCA</p>
+    <input type="hidden" id="e_id">
+    <div class="bloque-form">
+      <p class="bloque-titulo gris">DATOS DE LA MARCA</p>
       <div class="fila-2">
-        <div class="campo"><label>Nombre de la Marca <span class="required">*</span></label><input type="text" id="edit_nombre_marca" placeholder="Nombre de la marca"></div>
-        <div class="campo"><label>Responsable</label><input type="text" id="edit_responsable_nombre" placeholder="Nombre completo"></div>
+        <div class="campo">
+          <label>Nombre de la Marca <span class="required">*</span></label>
+          <input type="text" id="e_nombre">
+        </div>
+        <div class="campo">
+          <label>Responsable</label>
+          <input type="text" id="e_responsable">
+        </div>
       </div>
       <div class="fila-2">
-        <div class="campo"><label>Email de acceso</label><input type="email" id="edit_email_acceso"></div>
-        <div class="campo"><label>Teléfono</label><input type="tel" id="edit_responsable_telefono" placeholder="+56 9 xxxx xxxx"></div>
+        <div class="campo">
+          <label>Email de acceso</label>
+          <input type="email" id="e_email">
+        </div>
+        <div class="campo">
+          <label>Teléfono responsable</label>
+          <input type="tel" id="e_telefono" placeholder="+56 9 xxxx xxxx">
+        </div>
       </div>
     </div>
-    <div style="background:#0f1b2d;border-radius:10px;padding:16px;margin-bottom:16px">
-      <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px;font-weight:bold">CONFIGURACIÓN DEL STAND</p>
+    <div class="bloque-form">
+      <p class="bloque-titulo gris">CONFIGURACIÓN DEL STAND</p>
       <div class="fila-3">
-        <div class="campo"><label>Tamaño Stand</label><input type="text" id="edit_tamanio_stand_texto" placeholder="Ej: 12 m²"></div>
-        <div class="campo"><label>Máx. veh. montaje</label><input type="number" id="edit_max_vehiculos_montaje" min="1" max="10"></div>
-        <div class="campo"><label>Máx. veh. evento</label><input type="number" id="edit_max_vehiculos_evento" min="1" max="5"></div>
+        <div class="campo">
+          <label>Tamaño Stand</label>
+          <input type="text" id="e_stand" placeholder="Ej: 12 m²">
+        </div>
+        <div class="campo">
+          <label>Máx. veh. montaje</label>
+          <input type="number" id="e_max_montaje" min="1" max="10">
+        </div>
+        <div class="campo">
+          <label>Máx. veh. evento</label>
+          <input type="number" id="e_max_evento" min="1" max="5">
+        </div>
       </div>
       <div class="fila-2">
-        <div class="campo"><label>Comisión (%)</label><input type="number" id="edit_comision_pct" step="0.5" placeholder="Ej: 8.5"></div>
-        <div class="campo"><label>Estado acreditación</label><select id="edit_estado_acreditacion"><option value="Pendiente">Pendiente</option><option value="Pre-validado">Pre-validado</option><option value="Aprobado">Aprobado</option><option value="Bloqueado">Bloqueado</option></select></div>
+        <div class="campo">
+          <label>Comisión (%)</label>
+          <input type="number" id="e_comision" step="0.5">
+        </div>
+        <div class="campo">
+          <label>Estado acreditación</label>
+          <select id="e_estado">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Pre-validado">Pre-validado</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Bloqueado">Bloqueado</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="modal-acciones">
-      <button class="btn-secondary" onclick="cerrarModal('modalEditarExpositor')">Cancelar</button>
-      <button class="btn-primary" onclick="guardarEdicionExpositor()">💾 Guardar Cambios</button>
+      <button class="btn-secondary" onclick="cerrarModal('modalEditar')">Cancelar</button>
+      <button class="btn-primary" onclick="guardarEdicion()">💾 Guardar Cambios</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="modal-overlay" id="modalDetalle">
+  <div class="modal">
+    <h2 id="detalleTitulo">Detalle</h2>
+    <div id="detalleContenido"></div>
+    <div class="modal-acciones" id="detalleAcciones"></div>
   </div>
 </div>
 
@@ -363,520 +339,477 @@
 </div>
 
 <script>
-  const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_yzlVRXDgiLFPWV_tqHVHVg_cQxpDeaM';
-  const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcGhxdnZuaGZmb3Jrem1tZ3BtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzUyMDI5MywiZXhwIjoyMDg5MDk2MjkzfQ.REa4II4R7YzjgKcDWojr9910bPFUe2_j_VjnyGXt0e8';
-  const WEBHOOK_DRIVE = 'https://n8n-lcf.onrender.com:5678/webhook/crear-carpeta-expositor';
+const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
+const SUPABASE_PUB = 'TU_PUBLISHABLE_KEY';
+const SUPABASE_SVC = 'TU_SERVICE_KEY';
+const WEBHOOK_DRIVE = 'https://n8n-lcf.onrender.com:5678/webhook/crear-carpeta-expositor';
 
-  const { createClient } = supabase;
-  const sb = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-  const sbAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_PUB);
+const sbAdmin = createClient(SUPABASE_URL, SUPABASE_SVC);
 
-  let expositoresData = [];
-  let seccionActual = 0;
+let expositoresData = [];
+let seccionActual = 0;
 
-  // ── AUTH ──────────────────────────────────────────────────────
-  async function login() {
-    const email = document.getElementById('loginEmail').value.trim();
-    const pass = document.getElementById('loginPassword').value;
-    const err = document.getElementById('loginError');
-    err.classList.remove('visible');
-    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-    if (error) { err.textContent = 'Credenciales incorrectas.'; err.classList.add('visible'); return; }
-    iniciarAdmin(data.user);
-  }
+// AUTH
+async function login() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const err = document.getElementById('loginError');
+  err.classList.remove('visible');
+  if (!email || !pass) { err.textContent = 'Completa email y contraseña.'; err.classList.add('visible'); return; }
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) { err.textContent = 'Credenciales incorrectas.'; err.classList.add('visible'); return; }
+  iniciarAdmin(data.user);
+}
 
-  async function logout() {
+async function logout() {
+  await sb.auth.signOut();
+  location.reload();
+}
+
+sb.auth.onAuthStateChange((event, session) => {
+  if (session) iniciarAdmin(session.user);
+});
+
+async function iniciarAdmin(user) {
+  const { data: rol } = await sb.from('user_roles').select('rol').eq('user_id', user.id).single();
+  if (!rol || rol.rol !== 'admin') {
     await sb.auth.signOut();
-    location.reload();
+    const err = document.getElementById('loginError');
+    err.textContent = 'No tienes permisos de administrador.';
+    err.classList.add('visible');
+    return;
+  }
+  document.getElementById('loginSection').style.display = 'none';
+  document.getElementById('adminSection').classList.add('visible');
+  document.getElementById('btnLogout').style.display = 'block';
+  document.getElementById('adminNombre').textContent = user.email;
+  cargarExpositores();
+  cargarConfigDocumentos();
+  cargarEdicionActiva();
+}
+
+// NAVEGACIÓN
+function cambiarSeccion(num) {
+  document.getElementById('asec' + seccionActual).classList.remove('visible');
+  document.getElementById('atab' + seccionActual).classList.remove('active');
+  seccionActual = num;
+  document.getElementById('asec' + num).classList.add('visible');
+  document.getElementById('atab' + num).classList.add('active');
+  if (num === 1) cargarSelectorDocs();
+}
+
+// EXPOSITORES
+async function cargarExpositores() {
+  const { data } = await sb.from('expositores').select('*').order('nombre_marca');
+  if (!data) return;
+  expositoresData = data;
+  renderizarExpositores(data);
+  document.getElementById('statTotal').textContent = data.length;
+  document.getElementById('statAprobados').textContent = data.filter(e => e.aprobado_operar).length;
+  document.getElementById('statPendientes').textContent = data.filter(e => !e.aprobado_operar && e.estado_acreditacion !== 'Bloqueado').length;
+  document.getElementById('statBloqueados').textContent = data.filter(e => e.estado_acreditacion === 'Bloqueado').length;
+}
+
+function renderizarExpositores(data) {
+  const tbody = document.getElementById('tablaExpositores');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#a0b4c8;padding:40px">No hay expositores registrados</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(function(e) {
+    const pct = e.progreso_pct || 0;
+    const estadoKey = e.aprobado_operar ? 'aprobado' : (e.estado_acreditacion || 'Pendiente').toLowerCase().replace(' ', '-');
+    const estadoLabel = e.aprobado_operar ? (e.aprobado_operar_forzado ? '⚡ Aprobado (F)' : '✓ Aprobado') : (e.estado_acreditacion || 'Pendiente');
+    const emailAcceso = e.email_acceso || e.responsable_email || '—';
+    const stand = e.tamanio_stand_texto || (e.tamanio_stand_m2 ? e.tamanio_stand_m2 + ' m²' : '—');
+    const driveHtml = e.drive_folder_url
+      ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link">📁 Drive</a>'
+      : '<span style="color:#4a6080;font-size:12px">Sin carpeta</span>';
+    const aprobarBtns = !e.aprobado_operar
+      ? '<button class="btn-success btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', false)">✓</button>' +
+        '<button class="btn-warning btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', true)">⚡</button>'
+      : '<button class="btn-danger btn-sm" onclick="revocarAprobacion(\'' + e.id + '\')">Revocar</button>';
+    return '<tr>' +
+      '<td><strong>' + (e.nombre_marca || '—') + '</strong>' + (e.responsable_nombre ? '<br><span style="font-size:11px;color:#a0b4c8">' + e.responsable_nombre + '</span>' : '') + '</td>' +
+      '<td style="font-size:12px;color:#a0b4c8">' + emailAcceso + '</td>' +
+      '<td>' + stand + '</td>' +
+      '<td><span class="badge ' + estadoKey + '">' + estadoLabel + '</span></td>' +
+      '<td><div class="progreso-mini"><div class="barra-mini"><div class="barra-mini-fill ' + (pct===100?'completo':'') + '" style="width:' + pct + '%"></div></div><span style="font-size:12px;color:#a0b4c8">' + pct + '%</span></div></td>' +
+      '<td>' + driveHtml + '</td>' +
+      '<td><div style="display:flex;gap:4px;flex-wrap:wrap">' +
+        '<button class="btn-secondary btn-sm" onclick="verDetalle(\'' + e.id + '\')">Ver</button>' +
+        '<button class="btn-primary btn-sm" onclick="abrirEditar(\'' + e.id + '\')">✏️</button>' +
+        aprobarBtns +
+        '<button class="btn-danger btn-sm" onclick="eliminarExpositor(\'' + e.id + '\', \'' + (e.nombre_marca || '').replace(/'/g, '') + '\')">🗑️</button>' +
+      '</div></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function filtrarExpositores() {
+  const q = document.getElementById('buscador').value.toLowerCase();
+  renderizarExpositores(expositoresData.filter(function(e) {
+    return (e.nombre_marca||'').toLowerCase().includes(q) ||
+           (e.responsable_nombre||'').toLowerCase().includes(q) ||
+           (e.email_acceso||'').toLowerCase().includes(q);
+  }));
+}
+
+// CREAR EXPOSITOR
+function abrirModalNuevo() {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let pass = 'lcf2026.';
+  for (let i = 0; i < 6; i++) pass += chars[Math.floor(Math.random() * chars.length)];
+  document.getElementById('n_password').value = pass;
+  document.getElementById('n_email').value = '';
+  document.getElementById('n_nombre').value = '';
+  document.getElementById('n_responsable').value = '';
+  document.getElementById('n_stand').value = '';
+  document.getElementById('n_comision').value = '';
+  document.getElementById('n_max_montaje').value = 10;
+  document.getElementById('n_max_evento').value = 5;
+  document.getElementById('modalNuevo').classList.add('visible');
+}
+
+async function crearExpositor() {
+  const email = document.getElementById('n_email').value.trim();
+  const password = document.getElementById('n_password').value.trim();
+  const nombre = document.getElementById('n_nombre').value.trim();
+  const responsable = document.getElementById('n_responsable').value.trim();
+  const stand = document.getElementById('n_stand').value.trim();
+  const comision = parseFloat(document.getElementById('n_comision').value) || 0;
+  const max_montaje = parseInt(document.getElementById('n_max_montaje').value) || 10;
+  const max_evento = parseInt(document.getElementById('n_max_evento').value) || 5;
+
+  if (!email || !password || !nombre) {
+    mostrarPopup('⚠️', 'Campos requeridos', 'Completa el email de acceso, contraseña y nombre de la marca');
+    return;
   }
 
-  sb.auth.onAuthStateChange((event, session) => {
-    if (session) iniciarAdmin(session.user);
+  const { data: authData, error: authError } = await sbAdmin.auth.admin.createUser({
+    email: email, password: password, email_confirm: true
   });
+  if (authError) { mostrarPopup('✗', 'Error al crear usuario', authError.message); return; }
 
-  async function iniciarAdmin(user) {
-    const { data: rol } = await sb.from('user_roles').select('rol').eq('user_id', user.id).single();
-    if (!rol || rol.rol !== 'admin') {
-      await sb.auth.signOut();
-      const err = document.getElementById('loginError');
-      err.textContent = 'No tienes permisos de administrador.';
-      err.classList.add('visible');
-      return;
+  const { data: edicion } = await sb.from('ediciones').select('id').eq('activa', true).single();
+
+  const { data: expData, error: expError } = await sb.from('expositores').insert({
+    nombre_marca: nombre,
+    responsable_nombre: responsable,
+    email_acceso: email,
+    responsable_email: email,
+    user_id: authData.user.id,
+    tamanio_stand_texto: stand,
+    max_vehiculos_montaje: max_montaje,
+    max_vehiculos_evento: max_evento,
+    comision_pct: comision,
+    estado_acreditacion: 'Pendiente',
+    edicion_id: edicion ? edicion.id : null
+  }).select().single();
+
+  if (expError) {
+    await sbAdmin.auth.admin.deleteUser(authData.user.id);
+    if (expError.code === '23505') {
+      mostrarPopup('✗', 'Marca duplicada', 'Ya existe un expositor con ese nombre en esta edición');
+    } else {
+      mostrarPopup('✗', 'Error', expError.message);
     }
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('adminSection').classList.add('visible');
-    document.getElementById('btnLogout').style.display = 'block';
-    document.getElementById('adminNombre').textContent = user.email;
-    cargarExpositores();
-    cargarConfigDocumentos();
-    cargarEdicionActiva();
+    return;
   }
 
-  // ── NAVEGACIÓN ────────────────────────────────────────────────
-  function cambiarSeccion(num) {
-    document.getElementById(`asec${seccionActual}`).classList.remove('visible');
-    document.getElementById(`atab${seccionActual}`).classList.remove('active');
-    seccionActual = num;
-    document.getElementById(`asec${num}`).classList.add('visible');
-    document.getElementById(`atab${num}`).classList.add('active');
-    if (num === 1) cargarSelectorDocs();
-  }
+  fetch(WEBHOOK_DRIVE, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre_marca: nombre, expositor_id: expData.id })
+  }).catch(function(e) { console.log('Drive webhook:', e); });
 
-  // ── EXPOSITORES ───────────────────────────────────────────────
-  async function cargarExpositores() {
-    const { data } = await sb.from('expositores').select('*').order('nombre_marca');
-    if (!data) return;
-    expositoresData = data;
-    renderizarExpositores(data);
-    actualizarStats(data);
-  }
+  cerrarModal('modalNuevo');
+  mostrarPopup('✓', 'Expositor creado', nombre + ' registrado correctamente.\n\nEmail: ' + email + '\nContraseña: ' + password);
+  cargarExpositores();
+}
 
-  function actualizarStats(data) {
-    document.getElementById('statTotal').textContent = data.length;
-    document.getElementById('statAprobados').textContent = data.filter(e => e.aprobado_operar).length;
-    document.getElementById('statPendientes').textContent = data.filter(e => !e.aprobado_operar && e.estado_acreditacion !== 'Bloqueado').length;
-    document.getElementById('statBloqueados').textContent = data.filter(e => e.estado_acreditacion === 'Bloqueado').length;
-  }
+// EDITAR EXPOSITOR
+async function abrirEditar(id) {
+  const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
+  if (!e) return;
+  document.getElementById('e_id').value = id;
+  document.getElementById('e_nombre').value = e.nombre_marca || '';
+  document.getElementById('e_responsable').value = e.responsable_nombre || '';
+  document.getElementById('e_email').value = e.email_acceso || e.responsable_email || '';
+  document.getElementById('e_telefono').value = e.responsable_telefono || '';
+  document.getElementById('e_stand').value = e.tamanio_stand_texto || '';
+  document.getElementById('e_max_montaje').value = e.max_vehiculos_montaje || 10;
+  document.getElementById('e_max_evento').value = e.max_vehiculos_evento || 5;
+  document.getElementById('e_comision').value = e.comision_pct || 0;
+  document.getElementById('e_estado').value = e.estado_acreditacion || 'Pendiente';
+  document.getElementById('modalEditar').classList.add('visible');
+}
 
-  function renderizarExpositores(data) {
-    const tbody = document.getElementById('tablaExpositores');
-    if (!data.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#a0b4c8;padding:40px">No hay expositores registrados</td></tr>';
-      return;
-    }
-    tbody.innerHTML = data.map(e => {
-      const pct = e.progreso_pct || 0;
-      const estadoKey = e.aprobado_operar ? 'aprobado' : (e.estado_acreditacion || 'Pendiente').toLowerCase().replace(' ', '-');
-      const estadoLabel = e.aprobado_operar ? (e.aprobado_operar_forzado ? '⚡ Aprobado (Forzado)' : '✓ Aprobado') : (e.estado_acreditacion || 'Pendiente');
-      return `<tr>
-        <td>
-          <strong>${e.nombre_marca || '—'}</strong>
-          ${e.responsable_nombre ? `<br><span style="font-size:11px;color:#a0b4c8">${e.responsable_nombre}</span>` : ''}
-        </td>
-        <td style="font-size:12px;color:#a0b4c8">${e.email_acceso || e.responsable_email || '—'}</td>
-        <td>${e.tamanio_stand_texto || (e.tamanio_stand_m2 ? e.tamanio_stand_m2 + ' m²' : '—')}</td>
-        <td><span class="badge ${estadoKey}">${estadoLabel}</span></td>
-        <td>
-          <div class="progreso-mini">
-            <div class="barra-mini"><div class="barra-mini-fill ${pct===100?'completo':''}" style="width:${pct}%"></div></div>
-            <span style="font-size:12px;color:#a0b4c8">${pct}%</span>
-          </div>
-        </td>
-        <td>${e.drive_folder_url ? `<a href="${e.drive_folder_url}" target="_blank" class="drive-link">📁 Drive</a>` : '<span style="color:#4a6080;font-size:12px">Sin carpeta</span>'}</td>
-        <td>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button class="btn-secondary btn-sm" onclick="verDetalleExpositor('${e.id}')">Ver</button>
-            <button class="btn-primary btn-sm" onclick="abrirModalEditarExpositor('${e.id}')">✏️ Editar</button>
-            ${!e.aprobado_operar ? `<button class="btn-success btn-sm" onclick="aprobarExpositor('${e.id}', false)">✓ Aprobar</button>` : ''}
-            ${!e.aprobado_operar ? `<button class="btn-warning btn-sm" onclick="aprobarExpositor('${e.id}', true)">⚡ Forzar</button>` : ''}
-            ${e.aprobado_operar ? `<button class="btn-danger btn-sm" onclick="revocarAprobacion('${e.id}')">Revocar</button>` : ''}
-            <button class="btn-danger btn-sm" onclick="confirmarEliminarExpositor('${e.id}', '${e.nombre_marca?.replace(/'/g,"\\'")}')">🗑️</button>
-          </div>
-        </td>
-      </tr>`;
-    }).join('');
-  }
+async function guardarEdicion() {
+  const id = document.getElementById('e_id').value;
+  const nombre = document.getElementById('e_nombre').value.trim();
+  if (!nombre) { mostrarPopup('⚠️', 'Campo requerido', 'El nombre de la marca es obligatorio'); return; }
+  const { error } = await sb.from('expositores').update({
+    nombre_marca: nombre,
+    responsable_nombre: document.getElementById('e_responsable').value.trim(),
+    email_acceso: document.getElementById('e_email').value.trim(),
+    responsable_telefono: document.getElementById('e_telefono').value.trim(),
+    tamanio_stand_texto: document.getElementById('e_stand').value.trim(),
+    max_vehiculos_montaje: parseInt(document.getElementById('e_max_montaje').value) || 10,
+    max_vehiculos_evento: parseInt(document.getElementById('e_max_evento').value) || 5,
+    comision_pct: parseFloat(document.getElementById('e_comision').value) || 0,
+    estado_acreditacion: document.getElementById('e_estado').value
+  }).eq('id', id);
+  if (error) { mostrarPopup('✗', 'Error', error.message); return; }
+  cerrarModal('modalEditar');
+  mostrarPopup('✓', 'Cambios guardados', 'El perfil del expositor fue actualizado correctamente');
+  cargarExpositores();
+}
 
-  function filtrarExpositores() {
-    const q = document.getElementById('buscador').value.toLowerCase();
-    const f = expositoresData.filter(e =>
-      (e.nombre_marca||'').toLowerCase().includes(q) ||
-      (e.responsable_nombre||'').toLowerCase().includes(q) ||
-      (e.responsable_email||'').toLowerCase().includes(q) ||
-      (e.email_acceso||'').toLowerCase().includes(q)
-    );
-    renderizarExpositores(f);
-  }
+// ELIMINAR EXPOSITOR
+async function eliminarExpositor(id, nombre) {
+  if (!confirm('Eliminar a ' + nombre + '?\n\nEsto eliminará también su personal, vehículos y documentos. Esta acción no se puede deshacer.')) return;
+  await sb.from('personal_expositor').delete().eq('expositor_id', id);
+  await sb.from('vehiculos_expositor').delete().eq('expositor_id', id);
+  await sb.from('documentos_expositor').delete().eq('expositor_id', id);
+  const { error } = await sb.from('expositores').delete().eq('id', id);
+  if (error) { mostrarPopup('✗', 'Error', error.message); return; }
+  mostrarPopup('🗑️', 'Eliminado', nombre + ' fue eliminado del sistema');
+  cargarExpositores();
+}
 
-  // ── CREAR EXPOSITOR ───────────────────────────────────────────
-  function abrirModalNuevoExpositor() {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    const pass = 'lcf2026.' + Array.from({length:6}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
-    document.getElementById('new_password').value = pass;
-    document.getElementById('new_email_acceso').value = '';
-    document.getElementById('new_nombre_marca').value = '';
-    document.getElementById('new_responsable').value = '';
-    document.getElementById('new_stand_texto').value = '';
-    document.getElementById('new_comision').value = '';
-    document.getElementById('new_max_montaje').value = 10;
-    document.getElementById('new_max_evento').value = 5;
-    document.getElementById('modalNuevoExpositor').classList.add('visible');
-  }
-
-  async function crearExpositor() {
-    const email_acceso = document.getElementById('new_email_acceso').value.trim();
-    const password = document.getElementById('new_password').value.trim();
-    const nombre_marca = document.getElementById('new_nombre_marca').value.trim();
-    const responsable = document.getElementById('new_responsable').value.trim();
-    const stand_texto = document.getElementById('new_stand_texto').value.trim();
-    const max_montaje = parseInt(document.getElementById('new_max_montaje').value) || 10;
-    const max_evento = parseInt(document.getElementById('new_max_evento').value) || 5;
-    const comision = parseFloat(document.getElementById('new_comision').value) || 0;
-
-    if (!email_acceso || !password || !nombre_marca) {
-      mostrarPopup('⚠️', 'Campos requeridos', 'Completa el email de acceso, contraseña y nombre de la marca');
-      return;
-    }
-
-    // 1. Crear usuario Auth
-    const { data: authData, error: authError } = await sbAdmin.auth.admin.createUser({
-      email: email_acceso, password, email_confirm: true
-    });
-    if (authError) { mostrarPopup('✗', 'Error al crear usuario', authError.message); return; }
-
-    // 2. Obtener edición activa
-    const { data: edicion } = await sb.from('ediciones').select('id').eq('activa', true).single();
-
-    // 3. Crear perfil en expositores
-    const { data: expData, error: expError } = await sb.from('expositores').insert({
-      nombre_marca,
-      responsable_nombre: responsable,
-      email_acceso,
-      responsable_email: email_acceso,
-      user_id: authData.user.id,
-      tamanio_stand_texto: stand_texto,
-      max_vehiculos_montaje: max_montaje,
-      max_vehiculos_evento: max_evento,
-      comision_pct: comision,
-      estado_acreditacion: 'Pendiente',
-      edicion_id: edicion?.id || null
-    }).select().single();
-
-    if (expError) {
-      if (expError.code === '23505') {
-        mostrarPopup('✗', 'Marca duplicada', 'Ya existe un expositor con ese nombre en esta edición');
-      } else {
-        mostrarPopup('✗', 'Error', expError.message);
-      }
-      // Eliminar usuario Auth si falla la creación del perfil
-      await sbAdmin.auth.admin.deleteUser(authData.user.id);
-      return;
-    }
-
-    // 4. Crear carpeta Drive (async, no bloquea)
-    fetch(WEBHOOK_DRIVE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre_marca, expositor_id: expData.id })
-    }).catch(e => console.log('Drive:', e));
-
-    cerrarModal('modalNuevoExpositor');
-    mostrarPopup('✓', '¡Expositor creado!',
-      `${nombre_marca} registrado correctamente.\n\nCredenciales de acceso:\nEmail: ${email_acceso}\nContraseña: ${password}`
-    );
-    cargarExpositores();
-  }
-
-  // ── APROBAR ───────────────────────────────────────────────────
-  async function aprobarExpositor(id, forzado) {
-    const { data: user } = await sb.auth.getUser();
-    await sb.from('expositores').update({
-      aprobado_operar: true,
-      aprobado_operar_forzado: forzado,
-      aprobado_por: user.user.email,
-      aprobado_at: new Date().toISOString(),
-      estado_acreditacion: 'Aprobado',
-      progreso_pct: 100
-    }).eq('id', id);
-    await sb.from('event_log').insert({
-      accion: forzado ? 'aprobacion_forzada' : 'aprobacion_normal',
-      descripcion: `Expositor ${forzado ? 'aprobado forzadamente' : 'aprobado'} para operar`,
-      entidad_afectada: `expositor:${id}`,
-      realizado_por: user.user.email
-    });
-    mostrarPopup('✓', forzado ? '⚡ Aprobación forzada' : '✓ Aprobado', 'El expositor puede operar en el festival');
-    cargarExpositores();
-  }
-
-  async function revocarAprobacion(id) {
-    const { data: user } = await sb.auth.getUser();
-    await sb.from('expositores').update({
-      aprobado_operar: false,
-      aprobado_operar_forzado: false,
-      estado_acreditacion: 'Pendiente',
-      progreso_pct: 80
-    }).eq('id', id);
-    await sb.from('event_log').insert({
-      accion: 'aprobacion_revocada',
-      descripcion: 'Aprobación revocada',
-      entidad_afectada: `expositor:${id}`,
-      realizado_por: user.user.email
-    });
-    mostrarPopup('⚠️', 'Aprobación revocada', 'El expositor volvió a estado Pendiente');
-    cargarExpositores();
-  }
-
-  // ── DETALLE EXPOSITOR ─────────────────────────────────────────
-  async function verDetalleExpositor(id) {
-    const { data: exp } = await sb.from('expositores').select('*').eq('id', id).single();
-    const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
-    const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
-
-    document.getElementById('modalDetalleTitulo').textContent = exp.nombre_marca || 'Detalle';
-    document.getElementById('modalDetalleContenido').innerHTML = `
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div><p style="font-size:12px;color:#a0b4c8">Email de acceso</p><p>${exp.email_acceso||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Responsable</p><p>${exp.responsable_nombre||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Stand</p><p>${exp.tamanio_stand_texto||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Electricidad</p><p>${exp.electricidad||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Cristalería</p><p>${exp.cristaleria||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Hielo</p><p>${exp.tipo_hielo||'—'}</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Comisión</p><p>${exp.comision_pct||0}%</p></div>
-        <div><p style="font-size:12px;color:#a0b4c8">Estado</p><span class="badge ${(exp.estado_acreditacion||'pendiente').toLowerCase()}">${exp.estado_acreditacion||'Pendiente'}</span></div>
-      </div>
-      ${personal?.length ? `<p style="font-size:13px;color:#a0b4c8;margin-bottom:6px">👤 Personal registrado: <strong>${personal.length} personas</strong></p>` : ''}
-      ${vehiculos?.length ? `<p style="font-size:13px;color:#a0b4c8;margin-bottom:12px">🚗 Vehículos registrados: <strong>${vehiculos.length}</strong></p>` : ''}
-      ${exp.drive_folder_url ? `<a href="${exp.drive_folder_url}" target="_blank" class="drive-link" style="margin-bottom:16px;display:inline-flex">📁 Abrir carpeta en Drive</a>` : ''}
-      <hr class="separador">
-      <p style="font-size:13px;color:#a0b4c8;margin-bottom:8px">Editar tamaño de stand:</p>
-      <div style="display:flex;gap:8px">
-        <input type="text" id="edit_stand_${id}" value="${exp.tamanio_stand_texto||''}" placeholder="Ej: 12 m² · Zona Central" style="background:#0f1b2d;border:1px solid #2E5FA3;border-radius:8px;padding:10px;color:white;font-size:14px;flex:1">
-        <button class="btn-primary" onclick="actualizarStand('${id}')">Guardar</button>
-      </div>`;
-
-    document.getElementById('modalDetalleAcciones').innerHTML = `
-      <button class="btn-secondary" onclick="cerrarModal('modalDetalleExpositor')">Cerrar</button>
-      <button class="btn-success" onclick="exportarFichaExpositor('${id}')">📊 Exportar CSV</button>
-      <button class="btn-primary" onclick="reenviarBienvenida('${exp.email_acceso||exp.responsable_email}', '${exp.nombre_marca}')">✉️ Reenviar bienvenida</button>`;
-
-    document.getElementById('modalDetalleExpositor').classList.add('visible');
-  }
-
-  async function actualizarStand(id) {
-    const valor = document.getElementById(`edit_stand_${id}`).value.trim();
-    await sb.from('expositores').update({ tamanio_stand_texto: valor }).eq('id', id);
-    mostrarPopup('✓', 'Guardado', 'Tamaño de stand actualizado');
-    cargarExpositores();
-  }
-
-  // ── DOCUMENTOS ADMIN ──────────────────────────────────────────
-  async function cargarSelectorDocs() {
-    const { data } = await sb.from('expositores').select('id, nombre_marca').order('nombre_marca');
-    const sel = document.getElementById('filtroExpositorDocs');
-    sel.innerHTML = '<option value="">Selecciona un expositor...</option>';
-    data?.forEach(e => { sel.innerHTML += `<option value="${e.id}">${e.nombre_marca}</option>`; });
-  }
-
-  async function cargarDocumentosAdmin() {
-    const id = document.getElementById('filtroExpositorDocs').value;
-    if (!id) return;
-    const { data } = await sb.from('documentos_expositor').select('*').eq('expositor_id', id);
-    const lista = document.getElementById('listaDocsAdmin');
-    if (!data?.length) {
-      lista.innerHTML = '<p style="color:#a0b4c8;padding:20px;background:#1a2940;border-radius:10px">No hay documentos subidos por este expositor.</p>';
-      return;
-    }
-    lista.innerHTML = data.map(doc => `
-      <div class="doc-review">
-        <div class="doc-review-header">
-          <div>
-            <strong>${doc.tipo_documento}</strong>
-            <p style="font-size:12px;color:#a0b4c8;margin-top:2px">${doc.nombre_archivo||'—'}</p>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="badge ${doc.estado}">${doc.estado}</span>
-            ${doc.url_archivo ? `<a href="${doc.url_archivo}" target="_blank" style="color:#5a8fd4;font-size:13px">Ver archivo ↗</a>` : ''}
-          </div>
-        </div>
-        <div class="doc-acciones">
-          <button class="btn-success btn-sm" onclick="cambiarEstadoDoc('${doc.id}', 'aprobado', '${id}')">✓ Aprobar</button>
-          <button class="btn-danger btn-sm" onclick="cambiarEstadoDoc('${doc.id}', 'rechazado', '${id}')">✗ Rechazar</button>
-          <button class="btn-secondary btn-sm" onclick="cambiarEstadoDoc('${doc.id}', 'pendiente', '${id}')">⏳ Pendiente</button>
-        </div>
-      </div>`).join('');
-  }
-
-  async function cambiarEstadoDoc(docId, estado, expositorId) {
-    await sb.from('documentos_expositor').update({ estado }).eq('id', docId);
-    await actualizarProgresoExpositor(expositorId);
-    cargarDocumentosAdmin();
-  }
-
-  async function actualizarProgresoExpositor(id) {
-    const { data: docs } = await sb.from('documentos_expositor').select('estado').eq('expositor_id', id);
-    const { data: config } = await sb.from('config_documentos').select('*').eq('activo', true).eq('obligatorio', true);
-    const { data: exp } = await sb.from('expositores').select('nombre_marca,responsable_nombre,responsable_email,electricidad').eq('id', id).single();
-
-    let camposBase = 0;
-    if (exp?.nombre_marca) camposBase++;
-    if (exp?.responsable_nombre) camposBase++;
-    if (exp?.responsable_email) camposBase++;
-    if (exp?.electricidad) camposBase++;
-    let pct = Math.round((camposBase / 4) * 60);
-
-    const docsObligatorios = config?.length || 0;
-    if (docsObligatorios > 0) {
-      const aprobados = docs?.filter(d => d.estado === 'aprobado').length || 0;
-      pct += Math.round((aprobados / docsObligatorios) * 40);
-    }
-
-    pct = Math.min(pct, 90);
-    await sb.from('expositores').update({ progreso_pct: pct }).eq('id', id);
-  }
-
-  // ── EXPORTACIONES ─────────────────────────────────────────────
-  async function exportarTodosExpositores() {
-    const { data } = await sb.from('expositores').select('*').order('nombre_marca');
-    if (!data?.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay expositores registrados'); return; }
-    const h = 'Marca,Email Acceso,Responsable,Stand,Cristalería,Hielo,Electricidad,Comisión%,Estado,Aprobado\n';
-    const r = data.map(e => `"${e.nombre_marca||''}","${e.email_acceso||e.responsable_email||''}","${e.responsable_nombre||''}","${e.tamanio_stand_texto||''}","${e.cristaleria||''}","${e.tipo_hielo||''}","${e.electricidad||''}","${e.comision_pct||0}","${e.estado_acreditacion||''}","${e.aprobado_operar?'Sí':'No'}"`).join('\n');
-    descargarCSV(h + r, 'fichas_tecnicas_lcf.csv');
-  }
-
-  async function exportarTodoElPersonal() {
-    const { data } = await sb.from('personal_expositor').select('*, expositores(nombre_marca)').order('tipo_acreditacion');
-    if (!data?.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay personal registrado'); return; }
-    const h = 'Marca,Nombre,RUT,Email,Teléfono,Función,Tipo Acreditación\n';
-    const r = data.map(p => `"${p.expositores?.nombre_marca||''}","${p.nombre||''}","${p.rut||''}","${p.correo||''}","${p.telefono||''}","${p.funcion||''}","${p.tipo_acreditacion||''}"`).join('\n');
-    descargarCSV(h + r, 'personal_ticketplus_lcf.csv');
-  }
-
-  async function exportarTodosVehiculos() {
-    const { data } = await sb.from('vehiculos_expositor').select('*, expositores(nombre_marca)').order('tipo');
-    if (!data?.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay vehículos registrados'); return; }
-    const h = 'Marca,Patente,Modelo,Tipo,Días\n';
-    const r = data.map(v => `"${v.expositores?.nombre_marca||''}","${v.patente||''}","${v.modelo||''}","${v.tipo||''}","${v.dias||''}"`).join('\n');
-    descargarCSV(h + r, 'vehiculos_lcf.csv');
-  }
-
-  async function exportarEstadoDocumentos() {
-    const { data } = await sb.from('documentos_expositor').select('*, expositores(nombre_marca)').order('tipo_documento');
-    if (!data?.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay documentos registrados'); return; }
-    const h = 'Marca,Documento,Archivo,Estado,Fecha\n';
-    const r = data.map(d => `"${d.expositores?.nombre_marca||''}","${d.tipo_documento||''}","${d.nombre_archivo||''}","${d.estado||''}","${d.created_at?.split('T')[0]||''}"`).join('\n');
-    descargarCSV(h + r, 'documentos_lcf.csv');
-  }
-
-  async function exportarFichaExpositor(id) {
-    const { data: exp } = await sb.from('expositores').select('*').eq('id', id).single();
-    const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
-    const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
-    let csv = `FICHA TÉCNICA LCF\nMarca,${exp?.nombre_marca||''}\nEmail acceso,${exp?.email_acceso||''}\nResponsable,${exp?.responsable_nombre||''}\nStand,${exp?.tamanio_stand_texto||''}\nElectricidad,${exp?.electricidad||''}\nCristalería,${exp?.cristaleria||''}\nHielo,${exp?.tipo_hielo||''}\nComisión,${exp?.comision_pct||0}%\n`;
-    if (personal?.length) {
-      csv += '\nPERSONAL\nNombre,RUT,Email,Función,Tipo\n';
-      personal.forEach(p => { csv += `"${p.nombre}","${p.rut}","${p.correo||''}","${p.funcion}","${p.tipo_acreditacion}"\n`; });
-    }
-    if (vehiculos?.length) {
-      csv += '\nVEHÍCULOS\nPatente,Modelo,Tipo,Días\n';
-      vehiculos.forEach(v => { csv += `"${v.patente}","${v.modelo||''}","${v.tipo}","${v.dias}"\n`; });
-    }
-    descargarCSV(csv, `ficha_${(exp?.nombre_marca||'expositor').replace(/\s/g,'_')}.csv`);
-    cerrarModal('modalDetalleExpositor');
-  }
-
-  function descargarCSV(contenido, nombre) {
-    const blob = new Blob(['\uFEFF' + contenido], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = nombre; a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  async function reenviarBienvenida(email, marca) {
-    mostrarPopup('✉️', 'Próximamente', `El reenvío de bienvenida a ${email} estará disponible cuando se integre Resend.`);
-  }
-
-  // ── CONFIGURACIÓN ─────────────────────────────────────────────
-  async function cargarConfigDocumentos() {
-    const { data } = await sb.from('config_documentos').select('*').eq('activo', true).order('orden');
-    const div = document.getElementById('configDocumentos');
-    if (!data) return;
-    div.innerHTML = data.map(doc => `
-      <div style="display:flex;align-items:center;gap:12px;background:#0f1b2d;padding:12px;border-radius:8px;margin-bottom:8px">
-        <input type="checkbox" ${doc.obligatorio?'checked':''} onchange="toggleObligatorio('${doc.id}', this.checked)" style="width:18px;height:18px;accent-color:#2E5FA3;flex-shrink:0">
-        <span style="flex:1;font-size:14px">${doc.nombre}</span>
-        <span style="font-size:12px;color:${doc.obligatorio?'#e05a5a':'#a0b4c8'}">${doc.obligatorio?'Obligatorio':'Opcional'}</span>
-        <button class="btn-danger btn-sm" onclick="desactivarDocumento('${doc.id}')">✕</button>
-      </div>`).join('');
-  }
-
-  async function toggleObligatorio(id, obligatorio) {
-    await sb.from('config_documentos').update({ obligatorio }).eq('id', id);
-    cargarConfigDocumentos();
-  }
-
-  async function desactivarDocumento(id) {
-    await sb.from('config_documentos').update({ activo: false }).eq('id', id);
-    cargarConfigDocumentos();
-  }
-
-  async function agregarDocumentoConfig() {
-    const nombre = prompt('Nombre del nuevo documento requerido:');
-    if (!nombre?.trim()) return;
-    await sb.from('config_documentos').insert({ nombre: nombre.trim(), obligatorio: false, activo: true, orden: 99 });
-    cargarConfigDocumentos();
-  }
-
-  async function cargarEdicionActiva() {
-    const { data } = await sb.from('ediciones').select('*').eq('activa', true).single();
-    if (!data) return;
-    document.getElementById('infoEdicion').innerHTML = `
-      <p style="font-size:16px;font-weight:bold">${data.nombre}</p>
-      <p style="font-size:13px;color:#a0b4c8;margin-top:4px">Año: ${data.anio}</p>
-      ${data.drive_folder_url ? `<a href="${data.drive_folder_url}" target="_blank" class="drive-link" style="margin-top:10px;display:inline-flex">📁 Carpeta principal en Drive ↗</a>` : ''}`;
-  }
-
-  // ── HELPERS ───────────────────────────────────────────────────
-  async function abrirModalEditarExpositor(id) {
-    const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
-    if (!e) return;
-    document.getElementById('edit_expositor_id').value = id;
-    document.getElementById('edit_nombre_marca').value = e.nombre_marca || '';
-    document.getElementById('edit_responsable_nombre').value = e.responsable_nombre || '';
-    document.getElementById('edit_email_acceso').value = e.email_acceso || e.responsable_email || '';
-    document.getElementById('edit_responsable_telefono').value = e.responsable_telefono || '';
-    document.getElementById('edit_tamanio_stand_texto').value = e.tamanio_stand_texto || '';
-    document.getElementById('edit_max_vehiculos_montaje').value = e.max_vehiculos_montaje || 10;
-    document.getElementById('edit_max_vehiculos_evento').value = e.max_vehiculos_evento || 5;
-    document.getElementById('edit_comision_pct').value = e.comision_pct || 0;
-    document.getElementById('edit_estado_acreditacion').value = e.estado_acreditacion || 'Pendiente';
-    document.getElementById('modalEditarExpositor').classList.add('visible');
-  }
-
-  async function guardarEdicionExpositor() {
-    const id = document.getElementById('edit_expositor_id').value;
-    const nombre = document.getElementById('edit_nombre_marca').value.trim();
-    if (!nombre) { mostrarPopup('⚠️', 'Campo requerido', 'El nombre de la marca es obligatorio'); return; }
-    await sb.from('expositores').update({
-      nombre_marca: nombre,
-      responsable_nombre: document.getElementById('edit_responsable_nombre').value.trim(),
-      email_acceso: document.getElementById('edit_email_acceso').value.trim(),
-      responsable_telefono: document.getElementById('edit_responsable_telefono').value.trim(),
-      tamanio_stand_texto: document.getElementById('edit_tamanio_stand_texto').value.trim(),
-      max_vehiculos_montaje: parseInt(document.getElementById('edit_max_vehiculos_montaje').value) || 10,
-      max_vehiculos_evento: parseInt(document.getElementById('edit_max_vehiculos_evento').value) || 5,
-      comision_pct: parseFloat(document.getElementById('edit_comision_pct').value) || 0,
-      estado_acreditacion: document.getElementById('edit_estado_acreditacion').value
-    }).eq('id', id);
-    cerrarModal('modalEditarExpositor');
-    mostrarPopup('✓', 'Cambios guardados', 'El perfil del expositor fue actualizado correctamente');
-    cargarExpositores();
-  }
-
-  async function confirmarEliminarExpositor(id, nombre) {
-    if (!confirm('¿Eliminar a ' + nombre + '?
-
-Esto eliminará también su personal, vehículos y documentos. Esta acción no se puede deshacer.')) return;
-    await sb.from('personal_expositor').delete().eq('expositor_id', id);
-    await sb.from('vehiculos_expositor').delete().eq('expositor_id', id);
-    await sb.from('documentos_expositor').delete().eq('expositor_id', id);
-    await sb.from('expositores').delete().eq('id', id);
-    mostrarPopup('🗑️', 'Eliminado', nombre + ' fue eliminado del sistema');
-    cargarExpositores();
-  }
-
-  function cerrarModal(id) { document.getElementById(id).classList.remove('visible'); }
-  function mostrarPopup(icono, titulo, msg) {
-    document.getElementById('popupIcono').textContent = icono;
-    document.getElementById('popupTitulo').textContent = titulo;
-    document.getElementById('popupMsg').textContent = msg;
-    document.getElementById('popup').classList.add('visible');
-  }
-  function cerrarPopup() { document.getElementById('popup').classList.remove('visible'); }
-
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('visible'); });
+// APROBAR
+async function aprobarExpositor(id, forzado) {
+  const { data: user } = await sb.auth.getUser();
+  await sb.from('expositores').update({
+    aprobado_operar: true,
+    aprobado_operar_forzado: forzado,
+    aprobado_por: user.user.email,
+    aprobado_at: new Date().toISOString(),
+    estado_acreditacion: 'Aprobado',
+    progreso_pct: 100
+  }).eq('id', id);
+  await sb.from('event_log').insert({
+    accion: forzado ? 'aprobacion_forzada' : 'aprobacion_normal',
+    descripcion: 'Expositor ' + (forzado ? 'aprobado forzadamente' : 'aprobado') + ' para operar',
+    entidad_afectada: 'expositor:' + id,
+    realizado_por: user.user.email
   });
+  mostrarPopup('✓', forzado ? '⚡ Aprobación forzada' : '✓ Aprobado', 'El expositor puede operar en el festival');
+  cargarExpositores();
+}
+
+async function revocarAprobacion(id) {
+  const { data: user } = await sb.auth.getUser();
+  await sb.from('expositores').update({
+    aprobado_operar: false,
+    aprobado_operar_forzado: false,
+    estado_acreditacion: 'Pendiente',
+    progreso_pct: 80
+  }).eq('id', id);
+  await sb.from('event_log').insert({
+    accion: 'aprobacion_revocada',
+    descripcion: 'Aprobación revocada',
+    entidad_afectada: 'expositor:' + id,
+    realizado_por: user.user.email
+  });
+  mostrarPopup('⚠️', 'Aprobación revocada', 'El expositor volvió a estado Pendiente');
+  cargarExpositores();
+}
+
+// DETALLE
+async function verDetalle(id) {
+  const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
+  const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
+  const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
+  document.getElementById('detalleTitulo').textContent = e.nombre_marca || 'Detalle';
+  document.getElementById('detalleContenido').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Email acceso</p><p>' + (e.email_acceso||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Responsable</p><p>' + (e.responsable_nombre||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Stand</p><p>' + (e.tamanio_stand_texto||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Electricidad</p><p>' + (e.electricidad||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Cristalería</p><p>' + (e.cristaleria||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Comisión</p><p>' + (e.comision_pct||0) + '%</p></div>' +
+    '</div>' +
+    (personal && personal.length ? '<p style="font-size:13px;color:#a0b4c8;margin-bottom:6px">👤 Personal: <strong>' + personal.length + ' personas</strong></p>' : '') +
+    (vehiculos && vehiculos.length ? '<p style="font-size:13px;color:#a0b4c8;margin-bottom:12px">🚗 Vehículos: <strong>' + vehiculos.length + '</strong></p>' : '') +
+    (e.drive_folder_url ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link" style="margin-bottom:16px;display:inline-flex">📁 Abrir Drive ↗</a>' : '');
+  document.getElementById('detalleAcciones').innerHTML =
+    '<button class="btn-secondary" onclick="cerrarModal(\'modalDetalle\')">Cerrar</button>' +
+    '<button class="btn-success" onclick="exportarFichaExpositor(\'' + id + '\')">📊 Exportar CSV</button>' +
+    '<button class="btn-primary" onclick="reenviarBienvenida(\'' + (e.email_acceso||e.responsable_email||'') + '\', \'' + (e.nombre_marca||'').replace(/'/g,'') + '\')">✉️ Reenviar bienvenida</button>';
+  document.getElementById('modalDetalle').classList.add('visible');
+}
+
+// DOCUMENTOS
+async function cargarSelectorDocs() {
+  const { data } = await sb.from('expositores').select('id, nombre_marca').order('nombre_marca');
+  const sel = document.getElementById('filtroExpositorDocs');
+  sel.innerHTML = '<option value="">Selecciona un expositor...</option>';
+  if (data) data.forEach(function(e) { sel.innerHTML += '<option value="' + e.id + '">' + e.nombre_marca + '</option>'; });
+}
+
+async function cargarDocumentosAdmin() {
+  const id = document.getElementById('filtroExpositorDocs').value;
+  if (!id) return;
+  const { data } = await sb.from('documentos_expositor').select('*').eq('expositor_id', id);
+  const lista = document.getElementById('listaDocsAdmin');
+  if (!data || !data.length) { lista.innerHTML = '<p style="color:#a0b4c8;padding:20px;background:#1a2940;border-radius:10px">No hay documentos subidos por este expositor.</p>'; return; }
+  lista.innerHTML = data.map(function(doc) {
+    return '<div class="doc-review">' +
+      '<div class="doc-review-header">' +
+        '<div><strong>' + doc.tipo_documento + '</strong><p style="font-size:12px;color:#a0b4c8;margin-top:2px">' + (doc.nombre_archivo||'—') + '</p></div>' +
+        '<div style="display:flex;align-items:center;gap:10px"><span class="badge ' + doc.estado + '">' + doc.estado + '</span>' +
+        (doc.url_archivo ? '<a href="' + doc.url_archivo + '" target="_blank" style="color:#5a8fd4;font-size:13px">Ver ↗</a>' : '') + '</div>' +
+      '</div>' +
+      '<div class="doc-acciones">' +
+        '<button class="btn-success btn-sm" onclick="cambiarEstadoDoc(\'' + doc.id + '\', \'aprobado\', \'' + id + '\')">✓ Aprobar</button>' +
+        '<button class="btn-danger btn-sm" onclick="cambiarEstadoDoc(\'' + doc.id + '\', \'rechazado\', \'' + id + '\')">✗ Rechazar</button>' +
+        '<button class="btn-secondary btn-sm" onclick="cambiarEstadoDoc(\'' + doc.id + '\', \'pendiente\', \'' + id + '\')">⏳ Pendiente</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+async function cambiarEstadoDoc(docId, estado, expositorId) {
+  await sb.from('documentos_expositor').update({ estado: estado }).eq('id', docId);
+  await actualizarProgreso(expositorId);
+  cargarDocumentosAdmin();
+}
+
+async function actualizarProgreso(id) {
+  const { data: docs } = await sb.from('documentos_expositor').select('estado').eq('expositor_id', id);
+  const { data: config } = await sb.from('config_documentos').select('*').eq('activo', true).eq('obligatorio', true);
+  const { data: exp } = await sb.from('expositores').select('nombre_marca,responsable_nombre,responsable_email,electricidad').eq('id', id).single();
+  let base = 0;
+  if (exp && exp.nombre_marca) base++;
+  if (exp && exp.responsable_nombre) base++;
+  if (exp && exp.responsable_email) base++;
+  if (exp && exp.electricidad) base++;
+  let pct = Math.round((base / 4) * 60);
+  const obligatorios = config ? config.length : 0;
+  if (obligatorios > 0) {
+    const aprobados = docs ? docs.filter(function(d) { return d.estado === 'aprobado'; }).length : 0;
+    pct += Math.round((aprobados / obligatorios) * 40);
+  }
+  pct = Math.min(pct, 90);
+  await sb.from('expositores').update({ progreso_pct: pct }).eq('id', id);
+}
+
+// EXPORTACIONES
+async function exportarTodosExpositores() {
+  const { data } = await sb.from('expositores').select('*').order('nombre_marca');
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay expositores registrados'); return; }
+  let csv = 'Marca,Email Acceso,Responsable,Stand,Cristalería,Hielo,Electricidad,Comisión%,Estado,Aprobado\n';
+  data.forEach(function(e) { csv += '"' + (e.nombre_marca||'') + '","' + (e.email_acceso||e.responsable_email||'') + '","' + (e.responsable_nombre||'') + '","' + (e.tamanio_stand_texto||'') + '","' + (e.cristaleria||'') + '","' + (e.tipo_hielo||'') + '","' + (e.electricidad||'') + '","' + (e.comision_pct||0) + '","' + (e.estado_acreditacion||'') + '","' + (e.aprobado_operar?'Sí':'No') + '"\n'; });
+  descargarCSV(csv, 'fichas_tecnicas_lcf.csv');
+}
+
+async function exportarTodoElPersonal() {
+  const { data } = await sb.from('personal_expositor').select('*, expositores(nombre_marca)').order('tipo_acreditacion');
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay personal registrado'); return; }
+  let csv = 'Marca,Nombre,RUT,Email,Teléfono,Función,Tipo Acreditación\n';
+  data.forEach(function(p) { csv += '"' + (p.expositores ? p.expositores.nombre_marca : '') + '","' + (p.nombre||'') + '","' + (p.rut||'') + '","' + (p.correo||'') + '","' + (p.telefono||'') + '","' + (p.funcion||'') + '","' + (p.tipo_acreditacion||'') + '"\n'; });
+  descargarCSV(csv, 'personal_ticketplus_lcf.csv');
+}
+
+async function exportarTodosVehiculos() {
+  const { data } = await sb.from('vehiculos_expositor').select('*, expositores(nombre_marca)').order('tipo');
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay vehículos registrados'); return; }
+  let csv = 'Marca,Patente,Modelo,Tipo,Días\n';
+  data.forEach(function(v) { csv += '"' + (v.expositores ? v.expositores.nombre_marca : '') + '","' + (v.patente||'') + '","' + (v.modelo||'') + '","' + (v.tipo||'') + '","' + (v.dias||'') + '"\n'; });
+  descargarCSV(csv, 'vehiculos_lcf.csv');
+}
+
+async function exportarEstadoDocumentos() {
+  const { data } = await sb.from('documentos_expositor').select('*, expositores(nombre_marca)').order('tipo_documento');
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay documentos registrados'); return; }
+  let csv = 'Marca,Documento,Archivo,Estado,Fecha\n';
+  data.forEach(function(d) { csv += '"' + (d.expositores ? d.expositores.nombre_marca : '') + '","' + (d.tipo_documento||'') + '","' + (d.nombre_archivo||'') + '","' + (d.estado||'') + '","' + (d.created_at ? d.created_at.split('T')[0] : '') + '"\n'; });
+  descargarCSV(csv, 'documentos_lcf.csv');
+}
+
+async function exportarFichaExpositor(id) {
+  const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
+  const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
+  const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
+  let csv = 'FICHA TÉCNICA LCF\nMarca,' + (e.nombre_marca||'') + '\nEmail acceso,' + (e.email_acceso||'') + '\nResponsable,' + (e.responsable_nombre||'') + '\nStand,' + (e.tamanio_stand_texto||'') + '\nElectricidad,' + (e.electricidad||'') + '\nCristalería,' + (e.cristaleria||'') + '\nHielo,' + (e.tipo_hielo||'') + '\nComisión,' + (e.comision_pct||0) + '%\n';
+  if (personal && personal.length) { csv += '\nPERSONAL\nNombre,RUT,Email,Función,Tipo\n'; personal.forEach(function(p) { csv += '"' + p.nombre + '","' + p.rut + '","' + (p.correo||'') + '","' + p.funcion + '","' + p.tipo_acreditacion + '"\n'; }); }
+  if (vehiculos && vehiculos.length) { csv += '\nVEHÍCULOS\nPatente,Modelo,Tipo,Días\n'; vehiculos.forEach(function(v) { csv += '"' + v.patente + '","' + (v.modelo||'') + '","' + v.tipo + '","' + v.dias + '"\n'; }); }
+  descargarCSV(csv, 'ficha_' + (e.nombre_marca||'expositor').replace(/\s/g,'_') + '.csv');
+  cerrarModal('modalDetalle');
+}
+
+function descargarCSV(contenido, nombre) {
+  const blob = new Blob(['\uFEFF' + contenido], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = nombre; a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function reenviarBienvenida(email, marca) {
+  mostrarPopup('✉️', 'Próximamente', 'El reenvío a ' + email + ' estará disponible cuando se integre Resend.');
+}
+
+// CONFIGURACIÓN
+async function cargarConfigDocumentos() {
+  const { data } = await sb.from('config_documentos').select('*').eq('activo', true).order('orden');
+  const div = document.getElementById('configDocumentos');
+  if (!data) return;
+  div.innerHTML = data.map(function(doc) {
+    return '<div style="display:flex;align-items:center;gap:12px;background:#0f1b2d;padding:12px;border-radius:8px;margin-bottom:8px">' +
+      '<input type="checkbox" ' + (doc.obligatorio?'checked':'') + ' onchange="toggleObligatorio(\'' + doc.id + '\', this.checked)" style="width:18px;height:18px;accent-color:#2E5FA3;flex-shrink:0">' +
+      '<span style="flex:1;font-size:14px">' + doc.nombre + '</span>' +
+      '<span style="font-size:12px;color:' + (doc.obligatorio?'#e05a5a':'#a0b4c8') + '">' + (doc.obligatorio?'Obligatorio':'Opcional') + '</span>' +
+      '<button class="btn-danger btn-sm" onclick="desactivarDocumento(\'' + doc.id + '\')">✕</button>' +
+    '</div>';
+  }).join('');
+}
+
+async function toggleObligatorio(id, obligatorio) {
+  await sb.from('config_documentos').update({ obligatorio: obligatorio }).eq('id', id);
+  cargarConfigDocumentos();
+}
+
+async function desactivarDocumento(id) {
+  await sb.from('config_documentos').update({ activo: false }).eq('id', id);
+  cargarConfigDocumentos();
+}
+
+async function agregarDocumentoConfig() {
+  const nombre = prompt('Nombre del nuevo documento requerido:');
+  if (!nombre || !nombre.trim()) return;
+  await sb.from('config_documentos').insert({ nombre: nombre.trim(), obligatorio: false, activo: true, orden: 99 });
+  cargarConfigDocumentos();
+}
+
+async function cargarEdicionActiva() {
+  const { data } = await sb.from('ediciones').select('*').eq('activa', true).single();
+  if (!data) return;
+  document.getElementById('infoEdicion').innerHTML =
+    '<p style="font-size:16px;font-weight:bold">' + data.nombre + '</p>' +
+    '<p style="font-size:13px;color:#a0b4c8;margin-top:4px">Año: ' + data.anio + '</p>' +
+    (data.drive_folder_url ? '<a href="' + data.drive_folder_url + '" target="_blank" class="drive-link" style="margin-top:10px;display:inline-flex">📁 Carpeta principal en Drive ↗</a>' : '');
+}
+
+// HELPERS
+function cerrarModal(id) { document.getElementById(id).classList.remove('visible'); }
+
+function mostrarPopup(icono, titulo, msg) {
+  document.getElementById('popupIcono').textContent = icono;
+  document.getElementById('popupTitulo').textContent = titulo;
+  document.getElementById('popupMsg').textContent = msg;
+  document.getElementById('popup').classList.add('visible');
+}
+
+function cerrarPopup() { document.getElementById('popup').classList.remove('visible'); }
+
+document.querySelectorAll('.modal-overlay').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('visible'); });
+});
 </script>
 </body>
 </html>
