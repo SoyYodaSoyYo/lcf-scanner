@@ -1,6 +1,8 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/ficha-tecnica", "destination": "/ficha-tecnica.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/billetera", "destination": "/billetera.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
