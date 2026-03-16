@@ -45,12 +45,12 @@
     .stat-card.azul .numero { color: #5a8fd4; }
     .stat-card.amarillo .numero { color: #e8a030; }
     .stat-card.rojo .numero { color: #e05a5a; }
-    .admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid #2a3f5f; }
-    .admin-tab { background: transparent; border: none; color: #a0b4c8; padding: 12px 20px; cursor: pointer; font-size: 14px; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+    .admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid #2a3f5f; overflow-x: auto; }
+    .admin-tab { background: transparent; border: none; color: #a0b4c8; padding: 12px 20px; cursor: pointer; font-size: 14px; border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; flex-shrink: 0; }
     .admin-tab.active { color: white; border-bottom-color: #2E5FA3; }
     .tabla-admin { width: 100%; border-collapse: collapse; }
-    .tabla-admin th { background: #0f1b2d; padding: 12px; text-align: left; font-size: 12px; color: #a0b4c8; border-bottom: 1px solid #2E5FA3; white-space: nowrap; }
-    .tabla-admin td { padding: 12px; border-bottom: 1px solid #1a2940; font-size: 13px; vertical-align: middle; }
+    .tabla-admin th { background: #0f1b2d; padding: 10px 12px; text-align: left; font-size: 12px; color: #a0b4c8; border-bottom: 1px solid #2E5FA3; white-space: nowrap; }
+    .tabla-admin td { padding: 10px 12px; border-bottom: 1px solid #1a2940; font-size: 13px; vertical-align: middle; }
     .tabla-admin tr:hover td { background: #1a2940; }
     .tabla-wrap { overflow-x: auto; background: #111e2e; border-radius: 12px; }
     .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; white-space: nowrap; }
@@ -58,22 +58,29 @@
     .badge.pre-validado { background: #003a4a; color: #5ad4f0; }
     .badge.aprobado { background: #003a1a; color: #4CAF82; }
     .badge.bloqueado { background: #3a0000; color: #e05a5a; }
+    .badge.montaje { background: #1a2940; color: #a0b4c8; }
+    .badge.evento { background: #003a4a; color: #5ad4f0; }
     .progreso-mini { display: flex; align-items: center; gap: 8px; }
     .barra-mini { flex: 1; background: #2a3f5f; border-radius: 4px; height: 6px; min-width: 60px; }
     .barra-mini-fill { background: #2E5FA3; height: 100%; border-radius: 4px; }
     .barra-mini-fill.completo { background: #1A7A4A; }
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; }
     .modal-overlay.visible { display: flex; }
-    .modal { background: #1a2940; border-radius: 14px; padding: 28px; width: 100%; max-width: 660px; }
+    .modal { background: #1a2940; border-radius: 14px; padding: 28px; width: 100%; max-width: 800px; margin: auto; }
     .modal h2 { font-size: 20px; margin-bottom: 6px; padding-bottom: 12px; border-bottom: 1px solid #2E5FA3; }
     .modal .subtitulo { font-size: 13px; color: #a0b4c8; margin-bottom: 20px; }
     .modal-acciones { display: flex; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #2a3f5f; flex-wrap: wrap; }
+    .modal-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid #2a3f5f; overflow-x: auto; }
+    .modal-tab { background: transparent; border: none; color: #a0b4c8; padding: 10px 16px; cursor: pointer; font-size: 13px; border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; flex-shrink: 0; }
+    .modal-tab.active { color: white; border-bottom-color: #2E5FA3; }
+    .modal-seccion { display: none; }
+    .modal-seccion.visible { display: block; }
     .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
     .popup-overlay.visible { display: flex; }
     .popup-box { background: #1a2940; border-radius: 14px; padding: 28px; max-width: 420px; width: 100%; text-align: center; }
     .popup-box .popup-icono { font-size: 52px; margin-bottom: 12px; }
     .popup-box h3 { font-size: 20px; margin-bottom: 8px; }
-    .popup-box p { font-size: 14px; color: #a0b4c8; margin-bottom: 20px; line-height: 1.6; }
+    .popup-box p { font-size: 14px; color: #a0b4c8; margin-bottom: 20px; line-height: 1.6; white-space: pre-line; }
     .seccion-admin { display: none; }
     .seccion-admin.visible { display: block; }
     .doc-review { background: #0f1b2d; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
@@ -82,12 +89,16 @@
     .nota { background: #1a2000; border-left: 3px solid #e8a030; padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 13px; color: #e8a030; margin-bottom: 12px; }
     .error-msg { background: #A32D2D; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px; display: none; }
     .error-msg.visible { display: block; }
-    .separador { border: none; border-top: 1px solid #2a3f5f; margin: 16px 0; }
     .drive-link { display: inline-flex; align-items: center; gap: 6px; color: #5a8fd4; font-size: 13px; text-decoration: none; }
     .bloque-form { background: #0f1b2d; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
-    .bloque-form .bloque-titulo { font-size: 13px; font-weight: bold; margin-bottom: 12px; }
-    .bloque-form .bloque-titulo.azul { color: #5ad4f0; }
-    .bloque-form .bloque-titulo.gris { color: #a0b4c8; }
+    .bloque-titulo { font-size: 13px; font-weight: bold; margin-bottom: 12px; }
+    .bloque-titulo.azul { color: #5ad4f0; }
+    .bloque-titulo.gris { color: #a0b4c8; }
+    .buscador-inline { background: #0f1b2d; border: 1px solid #2E5FA3; border-radius: 8px; padding: 8px 14px; color: white; font-size: 13px; }
+    .buscador-inline::placeholder { color: #4a6080; }
+    .filtros-fila { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+    .tag-btn { background: #0f1b2d; border: 1px solid #2a3f5f; color: #a0b4c8; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; }
+    .tag-btn.active { background: #2E5FA3; border-color: #2E5FA3; color: white; }
     @media (max-width: 600px) { .fila-2, .fila-3 { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
@@ -106,15 +117,9 @@
     <div class="login-box">
       <h2>Acceso Producción</h2>
       <p>Solo personal autorizado de La Coctelera Festival</p>
-      <div class="campo">
-        <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="admin@lacoctelera.cl">
-      </div>
-      <div class="campo">
-        <label>Contraseña</label>
-        <input type="password" id="loginPassword" placeholder="••••••••">
-      </div>
-      <button class="btn-primary btn-full" id="btnLogin" onclick="login()">Ingresar</button>
+      <div class="campo"><label>Email</label><input type="email" id="loginEmail" placeholder="admin@lacoctelera.cl"></div>
+      <div class="campo"><label>Contraseña</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+      <button class="btn-primary btn-full" onclick="login()">Ingresar</button>
       <div class="error-msg" id="loginError"></div>
     </div>
   </div>
@@ -122,37 +127,71 @@
 
 <div class="admin" id="adminSection">
   <div class="container">
+
     <div class="stats">
       <div class="stat-card azul"><div class="numero" id="statTotal">0</div><div class="label">Expositores</div></div>
       <div class="stat-card verde"><div class="numero" id="statAprobados">0</div><div class="label">Aprobados para operar</div></div>
       <div class="stat-card amarillo"><div class="numero" id="statPendientes">0</div><div class="label">Fichas pendientes</div></div>
       <div class="stat-card rojo"><div class="numero" id="statBloqueados">0</div><div class="label">Bloqueados</div></div>
     </div>
+
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="cambiarSeccion(0)" id="atab0">Expositores</button>
-      <button class="admin-tab" onclick="cambiarSeccion(1)" id="atab1">Documentos</button>
-      <button class="admin-tab" onclick="cambiarSeccion(2)" id="atab2">Exportaciones</button>
-      <button class="admin-tab" onclick="cambiarSeccion(3)" id="atab3">Configuración</button>
+      <button class="admin-tab" onclick="cambiarSeccion(1)" id="atab1">Personal</button>
+      <button class="admin-tab" onclick="cambiarSeccion(2)" id="atab2">Vehículos</button>
+      <button class="admin-tab" onclick="cambiarSeccion(3)" id="atab3">Documentos</button>
+      <button class="admin-tab" onclick="cambiarSeccion(4)" id="atab4">Exportaciones</button>
+      <button class="admin-tab" onclick="cambiarSeccion(5)" id="atab5">Configuración</button>
     </div>
 
+    <!-- EXPOSITORES -->
     <div class="seccion-admin visible" id="asec0">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
-        <input type="text" placeholder="Buscar por marca, responsable o email..." id="buscador" oninput="filtrarExpositores()" style="background:#1a2940;border:1px solid #2E5FA3;border-radius:8px;padding:10px 16px;color:white;font-size:14px;width:320px;max-width:100%">
+        <input type="text" placeholder="Buscar por marca, responsable o email..." id="buscador" oninput="filtrarExpositores()" class="buscador-inline" style="width:320px;max-width:100%">
         <button class="btn-primary" onclick="abrirModalNuevo()">+ Nuevo Expositor</button>
       </div>
       <div class="tabla-wrap">
         <table class="tabla-admin">
-          <thead>
-            <tr>
-              <th>Marca</th><th>Email acceso</th><th>Stand</th><th>Estado</th><th>Progreso</th><th>Drive</th><th>Acciones</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Marca</th><th>Email acceso</th><th>Stand</th><th>Estado</th><th>Progreso</th><th>Drive</th><th>Acciones</th></tr></thead>
           <tbody id="tablaExpositores"></tbody>
         </table>
       </div>
     </div>
 
+    <!-- PERSONAL GLOBAL -->
     <div class="seccion-admin" id="asec1">
+      <div class="filtros-fila">
+        <input type="text" placeholder="Buscar por nombre, RUT o función..." id="buscarPersonal" oninput="filtrarPersonalGlobal()" class="buscador-inline" style="width:280px">
+        <button class="tag-btn active" onclick="filtroPersonalTipo('todos', this)" id="fpTodos">Todos</button>
+        <button class="tag-btn" onclick="filtroPersonalTipo('montaje', this)">Montaje</button>
+        <button class="tag-btn" onclick="filtroPersonalTipo('evento', this)">Evento</button>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla-admin">
+          <thead><tr><th>Marca</th><th>Nombre</th><th>RUT</th><th>Email</th><th>Función</th><th>Tipo</th><th>Acciones</th></tr></thead>
+          <tbody id="tablaPersonalGlobal"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VEHÍCULOS GLOBAL -->
+    <div class="seccion-admin" id="asec2">
+      <div class="filtros-fila">
+        <input type="text" placeholder="Buscar por patente o modelo..." id="buscarVehiculo" oninput="filtrarVehiculosGlobal()" class="buscador-inline" style="width:280px">
+        <button class="tag-btn active" onclick="filtroVehiculoTipo('todos', this)" id="fvTodos">Todos</button>
+        <button class="tag-btn" onclick="filtroVehiculoTipo('montaje', this)">Montaje</button>
+        <button class="tag-btn" onclick="filtroVehiculoTipo('evento', this)">Evento</button>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla-admin">
+          <thead><tr><th>Marca</th><th>Patente</th><th>Modelo</th><th>Tipo</th><th>Días</th><th>Acciones</th></tr></thead>
+          <tbody id="tablaVehiculosGlobal"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DOCUMENTOS -->
+    <div class="seccion-admin" id="asec3">
       <div style="margin-bottom:16px">
         <select id="filtroExpositorDocs" onchange="cargarDocumentosAdmin()" style="background:#1a2940;border:1px solid #2E5FA3;border-radius:8px;padding:10px 16px;color:white;font-size:14px;width:100%;max-width:400px">
           <option value="">Selecciona un expositor...</option>
@@ -161,7 +200,8 @@
       <div id="listaDocsAdmin"></div>
     </div>
 
-    <div class="seccion-admin" id="asec2">
+    <!-- EXPORTACIONES -->
+    <div class="seccion-admin" id="asec4">
       <div style="background:#1a2940;border-radius:12px;padding:24px">
         <h3 style="margin-bottom:20px;color:#a0b4c8">Exportar datos del festival</h3>
         <div style="display:flex;flex-direction:column;gap:12px;max-width:500px">
@@ -173,7 +213,8 @@
       </div>
     </div>
 
-    <div class="seccion-admin" id="asec3">
+    <!-- CONFIGURACIÓN -->
+    <div class="seccion-admin" id="asec5">
       <div style="background:#1a2940;border-radius:12px;padding:24px;margin-bottom:20px">
         <h3 style="margin-bottom:16px;color:#a0b4c8">Documentos requeridos</h3>
         <div class="nota">Los documentos obligatorios bloquean el 100% de progreso hasta ser aprobados</div>
@@ -185,6 +226,7 @@
         <div id="infoEdicion"></div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -196,53 +238,25 @@
     <div class="bloque-form">
       <p class="bloque-titulo azul">ACCESO A LA PLATAFORMA</p>
       <div class="fila-2">
-        <div class="campo">
-          <label>Email de acceso <span class="required">*</span></label>
-          <input type="email" id="n_email" placeholder="acceso@marca.cl">
-          <p class="hint">Usuario único de login. No puede repetirse.</p>
-        </div>
-        <div class="campo">
-          <label>Contraseña temporal <span class="required">*</span></label>
-          <input type="text" id="n_password">
-          <p class="hint">Se envía al expositor en el email de bienvenida.</p>
-        </div>
+        <div class="campo"><label>Email de acceso <span class="required">*</span></label><input type="email" id="n_email" placeholder="acceso@marca.cl"><p class="hint">Usuario único de login.</p></div>
+        <div class="campo"><label>Contraseña temporal <span class="required">*</span></label><input type="text" id="n_password"><p class="hint">Se envía al expositor en email de bienvenida.</p></div>
       </div>
     </div>
     <div class="bloque-form">
       <p class="bloque-titulo gris">DATOS DE LA MARCA</p>
       <div class="fila-2">
-        <div class="campo">
-          <label>Nombre de la Marca <span class="required">*</span></label>
-          <input type="text" id="n_nombre" placeholder="Ej: Diageo Chile">
-          <p class="hint">Debe ser único por edición.</p>
-        </div>
-        <div class="campo">
-          <label>Responsable</label>
-          <input type="text" id="n_responsable" placeholder="Nombre completo">
-          <p class="hint">Puede repetirse entre marcas del mismo productor.</p>
-        </div>
+        <div class="campo"><label>Nombre de la Marca <span class="required">*</span></label><input type="text" id="n_nombre" placeholder="Ej: Diageo Chile"><p class="hint">Único por edición.</p></div>
+        <div class="campo"><label>Responsable</label><input type="text" id="n_responsable" placeholder="Nombre completo"><p class="hint">Puede repetirse entre marcas del mismo productor.</p></div>
       </div>
     </div>
     <div class="bloque-form">
       <p class="bloque-titulo gris">CONFIGURACIÓN DEL STAND</p>
       <div class="fila-3">
-        <div class="campo">
-          <label>Tamaño Stand</label>
-          <input type="text" id="n_stand" placeholder="Ej: 12 m² · Zona Central">
-        </div>
-        <div class="campo">
-          <label>Máx. veh. montaje</label>
-          <input type="number" id="n_max_montaje" value="10" min="1" max="10">
-        </div>
-        <div class="campo">
-          <label>Máx. veh. evento</label>
-          <input type="number" id="n_max_evento" value="5" min="1" max="5">
-        </div>
+        <div class="campo"><label>Tamaño Stand</label><input type="text" id="n_stand" placeholder="Ej: 12 m² · Zona Central"></div>
+        <div class="campo"><label>Máx. veh. montaje</label><input type="number" id="n_max_montaje" value="10" min="1" max="10"></div>
+        <div class="campo"><label>Máx. veh. evento</label><input type="number" id="n_max_evento" value="5" min="1" max="5"></div>
       </div>
-      <div class="campo">
-        <label>Comisión (%)</label>
-        <input type="number" id="n_comision" placeholder="Ej: 8.5" step="0.5">
-      </div>
+      <div class="campo"><label>Comisión (%)</label><input type="number" id="n_comision" placeholder="Ej: 8.5" step="0.5"></div>
     </div>
     <div class="modal-acciones">
       <button class="btn-secondary" onclick="cerrarModal('modalNuevo')">Cancelar</button>
@@ -260,49 +274,24 @@
     <div class="bloque-form">
       <p class="bloque-titulo gris">DATOS DE LA MARCA</p>
       <div class="fila-2">
-        <div class="campo">
-          <label>Nombre de la Marca <span class="required">*</span></label>
-          <input type="text" id="e_nombre">
-        </div>
-        <div class="campo">
-          <label>Responsable</label>
-          <input type="text" id="e_responsable">
-        </div>
+        <div class="campo"><label>Nombre de la Marca <span class="required">*</span></label><input type="text" id="e_nombre"></div>
+        <div class="campo"><label>Responsable</label><input type="text" id="e_responsable"></div>
       </div>
       <div class="fila-2">
-        <div class="campo">
-          <label>Email de acceso</label>
-          <input type="email" id="e_email">
-        </div>
-        <div class="campo">
-          <label>Teléfono responsable</label>
-          <input type="tel" id="e_telefono" placeholder="+56 9 xxxx xxxx">
-        </div>
+        <div class="campo"><label>Email de acceso</label><input type="email" id="e_email"></div>
+        <div class="campo"><label>Teléfono responsable</label><input type="tel" id="e_telefono" placeholder="+56 9 xxxx xxxx"></div>
       </div>
     </div>
     <div class="bloque-form">
       <p class="bloque-titulo gris">CONFIGURACIÓN DEL STAND</p>
       <div class="fila-3">
-        <div class="campo">
-          <label>Tamaño Stand</label>
-          <input type="text" id="e_stand" placeholder="Ej: 12 m²">
-        </div>
-        <div class="campo">
-          <label>Máx. veh. montaje</label>
-          <input type="number" id="e_max_montaje" min="1" max="10">
-        </div>
-        <div class="campo">
-          <label>Máx. veh. evento</label>
-          <input type="number" id="e_max_evento" min="1" max="5">
-        </div>
+        <div class="campo"><label>Tamaño Stand</label><input type="text" id="e_stand"></div>
+        <div class="campo"><label>Máx. veh. montaje</label><input type="number" id="e_max_montaje" min="1" max="10"></div>
+        <div class="campo"><label>Máx. veh. evento</label><input type="number" id="e_max_evento" min="1" max="5"></div>
       </div>
       <div class="fila-2">
-        <div class="campo">
-          <label>Comisión (%)</label>
-          <input type="number" id="e_comision" step="0.5">
-        </div>
-        <div class="campo">
-          <label>Estado acreditación</label>
+        <div class="campo"><label>Comisión (%)</label><input type="number" id="e_comision" step="0.5"></div>
+        <div class="campo"><label>Estado acreditación</label>
           <select id="e_estado">
             <option value="Pendiente">Pendiente</option>
             <option value="Pre-validado">Pre-validado</option>
@@ -319,12 +308,115 @@
   </div>
 </div>
 
-<!-- MODAL DETALLE -->
+<!-- MODAL DETALLE EXPOSITOR (con pestañas) -->
 <div class="modal-overlay" id="modalDetalle">
-  <div class="modal">
-    <h2 id="detalleTitulo">Detalle</h2>
-    <div id="detalleContenido"></div>
-    <div class="modal-acciones" id="detalleAcciones"></div>
+  <div class="modal" style="max-width:900px">
+    <h2 id="detalleTitulo">Detalle del Expositor</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="cambiarModalTab(0)" id="mtab0">📋 Resumen</button>
+      <button class="modal-tab" onclick="cambiarModalTab(1)" id="mtab1">👤 Personal</button>
+      <button class="modal-tab" onclick="cambiarModalTab(2)" id="mtab2">🚗 Vehículos</button>
+      <button class="modal-tab" onclick="cambiarModalTab(3)" id="mtab3">📄 Documentos</button>
+    </div>
+
+    <!-- TAB RESUMEN -->
+    <div class="modal-seccion visible" id="msec0">
+      <div id="detalleResumen"></div>
+    </div>
+
+    <!-- TAB PERSONAL -->
+    <div class="modal-seccion" id="msec1">
+      <div class="filtros-fila">
+        <input type="text" placeholder="Buscar nombre o RUT..." id="buscarPersonalModal" oninput="filtrarPersonalModal()" class="buscador-inline" style="width:220px">
+        <button class="tag-btn active" onclick="filtroPersonalModal('todos', this)">Todos</button>
+        <button class="tag-btn" onclick="filtroPersonalModal('montaje', this)">Montaje</button>
+        <button class="tag-btn" onclick="filtroPersonalModal('evento', this)">Evento</button>
+        <button class="btn-success btn-sm" onclick="agregarPersonalModal()" style="margin-left:auto">+ Agregar</button>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla-admin">
+          <thead><tr><th>Nombre</th><th>RUT</th><th>Email</th><th>Función</th><th>Tipo</th><th>Acciones</th></tr></thead>
+          <tbody id="tablaPersonalModal"></tbody>
+        </table>
+      </div>
+      <div id="formAgregarPersonal" style="display:none;margin-top:16px;background:#0f1b2d;padding:16px;border-radius:10px">
+        <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px">Agregar persona</p>
+        <div class="fila-2">
+          <div class="campo"><label>Nombre completo</label><input type="text" id="np_nombre" placeholder="Nombre completo"></div>
+          <div class="campo"><label>RUT</label><input type="text" id="np_rut" placeholder="12.345.678-9"></div>
+        </div>
+        <div class="fila-3">
+          <div class="campo"><label>Email</label><input type="email" id="np_email" placeholder="correo@mail.cl"></div>
+          <div class="campo"><label>Función</label>
+            <select id="np_funcion">
+              <option>Bartender</option><option>Supervisor</option><option>Promotor/a</option>
+              <option>Cajero/a</option><option>Montaje</option><option>Desmontaje</option><option>Otro</option>
+            </select>
+          </div>
+          <div class="campo"><label>Tipo acreditación</label>
+            <select id="np_tipo">
+              <option value="evento">Evento</option>
+              <option value="montaje">Montaje/Desmontaje</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-primary" onclick="guardarNuevaPersona()">Guardar</button>
+          <button class="btn-secondary" onclick="document.getElementById('formAgregarPersonal').style.display='none'">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB VEHÍCULOS -->
+    <div class="modal-seccion" id="msec2">
+      <div class="filtros-fila">
+        <input type="text" placeholder="Buscar patente o modelo..." id="buscarVehiculoModal" oninput="filtrarVehiculosModal()" class="buscador-inline" style="width:220px">
+        <button class="tag-btn active" onclick="filtroVehiculoModal('todos', this)">Todos</button>
+        <button class="tag-btn" onclick="filtroVehiculoModal('montaje', this)">Montaje</button>
+        <button class="tag-btn" onclick="filtroVehiculoModal('evento', this)">Evento</button>
+        <button class="btn-success btn-sm" onclick="agregarVehiculoModal()" style="margin-left:auto">+ Agregar</button>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla-admin">
+          <thead><tr><th>Patente</th><th>Modelo</th><th>Tipo</th><th>Días</th><th>Acciones</th></tr></thead>
+          <tbody id="tablaVehiculosModal"></tbody>
+        </table>
+      </div>
+      <div id="formAgregarVehiculo" style="display:none;margin-top:16px;background:#0f1b2d;padding:16px;border-radius:10px">
+        <p style="font-size:13px;color:#a0b4c8;margin-bottom:12px">Agregar vehículo</p>
+        <div class="fila-3">
+          <div class="campo"><label>Patente</label><input type="text" id="nv_patente" placeholder="ABCD12" style="text-transform:uppercase"></div>
+          <div class="campo"><label>Modelo</label><input type="text" id="nv_modelo" placeholder="Ej: Camioneta Ford"></div>
+          <div class="campo"><label>Tipo</label>
+            <select id="nv_tipo">
+              <option value="montaje">Montaje/Desmontaje</option>
+              <option value="evento">Día del Evento</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo"><label>Días</label>
+          <select id="nv_dias">
+            <option>Día 1</option><option>Día 2</option><option>Día 3</option>
+            <option>Día 4</option><option>Día 5</option><option>Día 6</option><option>Día 7</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-primary" onclick="guardarNuevoVehiculo()">Guardar</button>
+          <button class="btn-secondary" onclick="document.getElementById('formAgregarVehiculo').style.display='none'">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB DOCUMENTOS -->
+    <div class="modal-seccion" id="msec3">
+      <div id="docsModalContenido"></div>
+    </div>
+
+    <div class="modal-acciones">
+      <button class="btn-secondary" onclick="cerrarModal('modalDetalle')">Cerrar</button>
+      <button class="btn-success" onclick="exportarFichaExpositor(detalleExpositorId)">📊 Exportar CSV</button>
+      <button class="btn-primary" onclick="reenviarBienvenida()">✉️ Reenviar bienvenida</button>
+    </div>
   </div>
 </div>
 
@@ -340,16 +432,26 @@
 
 <script>
 const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-const SUPABASE_PUB = 'sb_publishable_yzlVRXDgiLFPWV_tqHVHVg_cQxpDeaM';
-const SUPABASE_SVC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcGhxdnZuaGZmb3Jrem1tZ3BtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzUyMDI5MywiZXhwIjoyMDg5MDk2MjkzfQ.REa4II4R7YzjgKcDWojr9910bPFUe2_j_VjnyGXt0e8';
+const SUPABASE_PUB = 'TU_PUBLISHABLE_KEY';
+const SUPABASE_SVC = 'TU_SERVICE_KEY';
 const WEBHOOK_DRIVE = 'https://n8n-lcf.onrender.com:5678/webhook/crear-carpeta-expositor';
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_PUB);
-const sbAdmin = createClient(SUPABASE_URL, SUPABASE_SVC);
+const sbAdmin = createClient(SUPABASE_URL, SUPABASE_SVC, { auth: { storageKey: 'sb-admin-auth' } });
 
 let expositoresData = [];
+let personalGlobalData = [];
+let vehiculosGlobalData = [];
 let seccionActual = 0;
+let modalTabActual = 0;
+let detalleExpositorId = null;
+let detallePersonalData = [];
+let detalleVehiculosData = [];
+let filtroPersonalActivo = 'todos';
+let filtroVehiculoActivo = 'todos';
+let filtroPersonalModalActivo = 'todos';
+let filtroVehiculoModalActivo = 'todos';
 
 // AUTH
 async function login() {
@@ -358,19 +460,14 @@ async function login() {
   const err = document.getElementById('loginError');
   err.classList.remove('visible');
   if (!email || !pass) { err.textContent = 'Completa email y contraseña.'; err.classList.add('visible'); return; }
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  const { data, error } = await sb.auth.signInWithPassword({ email: email, password: pass });
   if (error) { err.textContent = 'Credenciales incorrectas.'; err.classList.add('visible'); return; }
   iniciarAdmin(data.user);
 }
 
-async function logout() {
-  await sb.auth.signOut();
-  location.reload();
-}
+async function logout() { await sb.auth.signOut(); location.reload(); }
 
-sb.auth.onAuthStateChange((event, session) => {
-  if (session) iniciarAdmin(session.user);
-});
+sb.auth.onAuthStateChange(function(event, session) { if (session) iniciarAdmin(session.user); });
 
 async function iniciarAdmin(user) {
   const { data: rol } = await sb.from('user_roles').select('rol').eq('user_id', user.id).single();
@@ -397,7 +494,20 @@ function cambiarSeccion(num) {
   seccionActual = num;
   document.getElementById('asec' + num).classList.add('visible');
   document.getElementById('atab' + num).classList.add('active');
-  if (num === 1) cargarSelectorDocs();
+  if (num === 1) cargarPersonalGlobal();
+  if (num === 2) cargarVehiculosGlobal();
+  if (num === 3) cargarSelectorDocs();
+}
+
+function cambiarModalTab(num) {
+  document.getElementById('msec' + modalTabActual).classList.remove('visible');
+  document.getElementById('mtab' + modalTabActual).classList.remove('active');
+  modalTabActual = num;
+  document.getElementById('msec' + num).classList.add('visible');
+  document.getElementById('mtab' + num).classList.add('active');
+  if (num === 1) renderizarPersonalModal(detallePersonalData);
+  if (num === 2) renderizarVehiculosModal(detalleVehiculosData);
+  if (num === 3) cargarDocumentosModal();
 }
 
 // EXPOSITORES
@@ -407,42 +517,34 @@ async function cargarExpositores() {
   expositoresData = data;
   renderizarExpositores(data);
   document.getElementById('statTotal').textContent = data.length;
-  document.getElementById('statAprobados').textContent = data.filter(e => e.aprobado_operar).length;
-  document.getElementById('statPendientes').textContent = data.filter(e => !e.aprobado_operar && e.estado_acreditacion !== 'Bloqueado').length;
-  document.getElementById('statBloqueados').textContent = data.filter(e => e.estado_acreditacion === 'Bloqueado').length;
+  document.getElementById('statAprobados').textContent = data.filter(function(e) { return e.aprobado_operar; }).length;
+  document.getElementById('statPendientes').textContent = data.filter(function(e) { return !e.aprobado_operar && e.estado_acreditacion !== 'Bloqueado'; }).length;
+  document.getElementById('statBloqueados').textContent = data.filter(function(e) { return e.estado_acreditacion === 'Bloqueado'; }).length;
 }
 
 function renderizarExpositores(data) {
   const tbody = document.getElementById('tablaExpositores');
-  if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#a0b4c8;padding:40px">No hay expositores registrados</td></tr>';
-    return;
-  }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#a0b4c8;padding:40px">No hay expositores registrados</td></tr>'; return; }
   tbody.innerHTML = data.map(function(e) {
     const pct = e.progreso_pct || 0;
     const estadoKey = e.aprobado_operar ? 'aprobado' : (e.estado_acreditacion || 'Pendiente').toLowerCase().replace(' ', '-');
     const estadoLabel = e.aprobado_operar ? (e.aprobado_operar_forzado ? '⚡ Aprobado (F)' : '✓ Aprobado') : (e.estado_acreditacion || 'Pendiente');
-    const emailAcceso = e.email_acceso || e.responsable_email || '—';
-    const stand = e.tamanio_stand_texto || (e.tamanio_stand_m2 ? e.tamanio_stand_m2 + ' m²' : '—');
-    const driveHtml = e.drive_folder_url
-      ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link">📁 Drive</a>'
-      : '<span style="color:#4a6080;font-size:12px">Sin carpeta</span>';
-    const aprobarBtns = !e.aprobado_operar
-      ? '<button class="btn-success btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', false)">✓</button>' +
-        '<button class="btn-warning btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', true)">⚡</button>'
+    const driveHtml = e.drive_folder_url ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link">📁</a>' : '<span style="color:#4a6080;font-size:11px">—</span>';
+    const aprobar = !e.aprobado_operar
+      ? '<button class="btn-success btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', false)">✓</button><button class="btn-warning btn-sm" onclick="aprobarExpositor(\'' + e.id + '\', true)">⚡</button>'
       : '<button class="btn-danger btn-sm" onclick="revocarAprobacion(\'' + e.id + '\')">Revocar</button>';
     return '<tr>' +
-      '<td><strong>' + (e.nombre_marca || '—') + '</strong>' + (e.responsable_nombre ? '<br><span style="font-size:11px;color:#a0b4c8">' + e.responsable_nombre + '</span>' : '') + '</td>' +
-      '<td style="font-size:12px;color:#a0b4c8">' + emailAcceso + '</td>' +
-      '<td>' + stand + '</td>' +
+      '<td><strong>' + (e.nombre_marca||'—') + '</strong>' + (e.responsable_nombre ? '<br><span style="font-size:11px;color:#a0b4c8">' + e.responsable_nombre + '</span>' : '') + '</td>' +
+      '<td style="font-size:12px;color:#a0b4c8">' + (e.email_acceso||e.responsable_email||'—') + '</td>' +
+      '<td>' + (e.tamanio_stand_texto||(e.tamanio_stand_m2?e.tamanio_stand_m2+' m²':'—')) + '</td>' +
       '<td><span class="badge ' + estadoKey + '">' + estadoLabel + '</span></td>' +
       '<td><div class="progreso-mini"><div class="barra-mini"><div class="barra-mini-fill ' + (pct===100?'completo':'') + '" style="width:' + pct + '%"></div></div><span style="font-size:12px;color:#a0b4c8">' + pct + '%</span></div></td>' +
       '<td>' + driveHtml + '</td>' +
       '<td><div style="display:flex;gap:4px;flex-wrap:wrap">' +
         '<button class="btn-secondary btn-sm" onclick="verDetalle(\'' + e.id + '\')">Ver</button>' +
         '<button class="btn-primary btn-sm" onclick="abrirEditar(\'' + e.id + '\')">✏️</button>' +
-        aprobarBtns +
-        '<button class="btn-danger btn-sm" onclick="eliminarExpositor(\'' + e.id + '\', \'' + (e.nombre_marca || '').replace(/'/g, '') + '\')">🗑️</button>' +
+        aprobar +
+        '<button class="btn-danger btn-sm" onclick="eliminarExpositor(\'' + e.id + '\', \'' + (e.nombre_marca||'').replace(/'/g,'') + '\')">🗑️</button>' +
       '</div></td>' +
     '</tr>';
   }).join('');
@@ -451,10 +553,284 @@ function renderizarExpositores(data) {
 function filtrarExpositores() {
   const q = document.getElementById('buscador').value.toLowerCase();
   renderizarExpositores(expositoresData.filter(function(e) {
-    return (e.nombre_marca||'').toLowerCase().includes(q) ||
-           (e.responsable_nombre||'').toLowerCase().includes(q) ||
-           (e.email_acceso||'').toLowerCase().includes(q);
+    return (e.nombre_marca||'').toLowerCase().includes(q) || (e.responsable_nombre||'').toLowerCase().includes(q) || (e.email_acceso||'').toLowerCase().includes(q);
   }));
+}
+
+// PERSONAL GLOBAL
+async function cargarPersonalGlobal() {
+  const { data } = await sb.from('personal_expositor').select('*, expositores(nombre_marca)').order('nombre');
+  if (!data) return;
+  personalGlobalData = data;
+  renderizarPersonalGlobal(data);
+}
+
+function renderizarPersonalGlobal(data) {
+  const q = (document.getElementById('buscarPersonal').value || '').toLowerCase();
+  const tipo = filtroPersonalActivo;
+  const filtrado = data.filter(function(p) {
+    const matchQ = !q || (p.nombre||'').toLowerCase().includes(q) || (p.rut||'').toLowerCase().includes(q) || (p.funcion||'').toLowerCase().includes(q);
+    const matchT = tipo === 'todos' || p.tipo_acreditacion === tipo;
+    return matchQ && matchT;
+  });
+  const tbody = document.getElementById('tablaPersonalGlobal');
+  if (!filtrado.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#a0b4c8;padding:30px">Sin resultados</td></tr>'; return; }
+  tbody.innerHTML = filtrado.map(function(p) {
+    return '<tr>' +
+      '<td style="font-size:12px;color:#5a8fd4">' + (p.expositores ? p.expositores.nombre_marca : '—') + '</td>' +
+      '<td>' + (p.nombre||'—') + '</td>' +
+      '<td style="font-size:12px">' + (p.rut||'—') + '</td>' +
+      '<td style="font-size:12px">' + (p.correo||'—') + '</td>' +
+      '<td>' + (p.funcion||'—') + '</td>' +
+      '<td><span class="badge ' + (p.tipo_acreditacion||'') + '">' + (p.tipo_acreditacion||'—') + '</span></td>' +
+      '<td><button class="btn-danger btn-sm" onclick="eliminarPersona(\'' + p.id + '\')">🗑️</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function filtrarPersonalGlobal() { renderizarPersonalGlobal(personalGlobalData); }
+
+function filtroPersonalTipo(tipo, btn) {
+  filtroPersonalActivo = tipo;
+  document.querySelectorAll('#asec1 .tag-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderizarPersonalGlobal(personalGlobalData);
+}
+
+// VEHÍCULOS GLOBAL
+async function cargarVehiculosGlobal() {
+  const { data } = await sb.from('vehiculos_expositor').select('*, expositores(nombre_marca)').order('patente');
+  if (!data) return;
+  vehiculosGlobalData = data;
+  renderizarVehiculosGlobal(data);
+}
+
+function renderizarVehiculosGlobal(data) {
+  const q = (document.getElementById('buscarVehiculo').value || '').toLowerCase();
+  const tipo = filtroVehiculoActivo;
+  const filtrado = data.filter(function(v) {
+    const matchQ = !q || (v.patente||'').toLowerCase().includes(q) || (v.modelo||'').toLowerCase().includes(q);
+    const matchT = tipo === 'todos' || v.tipo === tipo;
+    return matchQ && matchT;
+  });
+  const tbody = document.getElementById('tablaVehiculosGlobal');
+  if (!filtrado.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#a0b4c8;padding:30px">Sin resultados</td></tr>'; return; }
+  tbody.innerHTML = filtrado.map(function(v) {
+    return '<tr>' +
+      '<td style="font-size:12px;color:#5a8fd4">' + (v.expositores ? v.expositores.nombre_marca : '—') + '</td>' +
+      '<td><strong>' + (v.patente||'—') + '</strong></td>' +
+      '<td>' + (v.modelo||'—') + '</td>' +
+      '<td><span class="badge ' + (v.tipo||'') + '">' + (v.tipo||'—') + '</span></td>' +
+      '<td>' + (v.dias||'—') + '</td>' +
+      '<td><button class="btn-danger btn-sm" onclick="eliminarVehiculo(\'' + v.id + '\')">🗑️</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function filtrarVehiculosGlobal() { renderizarVehiculosGlobal(vehiculosGlobalData); }
+
+function filtroVehiculoTipo(tipo, btn) {
+  filtroVehiculoActivo = tipo;
+  document.querySelectorAll('#asec2 .tag-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderizarVehiculosGlobal(vehiculosGlobalData);
+}
+
+// DETALLE EXPOSITOR
+async function verDetalle(id) {
+  detalleExpositorId = id;
+  modalTabActual = 0;
+  document.querySelectorAll('.modal-seccion').forEach(function(s) { s.classList.remove('visible'); });
+  document.querySelectorAll('.modal-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('msec0').classList.add('visible');
+  document.getElementById('mtab0').classList.add('active');
+
+  const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
+  const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
+  const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
+  detallePersonalData = personal || [];
+  detalleVehiculosData = vehiculos || [];
+
+  document.getElementById('detalleTitulo').textContent = e.nombre_marca || 'Detalle';
+  document.getElementById('detalleResumen').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Email acceso</p><p>' + (e.email_acceso||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Responsable</p><p>' + (e.responsable_nombre||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Teléfono</p><p>' + (e.responsable_telefono||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Stand</p><p>' + (e.tamanio_stand_texto||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Electricidad</p><p>' + (e.electricidad||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Cristalería</p><p>' + (e.cristaleria||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Hielo</p><p>' + (e.tipo_hielo||'—') + '</p></div>' +
+    '<div><p style="font-size:12px;color:#a0b4c8">Comisión</p><p>' + (e.comision_pct||0) + '%</p></div>' +
+    '</div>' +
+    '<div style="display:flex;gap:20px;margin-bottom:12px">' +
+    '<p style="font-size:13px;color:#a0b4c8">👤 Personal: <strong style="color:white">' + detallePersonalData.length + '</strong></p>' +
+    '<p style="font-size:13px;color:#a0b4c8">🚗 Vehículos: <strong style="color:white">' + detalleVehiculosData.length + '</strong></p>' +
+    '</div>' +
+    (e.drive_folder_url ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link">📁 Abrir carpeta Drive ↗</a>' : '');
+
+  document.getElementById('modalDetalle').classList.add('visible');
+}
+
+// PERSONAL DEL MODAL
+function renderizarPersonalModal(data) {
+  const q = (document.getElementById('buscarPersonalModal').value || '').toLowerCase();
+  const tipo = filtroPersonalModalActivo;
+  const filtrado = data.filter(function(p) {
+    const matchQ = !q || (p.nombre||'').toLowerCase().includes(q) || (p.rut||'').toLowerCase().includes(q);
+    const matchT = tipo === 'todos' || p.tipo_acreditacion === tipo;
+    return matchQ && matchT;
+  });
+  const tbody = document.getElementById('tablaPersonalModal');
+  if (!filtrado.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#a0b4c8;padding:20px">Sin resultados</td></tr>'; return; }
+  tbody.innerHTML = filtrado.map(function(p) {
+    return '<tr>' +
+      '<td>' + (p.nombre||'—') + '</td>' +
+      '<td style="font-size:12px">' + (p.rut||'—') + '</td>' +
+      '<td style="font-size:12px">' + (p.correo||'—') + '</td>' +
+      '<td>' + (p.funcion||'—') + '</td>' +
+      '<td><span class="badge ' + (p.tipo_acreditacion||'') + '">' + (p.tipo_acreditacion||'—') + '</span></td>' +
+      '<td><button class="btn-danger btn-sm" onclick="eliminarPersonaModal(\'' + p.id + '\')">🗑️</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function filtrarPersonalModal() { renderizarPersonalModal(detallePersonalData); }
+
+function filtroPersonalModal(tipo, btn) {
+  filtroPersonalModalActivo = tipo;
+  document.querySelectorAll('#msec1 .tag-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderizarPersonalModal(detallePersonalData);
+}
+
+function agregarPersonalModal() {
+  document.getElementById('formAgregarPersonal').style.display = 'block';
+}
+
+async function guardarNuevaPersona() {
+  const nombre = document.getElementById('np_nombre').value.trim();
+  const rut = document.getElementById('np_rut').value.trim();
+  if (!nombre || !rut) { mostrarPopup('⚠️', 'Campos requeridos', 'Completa nombre y RUT'); return; }
+  const { data, error } = await sb.from('personal_expositor').insert({
+    expositor_id: detalleExpositorId,
+    nombre: nombre,
+    rut: rut,
+    correo: document.getElementById('np_email').value.trim(),
+    funcion: document.getElementById('np_funcion').value,
+    tipo_acreditacion: document.getElementById('np_tipo').value
+  }).select().single();
+  if (error) { mostrarPopup('✗', 'Error', error.message); return; }
+  detallePersonalData.push(data);
+  renderizarPersonalModal(detallePersonalData);
+  document.getElementById('formAgregarPersonal').style.display = 'none';
+  document.getElementById('np_nombre').value = '';
+  document.getElementById('np_rut').value = '';
+  document.getElementById('np_email').value = '';
+}
+
+async function eliminarPersonaModal(id) {
+  if (!confirm('¿Eliminar esta persona?')) return;
+  await sb.from('personal_expositor').delete().eq('id', id);
+  detallePersonalData = detallePersonalData.filter(function(p) { return p.id !== id; });
+  renderizarPersonalModal(detallePersonalData);
+}
+
+async function eliminarPersona(id) {
+  if (!confirm('¿Eliminar esta persona?')) return;
+  await sb.from('personal_expositor').delete().eq('id', id);
+  cargarPersonalGlobal();
+}
+
+// VEHÍCULOS DEL MODAL
+function renderizarVehiculosModal(data) {
+  const q = (document.getElementById('buscarVehiculoModal').value || '').toLowerCase();
+  const tipo = filtroVehiculoModalActivo;
+  const filtrado = data.filter(function(v) {
+    const matchQ = !q || (v.patente||'').toLowerCase().includes(q) || (v.modelo||'').toLowerCase().includes(q);
+    const matchT = tipo === 'todos' || v.tipo === tipo;
+    return matchQ && matchT;
+  });
+  const tbody = document.getElementById('tablaVehiculosModal');
+  if (!filtrado.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#a0b4c8;padding:20px">Sin resultados</td></tr>'; return; }
+  tbody.innerHTML = filtrado.map(function(v) {
+    return '<tr>' +
+      '<td><strong>' + (v.patente||'—') + '</strong></td>' +
+      '<td>' + (v.modelo||'—') + '</td>' +
+      '<td><span class="badge ' + (v.tipo||'') + '">' + (v.tipo||'—') + '</span></td>' +
+      '<td>' + (v.dias||'—') + '</td>' +
+      '<td><button class="btn-danger btn-sm" onclick="eliminarVehiculoModal(\'' + v.id + '\')">🗑️</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function filtrarVehiculosModal() { renderizarVehiculosModal(detalleVehiculosData); }
+
+function filtroVehiculoModal(tipo, btn) {
+  filtroVehiculoModalActivo = tipo;
+  document.querySelectorAll('#msec2 .tag-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderizarVehiculosModal(detalleVehiculosData);
+}
+
+function agregarVehiculoModal() { document.getElementById('formAgregarVehiculo').style.display = 'block'; }
+
+async function guardarNuevoVehiculo() {
+  const patente = document.getElementById('nv_patente').value.trim().toUpperCase();
+  if (!patente) { mostrarPopup('⚠️', 'Campo requerido', 'Ingresa la patente'); return; }
+  const { data, error } = await sb.from('vehiculos_expositor').insert({
+    expositor_id: detalleExpositorId,
+    patente: patente,
+    modelo: document.getElementById('nv_modelo').value.trim(),
+    tipo: document.getElementById('nv_tipo').value,
+    dias: document.getElementById('nv_dias').value
+  }).select().single();
+  if (error) { mostrarPopup('✗', 'Error', error.message); return; }
+  detalleVehiculosData.push(data);
+  renderizarVehiculosModal(detalleVehiculosData);
+  document.getElementById('formAgregarVehiculo').style.display = 'none';
+  document.getElementById('nv_patente').value = '';
+  document.getElementById('nv_modelo').value = '';
+}
+
+async function eliminarVehiculoModal(id) {
+  if (!confirm('¿Eliminar este vehículo?')) return;
+  await sb.from('vehiculos_expositor').delete().eq('id', id);
+  detalleVehiculosData = detalleVehiculosData.filter(function(v) { return v.id !== id; });
+  renderizarVehiculosModal(detalleVehiculosData);
+}
+
+async function eliminarVehiculo(id) {
+  if (!confirm('¿Eliminar este vehículo?')) return;
+  await sb.from('vehiculos_expositor').delete().eq('id', id);
+  cargarVehiculosGlobal();
+}
+
+// DOCUMENTOS DEL MODAL
+async function cargarDocumentosModal() {
+  if (!detalleExpositorId) return;
+  const { data } = await sb.from('documentos_expositor').select('*').eq('expositor_id', detalleExpositorId);
+  const div = document.getElementById('docsModalContenido');
+  if (!data || !data.length) { div.innerHTML = '<p style="color:#a0b4c8;padding:20px">No hay documentos subidos por este expositor.</p>'; return; }
+  div.innerHTML = data.map(function(doc) {
+    return '<div class="doc-review">' +
+      '<div class="doc-review-header">' +
+        '<div><strong>' + doc.tipo_documento + '</strong><p style="font-size:12px;color:#a0b4c8;margin-top:2px">' + (doc.nombre_archivo||'—') + '</p></div>' +
+        '<div style="display:flex;align-items:center;gap:10px"><span class="badge ' + doc.estado + '">' + doc.estado + '</span>' +
+        (doc.url_archivo ? '<a href="' + doc.url_archivo + '" target="_blank" style="color:#5a8fd4;font-size:13px">Ver ↗</a>' : '') + '</div>' +
+      '</div>' +
+      '<div class="doc-acciones">' +
+        '<button class="btn-success btn-sm" onclick="cambiarEstadoDocModal(\'' + doc.id + '\', \'aprobado\')">✓ Aprobar</button>' +
+        '<button class="btn-danger btn-sm" onclick="cambiarEstadoDocModal(\'' + doc.id + '\', \'rechazado\')">✗ Rechazar</button>' +
+        '<button class="btn-secondary btn-sm" onclick="cambiarEstadoDocModal(\'' + doc.id + '\', \'pendiente\')">⏳ Pendiente</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+async function cambiarEstadoDocModal(docId, estado) {
+  await sb.from('documentos_expositor').update({ estado: estado }).eq('id', docId);
+  await actualizarProgreso(detalleExpositorId);
+  cargarDocumentosModal();
 }
 
 // CREAR EXPOSITOR
@@ -482,49 +858,23 @@ async function crearExpositor() {
   const comision = parseFloat(document.getElementById('n_comision').value) || 0;
   const max_montaje = parseInt(document.getElementById('n_max_montaje').value) || 10;
   const max_evento = parseInt(document.getElementById('n_max_evento').value) || 5;
-
-  if (!email || !password || !nombre) {
-    mostrarPopup('⚠️', 'Campos requeridos', 'Completa el email de acceso, contraseña y nombre de la marca');
-    return;
-  }
-
-  const { data: authData, error: authError } = await sbAdmin.auth.admin.createUser({
-    email: email, password: password, email_confirm: true
-  });
+  if (!email || !password || !nombre) { mostrarPopup('⚠️', 'Campos requeridos', 'Completa email de acceso, contraseña y nombre de la marca'); return; }
+  const { data: authData, error: authError } = await sbAdmin.auth.admin.createUser({ email: email, password: password, email_confirm: true });
   if (authError) { mostrarPopup('✗', 'Error al crear usuario', authError.message); return; }
-
   const { data: edicion } = await sb.from('ediciones').select('id').eq('activa', true).single();
-
   const { data: expData, error: expError } = await sb.from('expositores').insert({
-    nombre_marca: nombre,
-    responsable_nombre: responsable,
-    email_acceso: email,
-    responsable_email: email,
-    user_id: authData.user.id,
-    tamanio_stand_texto: stand,
-    max_vehiculos_montaje: max_montaje,
-    max_vehiculos_evento: max_evento,
-    comision_pct: comision,
-    estado_acreditacion: 'Pendiente',
-    edicion_id: edicion ? edicion.id : null
+    nombre_marca: nombre, responsable_nombre: responsable, email_acceso: email,
+    responsable_email: email, user_id: authData.user.id, tamanio_stand_texto: stand,
+    max_vehiculos_montaje: max_montaje, max_vehiculos_evento: max_evento,
+    comision_pct: comision, estado_acreditacion: 'Pendiente', edicion_id: edicion ? edicion.id : null
   }).select().single();
-
   if (expError) {
     await sbAdmin.auth.admin.deleteUser(authData.user.id);
-    if (expError.code === '23505') {
-      mostrarPopup('✗', 'Marca duplicada', 'Ya existe un expositor con ese nombre en esta edición');
-    } else {
-      mostrarPopup('✗', 'Error', expError.message);
-    }
+    if (expError.code === '23505') { mostrarPopup('✗', 'Marca duplicada', 'Ya existe un expositor con ese nombre en esta edición'); }
+    else { mostrarPopup('✗', 'Error', expError.message); }
     return;
   }
-
-  fetch(WEBHOOK_DRIVE, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nombre_marca: nombre, expositor_id: expData.id })
-  }).catch(function(e) { console.log('Drive webhook:', e); });
-
+  fetch(WEBHOOK_DRIVE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nombre_marca: nombre, expositor_id: expData.id }) }).catch(function(e) { console.log('Drive:', e); });
   cerrarModal('modalNuevo');
   mostrarPopup('✓', 'Expositor creado', nombre + ' registrado correctamente.\n\nEmail: ' + email + '\nContraseña: ' + password);
   cargarExpositores();
@@ -552,8 +902,7 @@ async function guardarEdicion() {
   const nombre = document.getElementById('e_nombre').value.trim();
   if (!nombre) { mostrarPopup('⚠️', 'Campo requerido', 'El nombre de la marca es obligatorio'); return; }
   const { error } = await sb.from('expositores').update({
-    nombre_marca: nombre,
-    responsable_nombre: document.getElementById('e_responsable').value.trim(),
+    nombre_marca: nombre, responsable_nombre: document.getElementById('e_responsable').value.trim(),
     email_acceso: document.getElementById('e_email').value.trim(),
     responsable_telefono: document.getElementById('e_telefono').value.trim(),
     tamanio_stand_texto: document.getElementById('e_stand').value.trim(),
@@ -564,7 +913,7 @@ async function guardarEdicion() {
   }).eq('id', id);
   if (error) { mostrarPopup('✗', 'Error', error.message); return; }
   cerrarModal('modalEditar');
-  mostrarPopup('✓', 'Cambios guardados', 'El perfil del expositor fue actualizado correctamente');
+  mostrarPopup('✓', 'Cambios guardados', 'El perfil del expositor fue actualizado');
   cargarExpositores();
 }
 
@@ -583,68 +932,21 @@ async function eliminarExpositor(id, nombre) {
 // APROBAR
 async function aprobarExpositor(id, forzado) {
   const { data: user } = await sb.auth.getUser();
-  await sb.from('expositores').update({
-    aprobado_operar: true,
-    aprobado_operar_forzado: forzado,
-    aprobado_por: user.user.email,
-    aprobado_at: new Date().toISOString(),
-    estado_acreditacion: 'Aprobado',
-    progreso_pct: 100
-  }).eq('id', id);
-  await sb.from('event_log').insert({
-    accion: forzado ? 'aprobacion_forzada' : 'aprobacion_normal',
-    descripcion: 'Expositor ' + (forzado ? 'aprobado forzadamente' : 'aprobado') + ' para operar',
-    entidad_afectada: 'expositor:' + id,
-    realizado_por: user.user.email
-  });
+  await sb.from('expositores').update({ aprobado_operar: true, aprobado_operar_forzado: forzado, aprobado_por: user.user.email, aprobado_at: new Date().toISOString(), estado_acreditacion: 'Aprobado', progreso_pct: 100 }).eq('id', id);
+  await sb.from('event_log').insert({ accion: forzado ? 'aprobacion_forzada' : 'aprobacion_normal', descripcion: 'Expositor ' + (forzado ? 'aprobado forzadamente' : 'aprobado') + ' para operar', entidad_afectada: 'expositor:' + id, realizado_por: user.user.email });
   mostrarPopup('✓', forzado ? '⚡ Aprobación forzada' : '✓ Aprobado', 'El expositor puede operar en el festival');
   cargarExpositores();
 }
 
 async function revocarAprobacion(id) {
   const { data: user } = await sb.auth.getUser();
-  await sb.from('expositores').update({
-    aprobado_operar: false,
-    aprobado_operar_forzado: false,
-    estado_acreditacion: 'Pendiente',
-    progreso_pct: 80
-  }).eq('id', id);
-  await sb.from('event_log').insert({
-    accion: 'aprobacion_revocada',
-    descripcion: 'Aprobación revocada',
-    entidad_afectada: 'expositor:' + id,
-    realizado_por: user.user.email
-  });
+  await sb.from('expositores').update({ aprobado_operar: false, aprobado_operar_forzado: false, estado_acreditacion: 'Pendiente', progreso_pct: 80 }).eq('id', id);
+  await sb.from('event_log').insert({ accion: 'aprobacion_revocada', descripcion: 'Aprobación revocada', entidad_afectada: 'expositor:' + id, realizado_por: user.user.email });
   mostrarPopup('⚠️', 'Aprobación revocada', 'El expositor volvió a estado Pendiente');
   cargarExpositores();
 }
 
-// DETALLE
-async function verDetalle(id) {
-  const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
-  const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
-  const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
-  document.getElementById('detalleTitulo').textContent = e.nombre_marca || 'Detalle';
-  document.getElementById('detalleContenido').innerHTML =
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Email acceso</p><p>' + (e.email_acceso||'—') + '</p></div>' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Responsable</p><p>' + (e.responsable_nombre||'—') + '</p></div>' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Stand</p><p>' + (e.tamanio_stand_texto||'—') + '</p></div>' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Electricidad</p><p>' + (e.electricidad||'—') + '</p></div>' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Cristalería</p><p>' + (e.cristaleria||'—') + '</p></div>' +
-    '<div><p style="font-size:12px;color:#a0b4c8">Comisión</p><p>' + (e.comision_pct||0) + '%</p></div>' +
-    '</div>' +
-    (personal && personal.length ? '<p style="font-size:13px;color:#a0b4c8;margin-bottom:6px">👤 Personal: <strong>' + personal.length + ' personas</strong></p>' : '') +
-    (vehiculos && vehiculos.length ? '<p style="font-size:13px;color:#a0b4c8;margin-bottom:12px">🚗 Vehículos: <strong>' + vehiculos.length + '</strong></p>' : '') +
-    (e.drive_folder_url ? '<a href="' + e.drive_folder_url + '" target="_blank" class="drive-link" style="margin-bottom:16px;display:inline-flex">📁 Abrir Drive ↗</a>' : '');
-  document.getElementById('detalleAcciones').innerHTML =
-    '<button class="btn-secondary" onclick="cerrarModal(\'modalDetalle\')">Cerrar</button>' +
-    '<button class="btn-success" onclick="exportarFichaExpositor(\'' + id + '\')">📊 Exportar CSV</button>' +
-    '<button class="btn-primary" onclick="reenviarBienvenida(\'' + (e.email_acceso||e.responsable_email||'') + '\', \'' + (e.nombre_marca||'').replace(/'/g,'') + '\')">✉️ Reenviar bienvenida</button>';
-  document.getElementById('modalDetalle').classList.add('visible');
-}
-
-// DOCUMENTOS
+// DOCUMENTOS ADMIN TAB
 async function cargarSelectorDocs() {
   const { data } = await sb.from('expositores').select('id, nombre_marca').order('nombre_marca');
   const sel = document.getElementById('filtroExpositorDocs');
@@ -657,14 +959,12 @@ async function cargarDocumentosAdmin() {
   if (!id) return;
   const { data } = await sb.from('documentos_expositor').select('*').eq('expositor_id', id);
   const lista = document.getElementById('listaDocsAdmin');
-  if (!data || !data.length) { lista.innerHTML = '<p style="color:#a0b4c8;padding:20px;background:#1a2940;border-radius:10px">No hay documentos subidos por este expositor.</p>'; return; }
+  if (!data || !data.length) { lista.innerHTML = '<p style="color:#a0b4c8;padding:20px;background:#1a2940;border-radius:10px">No hay documentos subidos.</p>'; return; }
   lista.innerHTML = data.map(function(doc) {
     return '<div class="doc-review">' +
-      '<div class="doc-review-header">' +
-        '<div><strong>' + doc.tipo_documento + '</strong><p style="font-size:12px;color:#a0b4c8;margin-top:2px">' + (doc.nombre_archivo||'—') + '</p></div>' +
-        '<div style="display:flex;align-items:center;gap:10px"><span class="badge ' + doc.estado + '">' + doc.estado + '</span>' +
-        (doc.url_archivo ? '<a href="' + doc.url_archivo + '" target="_blank" style="color:#5a8fd4;font-size:13px">Ver ↗</a>' : '') + '</div>' +
-      '</div>' +
+      '<div class="doc-review-header"><div><strong>' + doc.tipo_documento + '</strong><p style="font-size:12px;color:#a0b4c8">' + (doc.nombre_archivo||'—') + '</p></div>' +
+      '<div style="display:flex;align-items:center;gap:10px"><span class="badge ' + doc.estado + '">' + doc.estado + '</span>' +
+      (doc.url_archivo ? '<a href="' + doc.url_archivo + '" target="_blank" style="color:#5a8fd4;font-size:13px">Ver ↗</a>' : '') + '</div></div>' +
       '<div class="doc-acciones">' +
         '<button class="btn-success btn-sm" onclick="cambiarEstadoDoc(\'' + doc.id + '\', \'aprobado\', \'' + id + '\')">✓ Aprobar</button>' +
         '<button class="btn-danger btn-sm" onclick="cambiarEstadoDoc(\'' + doc.id + '\', \'rechazado\', \'' + id + '\')">✗ Rechazar</button>' +
@@ -689,10 +989,10 @@ async function actualizarProgreso(id) {
   if (exp && exp.responsable_email) base++;
   if (exp && exp.electricidad) base++;
   let pct = Math.round((base / 4) * 60);
-  const obligatorios = config ? config.length : 0;
-  if (obligatorios > 0) {
+  const oblig = config ? config.length : 0;
+  if (oblig > 0) {
     const aprobados = docs ? docs.filter(function(d) { return d.estado === 'aprobado'; }).length : 0;
-    pct += Math.round((aprobados / obligatorios) * 40);
+    pct += Math.round((aprobados / oblig) * 40);
   }
   pct = Math.min(pct, 90);
   await sb.from('expositores').update({ progreso_pct: pct }).eq('id', id);
@@ -701,57 +1001,56 @@ async function actualizarProgreso(id) {
 // EXPORTACIONES
 async function exportarTodosExpositores() {
   const { data } = await sb.from('expositores').select('*').order('nombre_marca');
-  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay expositores registrados'); return; }
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay expositores'); return; }
   let csv = 'Marca,Email Acceso,Responsable,Stand,Cristalería,Hielo,Electricidad,Comisión%,Estado,Aprobado\n';
-  data.forEach(function(e) { csv += '"' + (e.nombre_marca||'') + '","' + (e.email_acceso||e.responsable_email||'') + '","' + (e.responsable_nombre||'') + '","' + (e.tamanio_stand_texto||'') + '","' + (e.cristaleria||'') + '","' + (e.tipo_hielo||'') + '","' + (e.electricidad||'') + '","' + (e.comision_pct||0) + '","' + (e.estado_acreditacion||'') + '","' + (e.aprobado_operar?'Sí':'No') + '"\n'; });
+  data.forEach(function(e) { csv += '"' + (e.nombre_marca||'') + '","' + (e.email_acceso||'') + '","' + (e.responsable_nombre||'') + '","' + (e.tamanio_stand_texto||'') + '","' + (e.cristaleria||'') + '","' + (e.tipo_hielo||'') + '","' + (e.electricidad||'') + '","' + (e.comision_pct||0) + '","' + (e.estado_acreditacion||'') + '","' + (e.aprobado_operar?'Sí':'No') + '"\n'; });
   descargarCSV(csv, 'fichas_tecnicas_lcf.csv');
 }
 
 async function exportarTodoElPersonal() {
   const { data } = await sb.from('personal_expositor').select('*, expositores(nombre_marca)').order('tipo_acreditacion');
-  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay personal registrado'); return; }
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay personal'); return; }
   let csv = 'Marca,Nombre,RUT,Email,Teléfono,Función,Tipo Acreditación\n';
-  data.forEach(function(p) { csv += '"' + (p.expositores ? p.expositores.nombre_marca : '') + '","' + (p.nombre||'') + '","' + (p.rut||'') + '","' + (p.correo||'') + '","' + (p.telefono||'') + '","' + (p.funcion||'') + '","' + (p.tipo_acreditacion||'') + '"\n'; });
+  data.forEach(function(p) { csv += '"' + (p.expositores?p.expositores.nombre_marca:'') + '","' + (p.nombre||'') + '","' + (p.rut||'') + '","' + (p.correo||'') + '","' + (p.telefono||'') + '","' + (p.funcion||'') + '","' + (p.tipo_acreditacion||'') + '"\n'; });
   descargarCSV(csv, 'personal_ticketplus_lcf.csv');
 }
 
 async function exportarTodosVehiculos() {
   const { data } = await sb.from('vehiculos_expositor').select('*, expositores(nombre_marca)').order('tipo');
-  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay vehículos registrados'); return; }
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay vehículos'); return; }
   let csv = 'Marca,Patente,Modelo,Tipo,Días\n';
-  data.forEach(function(v) { csv += '"' + (v.expositores ? v.expositores.nombre_marca : '') + '","' + (v.patente||'') + '","' + (v.modelo||'') + '","' + (v.tipo||'') + '","' + (v.dias||'') + '"\n'; });
+  data.forEach(function(v) { csv += '"' + (v.expositores?v.expositores.nombre_marca:'') + '","' + (v.patente||'') + '","' + (v.modelo||'') + '","' + (v.tipo||'') + '","' + (v.dias||'') + '"\n'; });
   descargarCSV(csv, 'vehiculos_lcf.csv');
 }
 
 async function exportarEstadoDocumentos() {
   const { data } = await sb.from('documentos_expositor').select('*, expositores(nombre_marca)').order('tipo_documento');
-  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay documentos registrados'); return; }
+  if (!data || !data.length) { mostrarPopup('ℹ️', 'Sin datos', 'No hay documentos'); return; }
   let csv = 'Marca,Documento,Archivo,Estado,Fecha\n';
-  data.forEach(function(d) { csv += '"' + (d.expositores ? d.expositores.nombre_marca : '') + '","' + (d.tipo_documento||'') + '","' + (d.nombre_archivo||'') + '","' + (d.estado||'') + '","' + (d.created_at ? d.created_at.split('T')[0] : '') + '"\n'; });
+  data.forEach(function(d) { csv += '"' + (d.expositores?d.expositores.nombre_marca:'') + '","' + (d.tipo_documento||'') + '","' + (d.nombre_archivo||'') + '","' + (d.estado||'') + '","' + (d.created_at?d.created_at.split('T')[0]:'') + '"\n'; });
   descargarCSV(csv, 'documentos_lcf.csv');
 }
 
 async function exportarFichaExpositor(id) {
+  if (!id) return;
   const { data: e } = await sb.from('expositores').select('*').eq('id', id).single();
   const { data: personal } = await sb.from('personal_expositor').select('*').eq('expositor_id', id);
   const { data: vehiculos } = await sb.from('vehiculos_expositor').select('*').eq('expositor_id', id);
-  let csv = 'FICHA TÉCNICA LCF\nMarca,' + (e.nombre_marca||'') + '\nEmail acceso,' + (e.email_acceso||'') + '\nResponsable,' + (e.responsable_nombre||'') + '\nStand,' + (e.tamanio_stand_texto||'') + '\nElectricidad,' + (e.electricidad||'') + '\nCristalería,' + (e.cristaleria||'') + '\nHielo,' + (e.tipo_hielo||'') + '\nComisión,' + (e.comision_pct||0) + '%\n';
+  let csv = 'FICHA TÉCNICA LCF\nMarca,' + (e.nombre_marca||'') + '\nEmail,' + (e.email_acceso||'') + '\nResponsable,' + (e.responsable_nombre||'') + '\nStand,' + (e.tamanio_stand_texto||'') + '\nElectricidad,' + (e.electricidad||'') + '\nCristalería,' + (e.cristaleria||'') + '\nHielo,' + (e.tipo_hielo||'') + '\nComisión,' + (e.comision_pct||0) + '%\n';
   if (personal && personal.length) { csv += '\nPERSONAL\nNombre,RUT,Email,Función,Tipo\n'; personal.forEach(function(p) { csv += '"' + p.nombre + '","' + p.rut + '","' + (p.correo||'') + '","' + p.funcion + '","' + p.tipo_acreditacion + '"\n'; }); }
   if (vehiculos && vehiculos.length) { csv += '\nVEHÍCULOS\nPatente,Modelo,Tipo,Días\n'; vehiculos.forEach(function(v) { csv += '"' + v.patente + '","' + (v.modelo||'') + '","' + v.tipo + '","' + v.dias + '"\n'; }); }
   descargarCSV(csv, 'ficha_' + (e.nombre_marca||'expositor').replace(/\s/g,'_') + '.csv');
-  cerrarModal('modalDetalle');
 }
 
 function descargarCSV(contenido, nombre) {
   const blob = new Blob(['\uFEFF' + contenido], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = nombre; a.click();
+  const a = document.createElement('a'); a.href = url; a.download = nombre; a.click();
   URL.revokeObjectURL(url);
 }
 
-async function reenviarBienvenida(email, marca) {
-  mostrarPopup('✉️', 'Próximamente', 'El reenvío a ' + email + ' estará disponible cuando se integre Resend.');
+async function reenviarBienvenida() {
+  mostrarPopup('✉️', 'Próximamente', 'El reenvío de bienvenida estará disponible cuando se integre Resend.');
 }
 
 // CONFIGURACIÓN
@@ -769,18 +1068,10 @@ async function cargarConfigDocumentos() {
   }).join('');
 }
 
-async function toggleObligatorio(id, obligatorio) {
-  await sb.from('config_documentos').update({ obligatorio: obligatorio }).eq('id', id);
-  cargarConfigDocumentos();
-}
-
-async function desactivarDocumento(id) {
-  await sb.from('config_documentos').update({ activo: false }).eq('id', id);
-  cargarConfigDocumentos();
-}
-
+async function toggleObligatorio(id, val) { await sb.from('config_documentos').update({ obligatorio: val }).eq('id', id); cargarConfigDocumentos(); }
+async function desactivarDocumento(id) { await sb.from('config_documentos').update({ activo: false }).eq('id', id); cargarConfigDocumentos(); }
 async function agregarDocumentoConfig() {
-  const nombre = prompt('Nombre del nuevo documento requerido:');
+  const nombre = prompt('Nombre del nuevo documento:');
   if (!nombre || !nombre.trim()) return;
   await sb.from('config_documentos').insert({ nombre: nombre.trim(), obligatorio: false, activo: true, orden: 99 });
   cargarConfigDocumentos();
@@ -797,16 +1088,13 @@ async function cargarEdicionActiva() {
 
 // HELPERS
 function cerrarModal(id) { document.getElementById(id).classList.remove('visible'); }
-
 function mostrarPopup(icono, titulo, msg) {
   document.getElementById('popupIcono').textContent = icono;
   document.getElementById('popupTitulo').textContent = titulo;
   document.getElementById('popupMsg').textContent = msg;
   document.getElementById('popup').classList.add('visible');
 }
-
 function cerrarPopup() { document.getElementById('popup').classList.remove('visible'); }
-
 document.querySelectorAll('.modal-overlay').forEach(function(o) {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('visible'); });
 });
