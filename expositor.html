@@ -100,6 +100,7 @@
     .doc-nombre { font-size: 14px; font-weight: bold; }
     .doc-estado { font-size: 12px; padding: 4px 10px; border-radius: 12px; }
     .doc-estado.pendiente { background: #3a3000; color: #e8a030; }
+    .doc-estado.borrador { background: #1a1a3a; color: #8888ff; }
     .doc-estado.enviado { background: #003a1a; color: #4CAF82; }
     .doc-estado.aprobado { background: #1A7A4A; color: white; }
     .doc-estado.rechazado { background: #A32D2D; color: white; }
@@ -448,7 +449,7 @@
 
 <script>
   const SUPABASE_URL = 'https://rqphqvvnhfforkzmmgpm.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_yzlVRXDgiLFPWV_tqHVHVg_cQxpDeaM';
+  const SUPABASE_KEY = 'TU_PUBLISHABLE_KEY';
   const { createClient } = supabase;
   const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -699,6 +700,45 @@
     configDocs.forEach(doc => {
       const subido = docsSubidos?.find(d => d.tipo_documento === doc.nombre);
       const estado = subido ? subido.estado : 'pendiente';
+      const esLogoOficial = doc.nombre.toLowerCase().includes('logo');
+      const maxSize = esLogoOficial ? '15MB' : '5MB';
+      const accept = esLogoOficial ? '.pdf,.jpg,.jpeg,.png,.svg,.ai' : '.pdf,.jpg,.jpeg,.png';
+
+      let accionesHtml = '';
+      if (!subido || subido.estado === 'rechazado') {
+        // Sin documento o rechazado → mostrar selector de archivo
+        const rechazadoMsg = subido?.estado === 'rechazado' ? `<p style="font-size:12px;color:#e05a5a;margin-bottom:8px">✗ Rechazado — Sube una nueva versión</p>` : '';
+        accionesHtml = rechazadoMsg + `<input type="file" accept="${accept}" onchange="subirDocumento(this, '${doc.nombre}', ${esLogoOficial})" style="margin-bottom:8px">`;
+      } else if (subido.estado === 'borrador') {
+        // En borrador → mostrar archivo + botón confirmar + opción reemplazar
+        accionesHtml = `
+          <div style="background:#0f1b2d;border-radius:8px;padding:12px;margin-bottom:10px">
+            <p style="font-size:12px;color:#a0b4c8;margin-bottom:4px">📎 Archivo listo para enviar:</p>
+            <p style="font-size:13px;color:white;margin-bottom:10px">${subido.nombre_archivo}</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button onclick="confirmarDocumento('${subido.id}')" style="background:#1A7A4A;color:white;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:13px">✓ Confirmar y Enviar a Producción</button>
+              <label style="background:#1a2940;color:#a0b4c8;border:1px solid #2E5FA3;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:13px">
+                🔄 Reemplazar archivo
+                <input type="file" accept="${accept}" onchange="subirDocumento(this, '${doc.nombre}', ${esLogoOficial})" style="display:none">
+              </label>
+            </div>
+          </div>`;
+      } else if (subido.estado === 'enviado') {
+        // Enviado → esperando revisión, puede reemplazar
+        accionesHtml = `
+          <div style="background:#0f1b2d;border-radius:8px;padding:12px;margin-bottom:10px">
+            <p style="font-size:12px;color:#e8a030;margin-bottom:4px">⏳ En revisión por Producción</p>
+            <p style="font-size:13px;color:white;margin-bottom:10px">${subido.nombre_archivo}</p>
+            <label style="background:#1a2940;color:#a0b4c8;border:1px solid #2E5FA3;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:13px;display:inline-block">
+              🔄 Reemplazar archivo
+              <input type="file" accept="${accept}" onchange="subirDocumento(this, '${doc.nombre}', ${esLogoOficial})" style="display:none">
+            </label>
+          </div>`;
+      } else if (subido.estado === 'aprobado') {
+        // Aprobado → solo lectura
+        accionesHtml = `<p style="font-size:12px;color:#4CAF82;margin-bottom:4px">✓ Aprobado por Producción</p><p style="font-size:13px;color:#a0b4c8">${subido.nombre_archivo}</p>`;
+      }
+
       lista.innerHTML += `
         <div class="doc-item">
           <div class="doc-header">
@@ -706,25 +746,42 @@
             <span class="doc-estado ${estado}">${estado.charAt(0).toUpperCase() + estado.slice(1)}</span>
           </div>
           ${doc.descripcion ? `<p style="font-size:12px;color:#a0b4c8;margin-bottom:10px">${doc.descripcion}</p>` : ''}
-          ${subido ? `<p style="font-size:12px;color:#4CAF82;margin-bottom:8px">✓ Archivo: ${subido.nombre_archivo}</p>` : ''}
-          <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="subirDocumento(this, '${doc.nombre}')">
+          <p style="font-size:11px;color:#5a7a9a;margin-bottom:8px">Máx. ${maxSize} · ${accept.replace(/\./g,'').toUpperCase()}</p>
+          ${accionesHtml}
         </div>`;
     });
   }
 
-async function subirDocumento(input, nombre) {
+  async function subirDocumento(input, nombre, esLogoOficial) {
     if (!input.files[0] || !expositorId) return;
     const file = input.files[0];
+    const maxBytes = esLogoOficial ? 15 * 1024 * 1024 : 5 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      mostrarPopup('⚠️', 'Archivo muy grande', `El tamaño máximo es ${esLogoOficial ? '15MB' : '5MB'}. Tu archivo pesa ${(file.size/1024/1024).toFixed(1)}MB`);
+      return;
+    }
     const ext = file.name.split('.').pop();
-    const path = `${expositorId}/${nombre.replace(/\s/g,'_').replace(/\//g,'-').replace(/[^a-zA-Z0-9_\-\.]/g,'')}_${Date.now()}.${ext}`;
+    const path = `${expositorId}/${Date.now()}.${ext}`;
     const { error } = await sb.storage.from('documentos-lcf').upload(path, file);
-    if (error) { mostrarPopup('✗', 'Error al subir', 'No se pudo subir el archivo. Intenta de nuevo.'); return; }
+    if (error) { mostrarPopup('✗', 'Error al subir', 'No se pudo subir el archivo: ' + error.message); return; }
     const { data: urlData } = sb.storage.from('documentos-lcf').getPublicUrl(path);
-    await sb.from('documentos_expositor').upsert({ expositor_id: expositorId, tipo_documento: nombre, nombre_archivo: file.name, url_archivo: urlData.publicUrl, estado: 'enviado' }, { onConflict: 'expositor_id,tipo_documento' });
-    mostrarPopup('✓', 'Documento enviado', `"${nombre}" enviado correctamente. Producción lo revisará.`);
+    await sb.from('documentos_expositor').upsert({
+      expositor_id: expositorId,
+      tipo_documento: nombre,
+      nombre_archivo: file.name,
+      url_archivo: urlData.publicUrl,
+      estado: 'borrador'
+    }, { onConflict: 'expositor_id,tipo_documento' });
+    mostrarPopup('✓', 'Archivo listo', `"${file.name}" cargado. Revísalo y confirma el envío a Producción.`);
     cargarDocumentos();
   }
-  
+
+  async function confirmarDocumento(docId) {
+    await sb.from('documentos_expositor').update({ estado: 'enviado' }).eq('id', docId);
+    mostrarPopup('✓', 'Documento enviado', 'El documento fue enviado a Producción para revisión.');
+    cargarDocumentos();
+  }
+
   // ── CARGAR DATOS EXISTENTES ───────────────────────────────────
   function cargarDatosExistentes(data) {
     const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
