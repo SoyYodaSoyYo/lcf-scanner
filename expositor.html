@@ -716,7 +716,7 @@ async function subirDocumento(input, nombre) {
     if (!input.files[0] || !expositorId) return;
     const file = input.files[0];
     const ext = file.name.split('.').pop();
-    const path = `${expositorId}/${nombre.replace(/\s/g,'_')}_${Date.now()}.${ext}`;
+    const path = `${expositorId}/${nombre.replace(/\s/g,'_').replace(/\//g,'-').replace(/[^a-zA-Z0-9_\-\.]/g,'')}_${Date.now()}.${ext}`;
     const { error } = await sb.storage.from('documentos-lcf').upload(path, file);
     if (error) { mostrarPopup('✗', 'Error al subir', 'No se pudo subir el archivo. Intenta de nuevo.'); return; }
     const { data: urlData } = sb.storage.from('documentos-lcf').getPublicUrl(path);
