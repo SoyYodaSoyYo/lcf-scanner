@@ -712,19 +712,19 @@
     });
   }
 
-  async function subirDocumento(input, nombre) {
+async function subirDocumento(input, nombre) {
     if (!input.files[0] || !expositorId) return;
     const file = input.files[0];
     const ext = file.name.split('.').pop();
     const path = `${expositorId}/${nombre.replace(/\s/g,'_')}_${Date.now()}.${ext}`;
-    const { error } = await sb.storage.from('documentos').upload(path, file);
+    const { error } = await sb.storage.from('documentos-lcf').upload(path, file);
     if (error) { mostrarPopup('✗', 'Error al subir', 'No se pudo subir el archivo. Intenta de nuevo.'); return; }
-    const { data: urlData } = sb.storage.from('documentos').getPublicUrl(path);
+    const { data: urlData } = sb.storage.from('documentos-lcf').getPublicUrl(path);
     await sb.from('documentos_expositor').upsert({ expositor_id: expositorId, tipo_documento: nombre, nombre_archivo: file.name, url_archivo: urlData.publicUrl, estado: 'enviado' }, { onConflict: 'expositor_id,tipo_documento' });
     mostrarPopup('✓', 'Documento enviado', `"${nombre}" enviado correctamente. Producción lo revisará.`);
     cargarDocumentos();
   }
-
+  
   // ── CARGAR DATOS EXISTENTES ───────────────────────────────────
   function cargarDatosExistentes(data) {
     const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
